@@ -20,9 +20,10 @@ export function openWhatsApp(text) {
   return url
 }
 
+// WhatsApp renders *asterisks* as bold and _underscores_ as italic.
 // Shared "who + where" block appended to every order.
 function customerBlock(customer) {
-  const lines = ['👤 DELIVERY']
+  const lines = ['*Delivery Details*']
   lines.push(`Name: ${customer.name}`)
   lines.push(`Phone: ${customer.phone}`)
   if (customer.area) lines.push(`Area: ${customer.area}`)
@@ -35,21 +36,21 @@ function customerBlock(customer) {
 // Full-cart order (from the checkout page).
 export function buildOrderMessage({ items, subtotal, customer }) {
   const lines = [
-    `Hello ${SHOP.name}! 👋 I'd like to place an order.`,
+    `*New Order · ${SHOP.name}*`,
     '',
-    '🛒 ORDER',
+    '*Items*',
   ]
 
   items.forEach((i, idx) => {
-    lines.push(`${idx + 1}) ${i.name}`)
-    if (i.flavor) lines.push(`   Flavour: ${i.flavor}`)
-    lines.push(`   ${i.qty} × ${money(i.price)} = ${money(i.price * i.qty)}`)
+    lines.push(`${idx + 1}. ${i.name}`)
+    if (i.flavor) lines.push(`    Flavour: ${i.flavor}`)
+    lines.push(`    Qty: ${i.qty} × ${money(i.price)} = ${money(i.price * i.qty)}`)
   })
 
   lines.push('')
-  lines.push(`Subtotal: ${money(subtotal)}`)
-  lines.push('Payment: Cash on Delivery')
-  lines.push('(Delivery fee confirmed by store)')
+  lines.push(`*Subtotal:* ${money(subtotal)}`)
+  lines.push('*Payment:* Cash on Delivery')
+  lines.push('_Delivery fee confirmed by the store._')
   lines.push('')
   lines.push(...customerBlock(customer))
 
@@ -60,15 +61,16 @@ export function buildOrderMessage({ items, subtotal, customer }) {
 export function buildSingleItemMessage({ product, flavor, qty, customer }) {
   const lineTotal = product.price * qty
   const lines = [
-    `Hello ${SHOP.name}! 👋 I'd like to order:`,
+    `*New Order · ${SHOP.name}*`,
     '',
+    '*Item*',
     product.name,
   ]
   if (flavor) lines.push(`Flavour: ${flavor}`)
-  lines.push(`${qty} × ${money(product.price)} = ${money(lineTotal)}`)
+  lines.push(`Qty: ${qty} × ${money(product.price)} = ${money(lineTotal)}`)
   lines.push('')
-  lines.push('Payment: Cash on Delivery')
-  lines.push('(Delivery fee confirmed by store)')
+  lines.push('*Payment:* Cash on Delivery')
+  lines.push('_Delivery fee confirmed by the store._')
   lines.push('')
   lines.push(...customerBlock(customer))
 
