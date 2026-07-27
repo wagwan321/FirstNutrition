@@ -59,10 +59,10 @@ export default function CartDrawer() {
                 <span className="total">{money(subtotal)}</span>
               </div>
               <p className="text-muted" style={{ fontSize: 13, marginBottom: 14 }}>
-                Shipping & delivery calculated at checkout.
+                Cash on delivery · delivery fee confirmed on WhatsApp.
               </p>
-              <button className="btn btn-primary btn-block" onClick={goCheckout}>
-                Checkout →
+              <button className="btn btn-wa btn-block" onClick={goCheckout}>
+                <span className="wa-ico" aria-hidden="true">🟢</span> Order on WhatsApp
               </button>
             </div>
           </>

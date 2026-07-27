@@ -2,30 +2,31 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { money } from '../data/catalog.js'
-
-const DELIVERY_FEE = 3
+import { SHOP } from '../config.js'
+import { buildOrderMessage, openWhatsApp } from '../utils/whatsapp.js'
 
 export default function Checkout() {
   const { items, subtotal, clearCart } = useCart()
-  const [pay, setPay] = useState('cod')
   const [placed, setPlaced] = useState(false)
-  const [orderNo, setOrderNo] = useState('')
+  const [waLink, setWaLink] = useState('')
   const [form, setForm] = useState({
-    name: '', phone: '', email: '', city: 'Beirut', address: '', notes: '',
+    name: '', phone: '', email: '', city: SHOP.areas[0], address: '', notes: '',
   })
-
-  const shipping = subtotal > 80 ? 0 : DELIVERY_FEE
-  const total = subtotal + shipping
 
   const update = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
   const submit = (e) => {
     e.preventDefault()
-    // Generate a simple pseudo order number from cart + name length (no Date/random needed)
-    const n = 'FN-' + (10000 + items.length * 137 + form.name.length * 7 + Math.floor(subtotal))
-    setOrderNo(n)
+    const customer = {
+      name: form.name, phone: form.phone, email: form.email,
+      area: form.city, address: form.address, notes: form.notes,
+    }
+    const text = buildOrderMessage({ items, subtotal, customer })
+    // Open WhatsApp now (must be inside the click handler so it isn't blocked),
+    // and keep the URL for a reliable fallback link on the confirmation screen.
+    const url = openWhatsApp(text)
+    setWaLink(url)
     setPlaced(true)
-    clearCart()
     window.scrollTo(0, 0)
   }
 
@@ -33,16 +34,27 @@ export default function Checkout() {
     return (
       <div className="container section">
         <div className="success-box">
-          <div className="check">✓</div>
-          <h1>Order Confirmed!</h1>
-          <p className="text-muted" style={{ maxWidth: 480, margin: '12px auto 4px' }}>
-            Thank you, {form.name.split(' ')[0] || 'athlete'}! Your order <strong className="text-accent">{orderNo}</strong> has been received.
-            Our team will call you on {form.phone || 'your number'} to confirm delivery.
+          <div className="check wa">🟢</div>
+          <h1>Your Order Is Ready</h1>
+          <p className="text-muted" style={{ maxWidth: 500, margin: '12px auto 4px' }}>
+            Thanks, {form.name.split(' ')[0] || 'athlete'}! We've opened <strong className="text-accent">WhatsApp</strong> with
+            your full order — just press <strong>send</strong> and our team will confirm delivery and the fee.
           </p>
-          <p className="text-muted" style={{ fontSize: 14, marginBottom: 24 }}>
-            Payment method: {pay === 'cod' ? 'Cash on Delivery' : 'Card on Delivery'}
+          <p className="text-muted" style={{ fontSize: 14, marginBottom: 22 }}>
+            Payment: <strong>Cash on Delivery</strong>
           </p>
-          <Link to="/shop" className="btn btn-primary">Continue Shopping</Link>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            {waLink && (
+              <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer">
+                <span className="wa-ico" aria-hidden="true">🟢</span> Open WhatsApp Again
+              </a>
+            )}
+            <Link to="/shop" className="btn btn-ghost">Continue Shopping</Link>
+          </div>
+          <p className="text-muted" style={{ fontSize: 13, marginTop: 18 }}>
+            Didn't go through? Message us directly on <strong>{SHOP.whatsappDisplay}</strong>.<br />
+            <button className="link-btn" onClick={clearCart}>Clear my cart</button>
+          </p>
         </div>
       </div>
     )
@@ -52,7 +64,7 @@ export default function Checkout() {
     return (
       <div className="container section center">
         <h1>Your cart is empty</h1>
-        <p className="text-muted" style={{ margin: '12px 0 20px' }}>Add some supplements before checking out.</p>
+        <p className="text-muted" style={{ margin: '12px 0 20px' }}>Add some supplements before ordering.</p>
         <Link to="/shop" className="btn btn-primary">Shop Now</Link>
       </div>
     )
@@ -63,15 +75,15 @@ export default function Checkout() {
       <section className="page-head">
         <div className="container">
           <span className="eyebrow">Almost There</span>
-          <h1>Checkout</h1>
-          <p>Fill in your delivery details — we deliver across all of Lebanon.</p>
+          <h1>Complete Your Order</h1>
+          <p>Fill in your delivery details and send the order on WhatsApp — we deliver across all of Lebanon, cash on delivery.</p>
         </div>
       </section>
 
       <section className="section">
         <form className="container checkout-layout" onSubmit={submit}>
           <div>
-            <div className="form-card" style={{ marginBottom: 24 }}>
+            <div className="form-card">
               <h3>Delivery Details</h3>
               <div className="field-row">
                 <div className="field">
@@ -89,11 +101,9 @@ export default function Checkout() {
               </div>
               <div className="field-row">
                 <div className="field">
-                  <label>City *</label>
+                  <label>Delivery Area *</label>
                   <select value={form.city} onChange={update('city')}>
-                    <option>Beirut</option><option>Mount Lebanon</option><option>Saida</option>
-                    <option>Tripoli</option><option>Zahle</option><option>Jounieh</option>
-                    <option>Tyre</option><option>Byblos</option><option>Other</option>
+                    {SHOP.areas.map(a => <option key={a}>{a}</option>)}
                   </select>
                 </div>
                 <div className="field">
@@ -105,27 +115,9 @@ export default function Checkout() {
                 <label>Order Notes</label>
                 <textarea rows="3" value={form.notes} onChange={update('notes')} placeholder="Landmark, delivery instructions…" />
               </div>
-            </div>
-
-            <div className="form-card">
-              <h3>Payment Method</h3>
-              <label className={`pay-option ${pay === 'cod' ? 'active' : ''}`}>
-                <input type="radio" name="pay" checked={pay === 'cod'} onChange={() => setPay('cod')} />
-                <div>
-                  <strong>💵 Cash on Delivery</strong>
-                  <div className="text-muted" style={{ fontSize: 13 }}>Pay in cash when your order arrives.</div>
-                </div>
-              </label>
-              <label className={`pay-option ${pay === 'card' ? 'active' : ''}`}>
-                <input type="radio" name="pay" checked={pay === 'card'} onChange={() => setPay('card')} />
-                <div>
-                  <strong>💳 Card on Delivery</strong>
-                  <div className="text-muted" style={{ fontSize: 13 }}>Our courier brings a card machine to your door.</div>
-                </div>
-              </label>
-              <p className="text-muted" style={{ fontSize: 12, marginTop: 8 }}>
-                🔒 We never ask for card numbers online. Payment is handled securely on delivery.
-              </p>
+              <div className="cod-note">
+                💵 <strong>Cash on Delivery</strong> — pay in cash when your order arrives. The delivery fee is confirmed by the store on WhatsApp.
+              </div>
             </div>
           </div>
 
@@ -143,14 +135,11 @@ export default function Checkout() {
             <div className="summary-line"><span className="text-muted">Subtotal</span><span>{money(subtotal)}</span></div>
             <div className="summary-line">
               <span className="text-muted">Delivery</span>
-              <span>{shipping === 0 ? <span className="text-accent">FREE</span> : money(shipping)}</span>
+              <span className="text-muted">Confirmed by store</span>
             </div>
-            {shipping > 0 && (
-              <p className="text-muted" style={{ fontSize: 12 }}>Free delivery on orders over {money(80)}.</p>
-            )}
-            <div className="summary-line total"><span>Total</span><span>{money(total)}</span></div>
-            <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: 16 }}>
-              Place Order · {money(total)}
+            <div className="summary-line total"><span>Total</span><span>{money(subtotal)}</span></div>
+            <button type="submit" className="btn btn-wa btn-block" style={{ marginTop: 16 }}>
+              <span className="wa-ico" aria-hidden="true">🟢</span> Order on WhatsApp
             </button>
             <Link to="/shop" className="btn btn-ghost btn-block" style={{ marginTop: 10 }}>Continue Shopping</Link>
           </aside>

@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard.jsx'
 import ProteinTub from '../components/ProteinTub.jsx'
+import OrderModal from '../components/OrderModal.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { PRODUCTS, CATEGORIES, money } from '../data/catalog.js'
+import { buildSingleItemMessage, openWhatsApp } from '../utils/whatsapp.js'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -11,6 +13,13 @@ export default function ProductDetail() {
   const { addItem } = useCart()
   const [qty, setQty] = useState(1)
   const [flavor, setFlavor] = useState(product?.flavors?.[0] || null)
+  const [orderOpen, setOrderOpen] = useState(false)
+
+  const confirmOrder = (customer) => {
+    const text = buildSingleItemMessage({ product, flavor, qty, customer })
+    openWhatsApp(text)
+    setOrderOpen(false)
+  }
 
   if (!product) {
     return (
@@ -74,6 +83,9 @@ export default function ProductDetail() {
                 <button className="btn btn-primary" onClick={() => addItem(product, qty, flavor)}>
                   Add to Cart · {money(product.price * qty)}
                 </button>
+                <button className="btn btn-wa" onClick={() => setOrderOpen(true)}>
+                  <span className="wa-ico" aria-hidden="true">🟢</span> Order on WhatsApp
+                </button>
               </div>
 
               <div className="pd-meta">
@@ -98,6 +110,14 @@ export default function ProductDetail() {
           </div>
         </section>
       )}
+
+      <OrderModal
+        open={orderOpen}
+        onClose={() => setOrderOpen(false)}
+        onConfirm={confirmOrder}
+        title="Order on WhatsApp"
+        summary={`${qty} × ${product.name}${flavor ? ` · ${flavor}` : ''} — ${money(product.price * qty)}`}
+      />
     </>
   )
 }
