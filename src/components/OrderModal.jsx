@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { X } from 'lucide-react'
 import { SHOP } from '../config.js'
+import { WhatsAppIcon } from './BrandIcons.jsx'
 
 // Lightweight popup that collects name / phone / area (+ optional address,
 // notes) then hands the customer object back to the parent, which builds the
@@ -31,7 +33,7 @@ export default function OrderModal({ open, onClose, onConfirm, title, summary })
       <div className="modal" role="dialog" aria-modal="true" onClick={e => e.stopPropagation()}>
         <div className="modal-head">
           <h3>{title || 'Order on WhatsApp'}</h3>
-          <button type="button" className="drawer-close" onClick={onClose} aria-label="Close">✕</button>
+          <button type="button" className="icon-btn" onClick={onClose} aria-label="Close"><X size={18} /></button>
         </div>
 
         {summary && <p className="modal-summary">{summary}</p>}
@@ -61,7 +63,7 @@ export default function OrderModal({ open, onClose, onConfirm, title, summary })
           </div>
 
           <button type="submit" className="btn btn-wa btn-block">
-            <span className="wa-ico" aria-hidden="true">🟢</span> Continue on WhatsApp
+            <WhatsAppIcon size={18} /> Continue on WhatsApp
           </button>
           <p className="modal-note">
             Payment is <strong>Cash on Delivery</strong>. We'll open WhatsApp with your order — just press send.

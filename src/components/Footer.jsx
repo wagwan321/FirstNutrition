@@ -1,4 +1,8 @@
 import { Link } from 'react-router-dom'
+import { Mail, Phone, MapPin, Clock } from 'lucide-react'
+import { InstagramIcon, FacebookIcon, WhatsAppIcon } from './BrandIcons.jsx'
+import { CATEGORIES } from '../data/catalog.js'
+import { waUrl } from '../utils/whatsapp.js'
 
 export default function Footer() {
   return (
@@ -6,28 +10,25 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="logo" style={{ marginBottom: 14 }}>
+            <Link to="/" className="logo">
               <span className="logo-mark">FN</span>
-              <span>FIRST<small>NUTRITION</small></span>
-            </div>
-            <p className="tag">Your Ultimate Supplement Provider. Lebanon's leading distributor of premium sports nutrition brands. Start The Change.</p>
+              <span className="logo-word">FIRST<small>NUTRITION</small></span>
+            </Link>
+            <p className="tag">Your Ultimate Supplement Provider. Lebanon's leading distributor of premium sports nutrition brands.</p>
             <div className="socials">
-              <a href="https://www.instagram.com/firstnutritionlebanon/" target="_blank" rel="noreferrer" aria-label="Instagram">📷</a>
-              <a href="https://www.facebook.com/firstnutritionlebanon/" target="_blank" rel="noreferrer" aria-label="Facebook">👍</a>
-              <a href="mailto:info@firstnutrition.com" aria-label="Email">✉️</a>
+              <a href="https://www.instagram.com/firstnutritionlebanon/" target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon size={17} /></a>
+              <a href="https://www.facebook.com/firstnutritionlebanon/" target="_blank" rel="noreferrer" aria-label="Facebook"><FacebookIcon size={17} /></a>
+              <a href={waUrl('Hi First Nutrition!')} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WhatsAppIcon size={17} /></a>
+              <a href="mailto:info@firstnutrition.com" aria-label="Email"><Mail size={17} /></a>
             </div>
           </div>
 
-          <div>
+          <div className="footer-col">
             <h4>Shop</h4>
-            <Link to="/shop/protein">Proteins</Link>
-            <Link to="/shop/preworkout">Pre-Workout</Link>
-            <Link to="/shop/aminos">Amino & Recovery</Link>
-            <Link to="/shop/burners">Fat Burners</Link>
-            <Link to="/shop/bars">Bars & Snacks</Link>
+            {CATEGORIES.map(c => <Link key={c.id} to={`/shop/${c.id}`}>{c.name}</Link>)}
           </div>
 
-          <div>
+          <div className="footer-col">
             <h4>Company</h4>
             <Link to="/about">About Us</Link>
             <Link to="/branches">Our Branches</Link>
@@ -35,18 +36,20 @@ export default function Footer() {
             <a href="mailto:info@firstnutrition.com">Partnership</a>
           </div>
 
-          <div>
+          <div className="footer-col">
             <h4>Contact</h4>
-            <p>📧 info@firstnutrition.com</p>
-            <p>📞 +961 1 745 136</p>
-            <p>📍 Hamra · Achrafieh · Saida · Tripoli</p>
-            <p>🕘 Mon–Sat, 9:00 – 20:00</p>
+            <p className="ico-line"><Mail size={16} /> info@firstnutrition.com</p>
+            <p className="ico-line"><Phone size={16} /> +961 1 745 136</p>
+            <p className="ico-line"><MapPin size={16} /> Hamra · Achrafieh · Saida · Tripoli</p>
+            <p className="ico-line"><Clock size={16} /> Mon–Sat, 9:00 – 20:00</p>
           </div>
         </div>
 
+        <div className="footer-mega" aria-hidden="true">START THE CHANGE</div>
+
         <div className="footer-bottom">
-          <span>© {2026} First Nutrition Lebanon. All rights reserved.</span>
-          <span>Prices in USD · Cash & card accepted · Delivery across Lebanon</span>
+          <span>© {new Date().getFullYear()} First Nutrition Lebanon. All rights reserved.</span>
+          <span>Prices in USD · Cash on delivery · Delivery across Lebanon</span>
         </div>
       </div>
     </footer>

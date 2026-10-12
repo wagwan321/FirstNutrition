@@ -6,6 +6,7 @@ import CartDrawer from './components/CartDrawer.jsx'
 import Toast from './components/Toast.jsx'
 import Loader from './components/Loader.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import FloatingWidgets from './components/FloatingWidgets.jsx'
 import Home from './pages/Home.jsx'
 import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
@@ -13,13 +14,14 @@ import Checkout from './pages/Checkout.jsx'
 import Branches from './pages/Branches.jsx'
 import About from './pages/About.jsx'
 import NotFound from './pages/NotFound.jsx'
+import { boot, LOADER_MS, LOADER_FADE_MS } from './boot.js'
 
 export default function App() {
   // 'show' -> 'hiding' (fade) -> 'gone' (unmounted)
   const [loadPhase, setLoadPhase] = useState('show')
   useEffect(() => {
-    const t1 = setTimeout(() => setLoadPhase('hiding'), 2000)
-    const t2 = setTimeout(() => setLoadPhase('gone'), 2600)
+    const t1 = setTimeout(() => setLoadPhase('hiding'), LOADER_MS)
+    const t2 = setTimeout(() => { setLoadPhase('gone'); boot.introDelay = 0 }, LOADER_MS + LOADER_FADE_MS)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
@@ -43,6 +45,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <FloatingWidgets />
     </>
   )
 }

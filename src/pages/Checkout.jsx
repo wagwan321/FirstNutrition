@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Banknote, CircleCheck } from 'lucide-react'
+import { WhatsAppIcon } from '../components/BrandIcons.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { money } from '../data/catalog.js'
 import { SHOP } from '../config.js'
@@ -34,7 +36,7 @@ export default function Checkout() {
     return (
       <div className="container section">
         <div className="success-box">
-          <div className="check wa">🟢</div>
+          <div className="check wa"><CircleCheck size={40} /></div>
           <h1>Your Order Is Ready</h1>
           <p className="text-muted" style={{ maxWidth: 500, margin: '12px auto 4px' }}>
             Thanks, {form.name.split(' ')[0] || 'athlete'}! We've opened <strong className="text-accent">WhatsApp</strong> with
@@ -46,7 +48,7 @@ export default function Checkout() {
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             {waLink && (
               <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer">
-                <span className="wa-ico" aria-hidden="true">🟢</span> Open WhatsApp Again
+                <WhatsAppIcon size={18} /> Open WhatsApp Again
               </a>
             )}
             <Link to="/shop" className="btn btn-ghost">Continue Shopping</Link>
@@ -116,7 +118,8 @@ export default function Checkout() {
                 <textarea rows="3" value={form.notes} onChange={update('notes')} placeholder="Landmark, delivery instructions…" />
               </div>
               <div className="cod-note">
-                💵 <strong>Cash on Delivery</strong> — pay in cash when your order arrives. The delivery fee is confirmed by the store on WhatsApp.
+                <Banknote size={20} aria-hidden="true" />
+                <span><strong>Cash on Delivery</strong> — pay in cash when your order arrives. The delivery fee is confirmed by the store on WhatsApp.</span>
               </div>
             </div>
           </div>
@@ -139,7 +142,7 @@ export default function Checkout() {
             </div>
             <div className="summary-line total"><span>Total</span><span>{money(subtotal)}</span></div>
             <button type="submit" className="btn btn-wa btn-block" style={{ marginTop: 16 }}>
-              <span className="wa-ico" aria-hidden="true">🟢</span> Order on WhatsApp
+              <WhatsAppIcon size={18} /> Order on WhatsApp
             </button>
             <Link to="/shop" className="btn btn-ghost btn-block" style={{ marginTop: 10 }}>Continue Shopping</Link>
           </aside>

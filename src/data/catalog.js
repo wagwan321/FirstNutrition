@@ -2,14 +2,15 @@
 // Brands & branches are from real research (firstnutrition.com).
 // Prices are realistic placeholders in USD (the common pricing currency for
 // supplements in Lebanon). Swap these for the store's real prices/inventory.
+import { Dumbbell, Zap, Activity, Flame, Pill, Cookie } from 'lucide-react'
 
 export const CATEGORIES = [
-  { id: 'protein',    name: 'Proteins',          icon: '🥛', blurb: 'Whey, isolate, casein & mass gainers' },
-  { id: 'preworkout', name: 'Pre-Workout',       icon: '⚡', blurb: 'Energy, focus & pumps' },
-  { id: 'aminos',     name: 'Amino & Recovery',  icon: '🔁', blurb: 'BCAA, EAA, glutamine & creatine' },
-  { id: 'burners',    name: 'Fat Burners',       icon: '🔥', blurb: 'Thermogenics & diet support' },
-  { id: 'vitamins',   name: 'Vitamins',          icon: '💊', blurb: 'Multivitamins & health' },
-  { id: 'bars',       name: 'Bars & Snacks',     icon: '🍫', blurb: 'Protein bars & ready-to-drink' },
+  { id: 'protein',    name: 'Proteins',          icon: Dumbbell, blurb: 'Whey, isolate, casein & mass gainers' },
+  { id: 'preworkout', name: 'Pre-Workout',       icon: Zap,      blurb: 'Energy, focus & pumps' },
+  { id: 'aminos',     name: 'Amino & Recovery',  icon: Activity, blurb: 'BCAA, EAA, glutamine & creatine' },
+  { id: 'burners',    name: 'Fat Burners',       icon: Flame,    blurb: 'Thermogenics & diet support' },
+  { id: 'vitamins',   name: 'Vitamins',          icon: Pill,     blurb: 'Multivitamins & health' },
+  { id: 'bars',       name: 'Bars & Snacks',     icon: Cookie,   blurb: 'Protein bars & ready-to-drink' },
 ]
 
 export const BRANDS = [
@@ -17,6 +18,12 @@ export const BRANDS = [
   'MusclePharm', 'Cellucor', 'BPI Sports', 'Scivation',
   'Quest Nutrition', 'Gaspari', 'ABB', 'Oh Yeah!',
 ]
+
+// Official brand logo files. Drop a file into public/images/brands/ and map the
+// brand name to it here — the brand marquee shows the image instead of the
+// built-in wordmark. White/monochrome SVG or transparent PNG works best.
+//   e.g. 'Optimum Nutrition': '/images/brands/optimum-nutrition.svg',
+export const BRAND_LOGOS = {}
 
 export const BRANCHES = [
   { city: 'Hamra, Beirut',   address: 'Sidani St., facing Socrat Restaurant',                 phone: '+961 1 745 136' },

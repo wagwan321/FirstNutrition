@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom'
-import { BRANDS } from '../data/catalog.js'
+import { Target, ShieldCheck, Dumbbell, Check, ArrowRight } from 'lucide-react'
+import Reveal from '../components/Reveal.jsx'
+import BrandMarquee from '../components/BrandMarquee.jsx'
+
+const VALUES = [
+  { icon: Target, title: 'Our Mission', text: 'To inspire and empower active people across Lebanon and the region to reach their goals with authentic, high-quality nutrition — from the beginner to the elite athlete.' },
+  { icon: ShieldCheck, title: '100% Authentic', text: 'As an official distributor, every product we sell is genuine and sourced directly from the brands — no imitations, no compromises on quality.' },
+  { icon: Dumbbell, title: 'Built For Athletes', text: 'A comprehensive line of powdered, bar, tablet, capsule and ready-to-drink products covering protein, strength, recovery, diet and wellness.' },
+]
 
 export default function About() {
   return (
@@ -15,60 +23,56 @@ export default function About() {
       <section className="section">
         <div className="container">
           <div className="grid about-grid">
-            <div className="value-card">
-              <div className="ico">🎯</div>
-              <h3>Our Mission</h3>
-              <p>To inspire and empower active people across Lebanon and the region to reach their goals with authentic, high-quality nutrition — from the beginner to the elite athlete.</p>
-            </div>
-            <div className="value-card">
-              <div className="ico">🛡️</div>
-              <h3>100% Authentic</h3>
-              <p>As an official distributor, every product we sell is genuine and sourced directly from the brands — no imitations, no compromises on quality.</p>
-            </div>
-            <div className="value-card">
-              <div className="ico">💪</div>
-              <h3>Built For Athletes</h3>
-              <p>A comprehensive line of powdered, bar, tablet, capsule and ready-to-drink products covering protein, strength, recovery, diet and wellness.</p>
-            </div>
+            {VALUES.map(({ icon: Icon, title, text }, i) => (
+              <Reveal className="value-card" key={title} delay={i * 90}>
+                <span className="feature-ico"><Icon size={22} /></span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </Reveal>
+            ))}
           </div>
 
           {/* LIFESTYLE BAND */}
-          <div className="split-band" style={{ marginTop: 48 }}>
-            <div className="split-copy">
+          <div className="split-band" style={{ marginTop: 72 }}>
+            <Reveal variant="left" className="split-copy">
               <span className="eyebrow">Quality You Can Trust</span>
-              <h2 className="section-title">Only The Real Thing</h2>
+              <h2 className="section-title">Only the real thing</h2>
               <p className="text-muted">Every tub, bar and capsule on our shelves is sourced directly from official brand partners. When you buy from First Nutrition, you know exactly what you're putting in your body — pure, potent and proven.</p>
-              <ul className="split-list">
-                <li>Direct-from-brand sourcing</li>
-                <li>Full range: powders, bars, capsules & RTDs</li>
-                <li>Guidance tailored to your goals</li>
+              <ul className="check-list">
+                <li><Check size={16} /> Direct-from-brand sourcing</li>
+                <li><Check size={16} /> Full range: powders, bars, capsules & RTDs</li>
+                <li><Check size={16} /> Guidance tailored to your goals</li>
               </ul>
-            </div>
-            <div className="split-media" style={{ backgroundImage: 'url(/images/protein.jpg)' }}>
+            </Reveal>
+            <Reveal variant="right" className="split-media">
+              <img src="/images/protein.jpg" alt="Protein shake and supplements" loading="lazy" />
               <span className="badge">100% Authentic</span>
-            </div>
+            </Reveal>
           </div>
+        </div>
+      </section>
 
-          <div style={{ marginTop: 48 }}>
-            <div className="center" style={{ marginBottom: 30 }}>
-              <span className="eyebrow">Our Portfolio</span>
-              <h2 className="section-title">World-Class Brands</h2>
-              <p className="text-muted" style={{ maxWidth: 560, margin: '10px auto 0' }}>
-                We proudly represent and distribute the most trusted names in sports nutrition, available in our stores, gyms and pharmacies nationwide.
-              </p>
-            </div>
-            <div className="grid brand-grid">
-              {BRANDS.map(b => <div className="brand-chip" key={b}>{b}</div>)}
-            </div>
-          </div>
-
-          <div className="form-card" style={{ marginTop: 48, textAlign: 'center', background: 'linear-gradient(120deg, rgba(225,23,34,.12), var(--surface))' }}>
-            <h2 style={{ fontSize: 32 }}>Start The Change Today</h2>
-            <p className="text-muted" style={{ maxWidth: 500, margin: '12px auto 20px' }}>
-              Whether you're building muscle, losing fat or leveling up your performance — we've got the fuel.
+      <section className="section pt-0 brands-section">
+        <div className="container">
+          <Reveal className="center brands-head">
+            <span className="eyebrow">Our Portfolio</span>
+            <h2 className="section-title">World-Class Brands</h2>
+            <p className="section-sub">
+              We proudly represent and distribute the most trusted names in sports nutrition, available in our stores, gyms and pharmacies nationwide.
             </p>
-            <Link to="/shop" className="btn btn-primary">Explore The Shop →</Link>
-          </div>
+          </Reveal>
+        </div>
+        <Reveal variant="scale"><BrandMarquee /></Reveal>
+      </section>
+
+      <section className="section-sm">
+        <div className="container">
+          <Reveal variant="scale" className="cta-photo">
+            <span className="eyebrow light">Whatever your goal</span>
+            <h2>Start the change today</h2>
+            <p>Whether you're building muscle, losing fat or leveling up your performance — we've got the fuel.</p>
+            <Link to="/shop" className="btn btn-dark btn-lg">Explore The Shop <ArrowRight size={18} /></Link>
+          </Reveal>
         </div>
       </section>
     </>

@@ -1,4 +1,10 @@
+import { MapPin, Phone, Clock, Navigation, Mail } from 'lucide-react'
+import { InstagramIcon } from '../components/BrandIcons.jsx'
+import Reveal from '../components/Reveal.jsx'
 import { BRANCHES } from '../data/catalog.js'
+
+const mapsUrl = (b) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`First Nutrition ${b.city} Lebanon`)}`
 
 export default function Branches() {
   return (
@@ -14,29 +20,33 @@ export default function Branches() {
       <section className="section">
         <div className="container">
           <div className="grid branch-grid">
-            {BRANCHES.map(b => (
-              <div className="branch-card" key={b.city}>
-                <div className="pin">📍</div>
-                <div>
+            {BRANCHES.map((b, i) => (
+              <Reveal className="branch-card" key={b.city} delay={i * 80}>
+                <span className="branch-pin"><MapPin size={22} /></span>
+                <div className="branch-body">
+                  <span className="branch-num">0{i + 1}</span>
                   <h3>{b.city}</h3>
                   <p>{b.address}</p>
-                  <a href={`tel:${b.phone.replace(/\s/g, '')}`}>{b.phone}</a>
-                  <p style={{ marginTop: 8 }}>🕘 Mon–Sat · 9:00 – 20:00</p>
+                  <p className="ico-line"><Clock size={15} /> Mon–Sat · 9:00 – 20:00</p>
+                  <div className="branch-actions">
+                    <a href={`tel:${b.phone.replace(/\s/g, '')}`} className="btn btn-ghost btn-sm"><Phone size={15} /> {b.phone}</a>
+                    <a href={mapsUrl(b)} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm"><Navigation size={15} /> Directions</a>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
 
-          <div className="form-card" style={{ marginTop: 32, textAlign: 'center' }}>
-            <h3>Can't Make It In Store?</h3>
-            <p className="text-muted" style={{ maxWidth: 520, margin: '10px auto 18px' }}>
+          <Reveal variant="scale" className="panel-cta">
+            <h3>Can't make it in store?</h3>
+            <p className="text-muted">
               We deliver across all of Lebanon. Order online or reach us directly and our team will help you find the right supplements for your goals.
             </p>
-            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="mailto:info@firstnutrition.com" className="btn btn-primary">✉️ info@firstnutrition.com</a>
-              <a href="https://www.instagram.com/firstnutritionlebanon/" target="_blank" rel="noreferrer" className="btn btn-ghost">📷 @firstnutritionlebanon</a>
+            <div className="panel-cta-actions">
+              <a href="mailto:info@firstnutrition.com" className="btn btn-primary"><Mail size={17} /> info@firstnutrition.com</a>
+              <a href="https://www.instagram.com/firstnutritionlebanon/" target="_blank" rel="noreferrer" className="btn btn-ghost"><InstagramIcon size={16} /> @firstnutritionlebanon</a>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>
