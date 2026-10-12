@@ -5,17 +5,21 @@ import {
 } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
 import HeroTub from '../components/HeroTub.jsx'
-import Reveal from '../components/Reveal.jsx'
+import Reveal, { RevealText } from '../components/Reveal.jsx'
+import ScrollScene from '../components/ScrollScene.jsx'
+import SectionHead from '../components/SectionHead.jsx'
+import KineticBand from '../components/KineticBand.jsx'
 import CountUp from '../components/CountUp.jsx'
 import GoalFinder from '../components/GoalFinder.jsx'
 import BrandMarquee from '../components/BrandMarquee.jsx'
 import { CATEGORIES, PRODUCTS } from '../data/catalog.js'
 import { boot } from '../boot.js'
 
-const TICKER = [
+const TAPE_RED = [
   '100% Authentic', 'Official Distributor', 'Delivery All Over Lebanon',
-  'Cash On Delivery', 'Expert Advice In Store', 'Start The Change',
+  'Cash On Delivery', 'Expert Advice In Store',
 ]
+const TAPE_DARK = ['Start The Change', 'Fuel Your Strength', 'Train Hard', 'Recover Faster']
 
 const FEATURES = [
   { icon: ShieldCheck, title: '100% Authentic', text: 'Genuine stock sourced directly from the official brands. Zero imitations.' },
@@ -24,6 +28,21 @@ const FEATURES = [
   { icon: MessageCircle, title: 'Expert Advice', text: 'Real people who train, helping you pick what fits your goal.' },
 ]
 
+// One scrolling strip of the crossed "tapes" under the hero.
+const Tape = ({ items, className, reverse }) => (
+  <div className={`tape ${className}`}>
+    <div className="tape-shift">
+      <div className={`ticker-track${reverse ? ' reverse' : ''}`}>
+        {[0, 1].map(copy => (
+          <ul key={copy} aria-hidden={copy === 1 || undefined}>
+            {items.map(t => <li key={t}>{t}<i aria-hidden="true" /></li>)}
+          </ul>
+        ))}
+      </div>
+    </div>
+  </div>
+)
+
 export default function Home() {
   // Wait for the first-load splash screen before playing the hero intro.
   const [intro] = useState(() => boot.introDelay)
@@ -31,8 +50,8 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="hero" style={{ '--intro': `${intro}ms` }}>
+      {/* HERO — copy drifts up and the tub tilts/turns as you scroll away */}
+      <ScrollScene as="section" className="hero" style={{ '--intro': `${intro}ms` }}>
         <div className="hero-bg" aria-hidden="true" />
         <div className="container hero-inner">
           <div className="hero-copy">
@@ -44,7 +63,7 @@ export default function Home() {
               <span className="line"><span style={{ '--i': 2 }} className="text-accent">strength.</span></span>
               <span className="line"><span style={{ '--i': 3 }} className="stroke">Start the change.</span></span>
             </h1>
-            <p className="hero-in" style={{ '--i': 4 }}>
+            <p className="hero-in from-left" style={{ '--i': 4 }}>
               Lebanon's leading distributor of premium sports nutrition. 100% authentic proteins,
               pre-workouts and supplements from the world's top brands — delivered to your door.
             </p>
@@ -52,7 +71,7 @@ export default function Home() {
               <Link to="/shop" className="btn btn-primary btn-lg">Shop Now <ArrowRight size={18} /></Link>
               <Link to="/about" className="btn btn-ghost btn-lg">Why First Nutrition</Link>
             </div>
-            <div className="hero-stats hero-in" style={{ '--i': 6 }}>
+            <div className="hero-stats hero-in from-right" style={{ '--i': 6 }}>
               <div className="stat"><b><CountUp end={12} suffix="+" delay={intro + 500} /></b><span>Global Brands</span></div>
               <div className="stat"><b><CountUp end={4} delay={intro + 500} /></b><span>Lebanon Branches</span></div>
               <div className="stat"><b><CountUp end={19} suffix="K+" delay={intro + 500} /></b><span>Community</span></div>
@@ -73,36 +92,27 @@ export default function Home() {
           </div>
         </div>
         <div className="scroll-cue" aria-hidden="true"><span /></div>
-      </section>
+      </ScrollScene>
 
-      {/* TICKER */}
-      <div className="ticker" aria-label="Why shop with us">
-        <div className="ticker-track">
-          {[0, 1].map(copy => (
-            <ul key={copy} aria-hidden={copy === 1 || undefined}>
-              {TICKER.map(t => <li key={t}>{t}<i aria-hidden="true" /></li>)}
-            </ul>
-          ))}
-        </div>
-      </div>
+      {/* CROSSED TAPES — run in opposite directions and get nudged by scroll */}
+      <ScrollScene className="tapes" aria-label="Why shop with us">
+        <Tape items={TAPE_DARK} className="tape-dark" reverse />
+        <Tape items={TAPE_RED} className="tape-red" />
+      </ScrollScene>
 
-      {/* CATEGORIES */}
+      {/* CATEGORIES — rows alternate in from the left and right */}
       <section className="section">
         <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">Shop by Goal</span>
-              <h2 className="section-title">Find Your Formula</h2>
-            </div>
-            <p className="section-sub">
-              Focused ranges built around how you train — from your first scoop to the final rep.
-            </p>
-          </Reveal>
+          <SectionHead
+            eyebrow="Shop by Goal"
+            title="Find Your Formula"
+            sub="Focused ranges built around how you train — from your first scoop to the final rep."
+          />
           <div className="cat-list">
             {CATEGORIES.map((c, i) => {
               const count = PRODUCTS.filter(p => p.category === c.id).length
               return (
-                <Reveal key={c.id} delay={i * 70}>
+                <Reveal key={c.id} variant={i % 2 ? 'right' : 'left'} delay={60}>
                   <Link to={`/shop/${c.id}`} className="cat-row">
                     <span className="num">{String(i + 1).padStart(2, '0')}</span>
                     <span className="cat-ico"><c.icon size={22} /></span>
@@ -118,67 +128,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BEST SELLERS */}
+      {/* BEST SELLERS — cards flip up, then drift in a staggered wave on scroll */}
       <section className="section pt-0">
         <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">Trending Now</span>
-              <h2 className="section-title">Best Sellers</h2>
-            </div>
+          <SectionHead eyebrow="Trending Now" title="Best Sellers">
             <Link to="/shop" className="btn btn-ghost">View All <ArrowRight size={16} /></Link>
-          </Reveal>
-          <div className="grid product-grid">
+          </SectionHead>
+          <ScrollScene className="grid product-grid drift">
             {bestSellers.map((p, i) => (
-              <Reveal key={p.id} delay={i * 90}><ProductCard product={p} /></Reveal>
+              <Reveal key={p.id} variant="flip" delay={i * 110}><ProductCard product={p} /></Reveal>
             ))}
+          </ScrollScene>
+        </div>
+      </section>
+
+      {/* MEDIA SPLIT BAND — photo wipes in from the left, copy from the right */}
+      <section className="section pt-0">
+        <div className="container">
+          <div className="split-band">
+            <Reveal variant="clip-left" className="split-media curtain">
+              <ScrollScene className="parallax-img">
+                <img src="/images/training.jpg" alt="Athlete training with battle ropes" loading="lazy" />
+              </ScrollScene>
+              <span className="badge">Athlete-Trusted</span>
+            </Reveal>
+            <div className="split-copy">
+              <Reveal as="span" variant="right" className="eyebrow">Built For The Grind</Reveal>
+              <RevealText className="section-title" text={'Fuel every rep.\nRecover every session.'} delay={100} />
+              <Reveal as="p" variant="right" delay={250} className="text-muted">
+                From your first scoop of whey to your post-workout aminos, First Nutrition stocks only 100% authentic
+                supplements — the same brands trusted by athletes across Lebanon. Real results start with real nutrition.
+              </Reveal>
+              <ul className="check-list">
+                {['Certified genuine stock — zero imitations', 'Expert supplement guidance in every branch', 'Fast delivery, nationwide']
+                  .map((t, i) => (
+                    <Reveal as="li" key={t} variant="right" delay={350 + i * 110}><Check size={16} /> {t}</Reveal>
+                  ))}
+              </ul>
+              <Reveal variant="scale" delay={700} className="split-cta">
+                <Link to="/shop" className="btn btn-primary">Shop The Range <ArrowRight size={18} /></Link>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* MEDIA SPLIT BAND */}
-      <section className="section pt-0">
-        <div className="container">
-          <div className="split-band">
-            <Reveal variant="left" className="split-media">
-              <img src="/images/training.jpg" alt="Athlete training with heavy weights" loading="lazy" />
-              <span className="badge">Athlete-Trusted</span>
-            </Reveal>
-            <Reveal variant="right" className="split-copy">
-              <span className="eyebrow">Built For The Grind</span>
-              <h2 className="section-title">Fuel every rep.<br />Recover every session.</h2>
-              <p className="text-muted">From your first scoop of whey to your post-workout aminos, First Nutrition stocks only 100% authentic supplements — the same brands trusted by athletes across Lebanon. Real results start with real nutrition.</p>
-              <ul className="check-list">
-                <li><Check size={16} /> Certified genuine stock — zero imitations</li>
-                <li><Check size={16} /> Expert supplement guidance in every branch</li>
-                <li><Check size={16} /> Fast delivery, nationwide</li>
-              </ul>
-              <Link to="/shop" className="btn btn-primary">Shop The Range <ArrowRight size={18} /></Link>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      {/* KINETIC TYPE */}
+      <KineticBand />
 
       {/* GOAL FINDER */}
       <section className="section surface-band">
         <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">Supplement Finder</span>
-              <h2 className="section-title">What's Your Goal?</h2>
-            </div>
-            <p className="section-sub">Pick what you're training for and we'll show you where to start.</p>
-          </Reveal>
-          <Reveal delay={100}><GoalFinder /></Reveal>
+          <SectionHead
+            eyebrow="Supplement Finder"
+            title="What's Your Goal?"
+            sub="Pick what you're training for and we'll show you where to start."
+          />
+          <GoalFinder />
         </div>
       </section>
 
-      {/* FEATURES */}
+      {/* FEATURES — cards swing in from alternating sides */}
       <section className="section">
         <div className="container">
           <div className="grid feature-grid">
             {FEATURES.map(({ icon: Icon, title, text }, i) => (
-              <Reveal key={title} delay={i * 90} className="feature">
+              <Reveal key={title} variant={i % 2 ? 'tilt-right' : 'tilt-left'} delay={i * 100} className="feature">
                 <span className="feature-ico"><Icon size={22} /></span>
                 <h4>{title}</h4>
                 <p>{text}</p>
@@ -188,27 +203,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BRANDS */}
+      {/* BRANDS — the two logo rows slide in from opposite edges */}
       <section className="section pt-0 brands-section">
         <div className="container">
-          <Reveal className="center brands-head">
-            <span className="eyebrow">Trusted Worldwide</span>
-            <h2 className="section-title">The Brands We Carry</h2>
-            <p className="section-sub">Official stock from the biggest names in sports nutrition. Tap a brand to shop it.</p>
-          </Reveal>
+          <SectionHead
+            center
+            eyebrow="Trusted Worldwide"
+            title="The Brands We Carry"
+            sub="Official stock from the biggest names in sports nutrition. Tap a brand to shop it."
+          />
         </div>
-        <Reveal variant="scale"><BrandMarquee /></Reveal>
+        <BrandMarquee />
       </section>
 
-      {/* CTA BANNER */}
+      {/* CTA — the banner widens to full size as it scrolls in */}
       <section className="section-sm">
         <div className="container">
-          <Reveal variant="scale" className="cta-photo">
-            <span className="eyebrow light">Your next level starts here</span>
-            <h2>Ready to start the change?</h2>
-            <p>Join thousands of athletes across Lebanon fueling their goals with First Nutrition.</p>
-            <Link to="/shop" className="btn btn-dark btn-lg">Shop The Range <ArrowRight size={18} /></Link>
-          </Reveal>
+          <ScrollScene className="cta-photo cta-expand">
+            <Reveal as="span" variant="up" className="eyebrow light">Your next level starts here</Reveal>
+            <RevealText text="Ready to start the change?" delay={100} />
+            <Reveal as="p" variant="up" delay={300}>
+              Join thousands of athletes across Lebanon fueling their goals with First Nutrition.
+            </Reveal>
+            <Reveal variant="scale" delay={450}>
+              <Link to="/shop" className="btn btn-dark btn-lg">Shop The Range <ArrowRight size={18} /></Link>
+            </Reveal>
+          </ScrollScene>
         </div>
       </section>
     </>

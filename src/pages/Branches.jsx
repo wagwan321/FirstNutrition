@@ -1,6 +1,6 @@
 import { MapPin, Phone, Clock, Navigation, Mail } from 'lucide-react'
 import { InstagramIcon } from '../components/BrandIcons.jsx'
-import Reveal from '../components/Reveal.jsx'
+import Reveal, { RevealText } from '../components/Reveal.jsx'
 import { BRANCHES } from '../data/catalog.js'
 
 const mapsUrl = (b) =>
@@ -12,7 +12,7 @@ export default function Branches() {
       <section className="page-head">
         <div className="container">
           <span className="eyebrow">Visit Us</span>
-          <h1>Our Branches</h1>
+          <RevealText as="h1" text="Our Branches" delay={100} />
           <p>Find genuine supplements and expert advice at any of our First Nutrition stores across Lebanon.</p>
         </div>
       </section>
@@ -21,7 +21,7 @@ export default function Branches() {
         <div className="container">
           <div className="grid branch-grid">
             {BRANCHES.map((b, i) => (
-              <Reveal className="branch-card" key={b.city} delay={i * 80}>
+              <Reveal className="branch-card" key={b.city} variant={i % 2 ? 'right' : 'left'} delay={Math.floor(i / 2) * 120}>
                 <span className="branch-pin"><MapPin size={22} /></span>
                 <div className="branch-body">
                   <span className="branch-num">0{i + 1}</span>

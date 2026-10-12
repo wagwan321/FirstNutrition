@@ -4,7 +4,10 @@ import {
   Search, X, SlidersHorizontal, ChevronDown, Check, LayoutGrid, SearchX, RotateCcw, ArrowDownUp,
 } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
-import Reveal from '../components/Reveal.jsx'
+import Reveal, { RevealText } from '../components/Reveal.jsx'
+
+// cards in the 3-column grid enter from the left / bottom / right by column
+const COLUMN_VARIANTS = ['left', 'up', 'right']
 import { PRODUCTS, CATEGORIES, BRANDS } from '../data/catalog.js'
 import { matchesQuery } from '../utils/search.js'
 
@@ -147,7 +150,7 @@ export default function Shop() {
             <Link to="/">Home</Link><span>/</span>
             {activeCat ? <><Link to="/shop">Shop</Link><span>/</span><b>{activeCat.name}</b></> : <b>Shop</b>}
           </nav>
-          <h1>{title}</h1>
+          <RevealText as="h1" key={title} text={title} delay={100} />
           <p>{activeCat ? activeCat.blurb : 'Authentic products from the world’s top sports nutrition brands.'}</p>
         </div>
       </section>
@@ -294,7 +297,9 @@ export default function Shop() {
               ) : (
                 <div className="grid product-grid shop-grid">
                   {products.map((p, i) => (
-                    <Reveal key={p.id} delay={(i % 3) * 70}><ProductCard product={p} /></Reveal>
+                    <Reveal key={p.id} variant={COLUMN_VARIANTS[i % 3]} delay={(i % 3) * 80}>
+                      <ProductCard product={p} />
+                    </Reveal>
                   ))}
                 </div>
               )}

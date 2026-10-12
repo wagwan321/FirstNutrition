@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Dumbbell, Flame, Zap, Activity, HeartPulse, Cookie, ArrowRight } from 'lucide-react'
 import ProductCard from './ProductCard.jsx'
+import Reveal from './Reveal.jsx'
 import { PRODUCTS } from '../data/catalog.js'
 
 const GOALS = [
@@ -36,32 +37,34 @@ export default function GoalFinder() {
 
   return (
     <div className="goal-finder">
-      <div className="goal-tabs" role="tablist" aria-label="Choose your goal">
+      <Reveal variant="left" className="goal-tabs" role="tablist" aria-label="Choose your goal">
         {GOALS.map(({ id, label, icon: Icon }) => (
           <button key={id} role="tab" aria-selected={active === id}
             className={`goal-tab${active === id ? ' active' : ''}`} onClick={() => setActive(id)}>
             <Icon size={18} aria-hidden="true" /> {label}
           </button>
         ))}
-      </div>
+      </Reveal>
 
-      <div className="goal-panel" role="tabpanel" key={goal.id}>
-        <div className="goal-intro">
-          <span className="goal-icon"><goal.icon size={26} /></span>
-          <div>
-            <h3>{goal.label}</h3>
-            <p>{goal.blurb}</p>
+      <Reveal variant="right" delay={150}>
+        <div className="goal-panel" role="tabpanel" key={goal.id}>
+          <div className="goal-intro">
+            <span className="goal-icon"><goal.icon size={26} /></span>
+            <div>
+              <h3>{goal.label}</h3>
+              <p>{goal.blurb}</p>
+            </div>
+            <Link to={`/shop/${goal.cat}`} className="btn btn-ghost btn-sm">
+              Shop all <ArrowRight size={16} />
+            </Link>
           </div>
-          <Link to={`/shop/${goal.cat}`} className="btn btn-ghost btn-sm">
-            Shop all <ArrowRight size={16} />
-          </Link>
+          <div className="grid product-grid goal-grid">
+            {picks.map((p, i) => (
+              <div key={p.id} style={{ '--i': i }}><ProductCard product={p} /></div>
+            ))}
+          </div>
         </div>
-        <div className="grid product-grid goal-grid">
-          {picks.map((p, i) => (
-            <div key={p.id} style={{ '--i': i }}><ProductCard product={p} /></div>
-          ))}
-        </div>
-      </div>
+      </Reveal>
     </div>
   )
 }

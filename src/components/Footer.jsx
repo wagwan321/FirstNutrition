@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Clock } from 'lucide-react'
 import { InstagramIcon, FacebookIcon, WhatsAppIcon } from './BrandIcons.jsx'
 import { CATEGORIES } from '../data/catalog.js'
 import { waUrl } from '../utils/whatsapp.js'
+import Reveal from './Reveal.jsx'
 
 export default function Footer() {
   return (
@@ -45,7 +46,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer-mega" aria-hidden="true">START THE CHANGE</div>
+        <Reveal variant="clip-up" className="footer-mega" aria-hidden="true">START THE CHANGE</Reveal>
 
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} First Nutrition Lebanon. All rights reserved.</span>

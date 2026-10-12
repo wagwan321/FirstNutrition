@@ -4,7 +4,9 @@ import { Minus, Plus, ShoppingBag, ShieldCheck, Truck, Banknote } from 'lucide-r
 import ProductCard, { Stars } from '../components/ProductCard.jsx'
 import ProteinTub from '../components/ProteinTub.jsx'
 import OrderModal from '../components/OrderModal.jsx'
-import Reveal from '../components/Reveal.jsx'
+import Reveal, { RevealText } from '../components/Reveal.jsx'
+import ScrollScene from '../components/ScrollScene.jsx'
+import SectionHead from '../components/SectionHead.jsx'
 import { WhatsAppIcon } from '../components/BrandIcons.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { PRODUCTS, CATEGORIES, money } from '../data/catalog.js'
@@ -48,7 +50,7 @@ export default function ProductDetail() {
           </nav>
 
           <div className="pd-layout">
-            <Reveal variant="left" className="pd-visual">
+            <Reveal variant="clip-left" className="pd-visual curtain" key={`v${product.id}`}>
               <div className="pc-badges">
                 {product.tag && <span className={`badge${product.tag === 'New' ? ' gold' : ''}`}>{product.tag}</span>}
                 {off > 0 && <span className="badge dark">−{off}%</span>}
@@ -60,7 +62,7 @@ export default function ProductDetail() {
 
             <Reveal variant="right" className="pd-info">
               <span className="pd-brand">{product.brand}</span>
-              <h1>{product.name}</h1>
+              <RevealText as="h1" key={product.id} text={product.name} delay={120} stagger={60} />
               <div className="pd-rating">
                 <Stars rating={product.rating} size={15} />
                 <span className="in-stock"><i /> In stock</span>
@@ -120,15 +122,10 @@ export default function ProductDetail() {
       {related.length > 0 && (
         <section className="section pt-0">
           <div className="container">
-            <Reveal className="section-head">
-              <div>
-                <span className="eyebrow">Same category</span>
-                <h2 className="section-title">You Might Also Like</h2>
-              </div>
-            </Reveal>
-            <div className="grid product-grid">
-              {related.map((p, i) => <Reveal key={p.id} delay={i * 80}><ProductCard product={p} /></Reveal>)}
-            </div>
+            <SectionHead eyebrow="Same category" title="You Might Also Like" />
+            <ScrollScene className="grid product-grid drift">
+              {related.map((p, i) => <Reveal key={p.id} variant="flip" delay={i * 110}><ProductCard product={p} /></Reveal>)}
+            </ScrollScene>
           </div>
         </section>
       )}

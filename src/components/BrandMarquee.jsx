@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import BrandLogo from './BrandLogo.jsx'
+import Reveal from './Reveal.jsx'
 import { BRANDS } from '../data/catalog.js'
 
 // One infinitely scrolling row. The list is rendered twice and the track
@@ -33,10 +34,11 @@ export default function BrandMarquee({ rows = 2 }) {
   const half = Math.ceil(BRANDS.length / 2)
   const rowB = [...BRANDS.slice(half), ...BRANDS.slice(0, half)].reverse()
 
+  // Each row slides in from the side it scrolls toward.
   return (
     <div className="logo-marquee">
-      <Row brands={BRANDS} speed={46} />
-      {rows > 1 && <Row brands={rowB} reverse speed={52} />}
+      <Reveal variant="right"><Row brands={BRANDS} speed={46} /></Reveal>
+      {rows > 1 && <Reveal variant="left" delay={150}><Row brands={rowB} reverse speed={52} /></Reveal>}
     </div>
   )
 }

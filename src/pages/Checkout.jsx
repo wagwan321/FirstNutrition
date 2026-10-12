@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Banknote, CircleCheck } from 'lucide-react'
 import { WhatsAppIcon } from '../components/BrandIcons.jsx'
+import { RevealText } from '../components/Reveal.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { money } from '../data/catalog.js'
 import { SHOP } from '../config.js'
@@ -77,7 +78,7 @@ export default function Checkout() {
       <section className="page-head">
         <div className="container">
           <span className="eyebrow">Almost There</span>
-          <h1>Complete Your Order</h1>
+          <RevealText as="h1" text="Complete Your Order" delay={100} />
           <p>Fill in your delivery details and send the order on WhatsApp — we deliver across all of Lebanon, cash on delivery.</p>
         </div>
       </section>

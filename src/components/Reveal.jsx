@@ -13,7 +13,9 @@ function getObserver(rootMargin) {
         callbacks.get(entry.target)?.()
         io.unobserve(entry.target)
       })
-    }, { rootMargin, threshold: 0.01 })
+      // threshold 0 (not a small ratio): clip-path reveals start fully clipped,
+      // which browsers report as a 0 intersection ratio
+    }, { rootMargin, threshold: 0 })
     observers.set(rootMargin, io)
   }
   return observers.get(rootMargin)
@@ -38,8 +40,34 @@ export function useInView(rootMargin = '0px 0px -10% 0px') {
   return [ref, inView]
 }
 
+// Headline that rises in word by word (each word slides up out of a mask).
+// `text` may contain "\n" for line breaks. Screen readers get the plain text.
+export function RevealText({ as: Tag = 'h2', text, className = '', delay = 0, stagger = 70 }) {
+  const [ref, inView] = useInView()
+  let n = 0
+  return (
+    <Tag ref={ref} className={`split${inView ? ' is-in' : ''}${className ? ` ${className}` : ''}`}
+         aria-label={text.replace(/\n/g, ' ')}>
+      {text.split('\n').map((line, li) => (
+        <span className="split-line" key={li} aria-hidden="true">
+          {line.split(' ').map((word, wi, words) => (
+            <span key={wi}>
+              <span className="split-word">
+                <span style={{ '--wd': `${delay + n++ * stagger}ms` }}>{word}</span>
+              </span>
+              {wi < words.length - 1 && ' '}
+            </span>
+          ))}
+        </span>
+      ))}
+    </Tag>
+  )
+}
+
 // Fades/slides its children in when scrolled into view.
-// variant: 'up' | 'left' | 'right' | 'scale' · delay in ms (for staggering)
+// variant: 'up' | 'down' | 'left' | 'right' | 'scale' | 'flip' | 'tilt-left'
+//          | 'tilt-right' | 'clip-left' | 'clip-right' | 'clip-up' | 'blur'
+// delay in ms (for staggering)
 export default function Reveal({
   as: Tag = 'div', variant = 'up', delay = 0, className = '', style, children, ...rest
 }) {
