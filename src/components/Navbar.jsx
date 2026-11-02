@@ -6,6 +6,7 @@ import { useLocale } from '../i18n.jsx'
 import { CATEGORIES } from '../data/catalog.js'
 import { COUNTRIES } from '../config.js'
 import HeaderSearch from './HeaderSearch.jsx'
+import CategoryIcon from './CategoryIcon.jsx'
 
 // Small authored flags (icon size only).
 export function Flag({ code, size = 22 }) {
@@ -163,7 +164,7 @@ export default function Navbar() {
           <p className="mmenu-label">{t('Categories')}</p>
           {CATEGORIES.map(c => (
             <Link key={c.id} to={`/shop/${c.id}`} className="mmenu-cat">
-              <img src={c.img} alt="" /> {t(c.name)}
+              <span className="mmenu-cat-ico"><CategoryIcon id={c.id} size={24} /></span> {t(c.name)}
             </Link>
           ))}
           <p className="mmenu-label">{t('Company')}</p>

@@ -38,7 +38,7 @@ export default function CartDrawer() {
             <div className="drawer-body">
               {lines.map(l => (
                 <div className="cart-line" key={l.key}>
-                  <Link to={`/product/${l.id}`} className="thumb" onClick={close}><img src={l.product.img} alt="" /></Link>
+                  <Link to={`/product/${l.id}`} className="thumb" onClick={close}><img src={(l.variant?.img || l.product.img)} alt="" /></Link>
                   <div className="cart-line-info">
                     <small>{l.product.brand}</small>
                     <h4><Link to={`/product/${l.id}`} onClick={close}>{l.product.name}</Link></h4>

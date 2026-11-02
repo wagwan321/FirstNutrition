@@ -122,7 +122,7 @@ export default function Checkout() {
             <div className="order-items">
               {lines.map(l => (
                 <div className="order-item" key={l.key}>
-                  <img src={l.product.img} alt="" />
+                  <img src={(l.variant?.img || l.product.img)} alt="" />
                   <span className="oi-name">
                     <b>{l.product.name}</b>
                     <small>{[variantLabel(l.variant), `× ${l.qty}`].filter(Boolean).join(' · ')}</small>

@@ -83,7 +83,9 @@ function ProductView({ product }) {
                 {product.bestseller && <span className="badge">{t('Best seller')}</span>}
                 {product.isNew && <span className="badge badge-dark">{t('New')}</span>}
               </div>
-              <img className="pd-photo" src={product.img} alt={product.name} />
+              {/* the chosen size/flavour's own photo when the store has one */}
+              <img key={variant?.img || product.img} className="pd-photo" src={variant?.img || product.img}
+                alt={variant?.flavor ? `${product.name} — ${variant.flavor}` : product.name} />
             </Reveal>
 
             <Reveal variant="right" className="pd-info">

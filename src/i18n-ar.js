@@ -103,7 +103,7 @@ export const AR = {
   'Anatomy of a protein tub.': 'تشريح عبوة البروتين.',
   'Every tub we sell arrives sealed from the official brand. Here is exactly what you get when you open one.':
     'كل عبوة نبيعها تصل مختومة من العلامة الرسمية. إليك بالضبط ما تجده عندما تفتحها.',
-  'Replay': 'إعادة التشغيل',
+  'Scroll to take it apart': 'مرّر لتفكيكها',
   'Exploded view of a protein tub: screw cap, freshness seal, scoop, whey blend and tub':
     'عرض مفكّك لعبوة بروتين: الغطاء، ختم الحماية، المغرفة، مسحوق الواي، والعبوة',
   'Screw cap': 'غطاء لولبي',

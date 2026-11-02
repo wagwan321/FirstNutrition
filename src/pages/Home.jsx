@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
 import LoadedBar from '../components/LoadedBar.jsx'
+import CategoryIcon from '../components/CategoryIcon.jsx'
 import Teardown from '../components/Teardown.jsx'
 import Reveal, { RevealText } from '../components/Reveal.jsx'
 import ScrollScene from '../components/ScrollScene.jsx'
@@ -74,7 +75,7 @@ export default function Home() {
             {CATEGORIES.map((c, i) => (
               <Reveal key={c.id} variant={i < 5 ? 'left' : 'right'} delay={(i % 5) * 60}>
                 <Link to={`/shop/${c.id}`} className={`cat-tile${c.id === 'bundles' ? ' hot' : ''}`}>
-                  <span className="cat-tile-img"><img src={c.img} alt="" loading="lazy" /></span>
+                  <span className="cat-tile-img"><CategoryIcon id={c.id} /></span>
                   <b>{t(c.name)}</b>
                   <small>{t(counts[c.id] === 1 ? '{n} product' : '{n} products', { n: counts[c.id] })}</small>
                 </Link>
