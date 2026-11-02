@@ -58,6 +58,8 @@ export default function LoadedBar() {
   }
 
   const goalName = t(goal.name).toUpperCase()
+  // Long names set smaller so they stay on the upper rim, clear of the 25 KG marks.
+  const rimSize = goalName.length > 9 ? 205 : 245
 
   return (
     <section className="lb" aria-labelledby="lb-title">
@@ -89,9 +91,9 @@ export default function LoadedBar() {
         <div className="lb-plate">
           <div className="lb-plate-spin" key={goalId}>
             <img src={giantPlate} alt="" draggable="false" fetchPriority="high" />
-            <svg className="lb-rim" viewBox="0 0 2089 1920" aria-hidden="true">
-              <defs><path id="lb-arc" d="M 420 960 A 625 625 0 0 1 1670 960" /></defs>
-              <text><textPath href="#lb-arc" startOffset="50%" textAnchor="middle">{goalName}</textPath></text>
+            <svg className="lb-rim" viewBox="0 0 1798 1815" aria-hidden="true">
+              <defs><path id="lb-arc" d="M 394 907 A 505 505 0 0 1 1404 907" /></defs>
+              <text style={{ fontSize: rimSize }}><textPath href="#lb-arc" startOffset="50%" textAnchor="middle">{goalName}</textPath></text>
             </svg>
           </div>
           <p className="lb-hub" aria-live="polite">
