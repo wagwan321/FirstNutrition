@@ -1,0 +1,10 @@
+{
+  "prompt": "A desktop e-commerce homepage for First Nutrition, an official sports-supplement distributor in Jordan and Lebanon, rendered edge to edge as a finished website screen with crisp, readable text; no browser window, device or desk around it. The reference images are style inspiration adapted into a real working product; do not copy their layout or content. The two inks are First Nutrition red #ED312E and white.\n\nThe visitor's job: pick a training goal and order the right supplements on WhatsApp, cash on delivery. What leads: an angled headline slab 'START THE CHANGE' across the top third. Beneath it a goal chooser, BULK, CUT, BUILD MUSCLE, PERFORM, with BUILD MUSCLE open, listing Optimum Nutrition Gold Standard 100% Whey 50 JOD, MuscleTech Platinum Creatine 28 JOD, Scivation Xtend 30 JOD and a button 'Order on WhatsApp'. A halftone photo of an athlete training. Down the outer margin a glossary column: Whey isolate, Creatine monohydrate, BCAA, Pre-workout, each a short definition with an arrow to its products. A trust line: Official distributor · 21 brands · ISO 9001 / 22000 / 45001.\n\nFrame: the First Nutrition wordmark at top left, navigation Shop, Brands, Offers, Branches, About, a search field, a Jordan · JOD switch, an العربية language switch, and a cart.",
+  "model": "gpt_image_2_5 (Higgsfield, quality high, 2k, 16:9)",
+  "job": "ec2c7834-f9b6-420f-bd1b-3fe6a520698e",
+  "references": [
+    ".impeccable/mocks/worlds/digital-design-canon-mondo-tech-utopian-spread-board.webp",
+    ".impeccable/mocks/worlds/digital-design-canon-mondo-tech-utopian-spread-hero.webp"
+  ],
+  "round": "direction decision"
+}

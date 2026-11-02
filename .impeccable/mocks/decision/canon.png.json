@@ -1,0 +1,7 @@
+{
+  "prompt": "A desktop e-commerce homepage for First Nutrition, an official sports-supplement distributor in Jordan and Lebanon, rendered edge to edge as a finished website screen with crisp, readable text; no browser window, device or desk around it. It is the category standard executed at full craft, like a premium supplement retailer.\n\nThe visitor's job: pick a training goal and order supplements on WhatsApp, cash on delivery. A hero banner with a product photo of an Optimum Nutrition Gold Standard 100% Whey tub, headline 'Fuel your strength.', subline 'Official distributor of 21 global brands, delivered across Jordan', buttons 'Shop by goal' and 'See offers'. Under it a goal row: Bulk, Cut, Build muscle, Perform. Then category tiles: Protein, Creatine, Pre-workout, Gainers, Amino acids, Weight management. Then a best-sellers grid with tub photos and JOD prices: Dymatize ISO 100 from 50 JOD, MuscleTech Nitro Tech 100% Whey Gold 75 JOD, Cellucor C4 Original from 30 JOD, Optimum Nutrition Platinum Hydrowhey 95 JOD.\n\nFrame: the First Nutrition wordmark at top left, navigation Shop, Brands, Offers, Branches, About, a search field, a Jordan · JOD switch, an العربية language switch, and a cart.\n\nVisual law: white page, near-black text, First Nutrition red #ED312E as the accent, clean product photography and a tidy grid.",
+  "model": "gpt_image_2_5 (Higgsfield, quality high, 2k, 16:9)",
+  "job": "3f4ecad6-1f4a-4d11-9060-086ec9e28d26",
+  "references": [],
+  "round": "direction decision"
+}
