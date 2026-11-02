@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { Minus, Plus, ShoppingBag, ShieldCheck, Truck, Banknote, ChevronDown } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { useParams, Link, useLocation } from 'react-router-dom'
+import { Minus, Plus, ShoppingBag, ShieldCheck, Truck, Banknote, ChevronDown, Scale } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
 import OrderModal from '../components/OrderModal.jsx'
 import BrandLogo from '../components/BrandLogo.jsx'
@@ -9,6 +9,8 @@ import ScrollScene from '../components/ScrollScene.jsx'
 import SectionHead from '../components/SectionHead.jsx'
 import { WhatsAppIcon } from '../components/BrandIcons.jsx'
 import { useCart } from '../context/CartContext.jsx'
+import { useCompare } from '../context/CompareContext.jsx'
+import { servingFacts, servingsPer, costPerServing } from '../utils/nutrition.js'
 import { useLocale } from '../i18n.jsx'
 import { PRODUCTS, productById, categoryById, findVariant, defaultSelection } from '../data/catalog.js'
 import { buildSingleItemMessage, openWhatsApp } from '../utils/whatsapp.js'
@@ -38,6 +40,20 @@ function ProductView({ product }) {
   const [sel, setSel] = useState(() => defaultSelection(product))
   const [qty, setQty] = useState(1)
   const [orderOpen, setOrderOpen] = useState(false)
+  const compare = useCompare()
+  // Arrived from a product card's photo transition: show the photo at once
+  // (no curtain) so it can land in place.
+  const vt = useLocation().state?.vt
+  // Phones: a buy bar stays on screen while the main Add to cart is off screen.
+  const actionsRef = useRef(null)
+  const [stickyBuy, setStickyBuy] = useState(false)
+  useEffect(() => {
+    const el = actionsRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([e]) => setStickyBuy(!e.isIntersecting), { rootMargin: '0px 0px -40px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   const optionNames = Object.keys(product.options)
   const variant = findVariant(product, sel)
@@ -55,6 +71,12 @@ function ProductView({ product }) {
     const v = product.variants.find(x => x[name] === value)
     if (v) setSel(Object.fromEntries(optionNames.map(k => [k, v[k]])))
   }
+
+  // per-serving facts and value, from the product's own nutrition label
+  const facts = servingFacts(product)
+  const servings = servingsPer(product, variant)
+  const perServing = costPerServing(product, variant)
+  const approx = (a) => (a ? '≈ ' : '')
 
   const related = product.related.map(productById).filter(Boolean)
   const together = product.together.map(productById).filter(Boolean)
@@ -77,7 +99,7 @@ function ProductView({ product }) {
           </nav>
 
           <div className="pd-layout">
-            <Reveal variant="clip-left" className="pd-visual curtain">
+            <PhotoFrame instant={vt}>
               <div className="pc-badges">
                 {product.category === 'bundles' && <span className="badge">{t('Offer')}</span>}
                 {product.bestseller && <span className="badge">{t('Best seller')}</span>}
@@ -85,8 +107,9 @@ function ProductView({ product }) {
               </div>
               {/* the chosen size/flavour's own photo when the store has one */}
               <img key={variant?.img || product.img} className="pd-photo" src={variant?.img || product.img}
+                style={vt ? { viewTransitionName: 'pd-hero', animation: 'none' } : undefined}
                 alt={variant?.flavor ? `${product.name} — ${variant.flavor}` : product.name} />
-            </Reveal>
+            </PhotoFrame>
 
             <Reveal variant="right" className="pd-info">
               <Link to={`/shop?brand=${encodeURIComponent(product.brand)}`} className="pd-brand">
@@ -103,6 +126,15 @@ function ProductView({ product }) {
                 {price(unit * qty)}
                 {qty > 1 && <small>{t('{price} each', { price: price(unit) })}</small>}
               </div>
+
+              {(facts.protein > 0 || servings || facts.calories != null) && (
+                <dl className="pd-facts">
+                  {facts.protein > 0 && <div><dt>{t('Protein')}</dt><dd>{facts.protein} g</dd></div>}
+                  {facts.calories != null && <div><dt>{t('Calories')}</dt><dd>{facts.calories}</dd></div>}
+                  {servings && <div><dt>{t('Servings')}</dt><dd>{approx(servings.approx)}{servings.n}</dd></div>}
+                  {perServing && <div><dt>{t('Per serving')}</dt><dd>{approx(perServing.approx)}{price(perServing.value, { decimals: true })}</dd></div>}
+                </dl>
+              )}
 
               {product.highlights.length > 0 && (
                 <ul className="pd-highlights">
@@ -129,7 +161,7 @@ function ProductView({ product }) {
                 </div>
               ))}
 
-              <div className="pd-actions">
+              <div className="pd-actions" ref={actionsRef}>
                 <div className="qty">
                   <button onClick={() => setQty(q => Math.max(1, q - 1))} aria-label={t('Decrease quantity')}><Minus size={16} /></button>
                   <span>{qty}</span>
@@ -141,6 +173,10 @@ function ProductView({ product }) {
               </div>
               <button className="btn btn-wa btn-block" onClick={() => setOrderOpen(true)}>
                 <WhatsAppIcon size={18} /> {t('Order now on WhatsApp')}
+              </button>
+              <button type="button" className={`pd-cmp${compare.has(product.id) ? ' on' : ''}`} aria-pressed={compare.has(product.id)}
+                onClick={() => compare.toggle(product.id)}>
+                <Scale size={17} /> {compare.has(product.id) ? t('Added to compare') : t('Compare with other products')}
               </button>
 
               <div className="pd-perks">
@@ -194,6 +230,19 @@ function ProductView({ product }) {
         </section>
       )}
 
+      {/* phones: buy bar above the tab bar while the main buttons are off screen */}
+      <div className={`pd-sticky${stickyBuy ? ' show' : ''}`} aria-hidden={!stickyBuy}>
+        <img src={variant?.img || product.img} alt="" />
+        <div className="pd-sticky-info">
+          <b>{product.name}</b>
+          <span>{price(unit)}{variant && optionNames.length > 0 && <> · <bdi>{optionNames.map(k => variant[k]).join(' · ')}</bdi></>}</span>
+        </div>
+        <button type="button" className="btn btn-primary" tabIndex={stickyBuy ? 0 : -1}
+          onClick={() => addItem(product, variant, qty)}>
+          <ShoppingBag size={17} /> {t('Add')}
+        </button>
+      </div>
+
       <OrderModal
         open={orderOpen}
         onClose={() => setOrderOpen(false)}
@@ -203,6 +252,12 @@ function ProductView({ product }) {
       />
     </>
   )
+}
+
+// The photo slides in behind a curtain, unless it just flew in from a card.
+function PhotoFrame({ instant, children }) {
+  if (instant) return <div className="pd-visual">{children}</div>
+  return <Reveal variant="clip-left" className="pd-visual curtain">{children}</Reveal>
 }
 
 function Block({ block }) {

@@ -92,6 +92,13 @@ export default function Navbar() {
   // close menus whenever the route changes
   useEffect(() => { setMenuOpen(false); setSearchOpen(false) }, [pathname, search])
 
+  // the phone tab bar's Search tab opens the search row
+  useEffect(() => {
+    const open = () => { setMenuOpen(false); setSearchOpen(true) }
+    window.addEventListener('fn:open-search', open)
+    return () => window.removeEventListener('fn:open-search', open)
+  }, [])
+
   useEffect(() => {
     document.body.classList.toggle('no-scroll', menuOpen)
     return () => document.body.classList.remove('no-scroll')
@@ -106,6 +113,7 @@ export default function Navbar() {
 
   const links = [
     { to: '/shop', label: t('Shop'), end: true },
+    { to: '/coach', label: t('Coach') },
     { to: '/brands', label: t('Brands') },
     { to: '/shop/bundles', label: t('Offers') },
     { to: '/branches', label: t('Branches') },
@@ -161,6 +169,11 @@ export default function Navbar() {
         </div>
         <div className="mmenu-body">
           <Link to="/shop" className="mmenu-cta">{t('Shop all products')} <ChevronRight size={18} className="flip-rtl" /></Link>
+          <Link to="/coach" className="mmenu-coach">
+            <span className="mmenu-cat-ico"><CategoryIcon id="coach" size={24} /></span>
+            <span><b>{t('Coach')}</b><small>{t('Your calories, macros and stack in six taps')}</small></span>
+            <ChevronRight size={18} className="flip-rtl" />
+          </Link>
           <p className="mmenu-label">{t('Categories')}</p>
           {CATEGORIES.map(c => (
             <Link key={c.id} to={`/shop/${c.id}`} className="mmenu-cat">
@@ -168,7 +181,7 @@ export default function Navbar() {
             </Link>
           ))}
           <p className="mmenu-label">{t('Company')}</p>
-          {links.slice(1).map(p => <Link key={p.to} to={p.to} className="mmenu-link">{p.label}</Link>)}
+          {links.filter(l => l.to !== '/shop' && l.to !== '/coach').map(p => <Link key={p.to} to={p.to} className="mmenu-link">{p.label}</Link>)}
         </div>
         <div className="mmenu-foot">
           <CountrySwitch />

@@ -8,6 +8,7 @@ import { useLocale } from '../i18n.jsx'
 import { buildOrderMessage, openWhatsApp } from '../utils/whatsapp.js'
 import { variantLabel } from '../context/CartContext.jsx'
 import { ALL_BRANDS } from '../data/catalog.js'
+import ChalkDust from './ChalkDust.jsx'
 import giantPlate from '../assets/hero/giant-plate.webp'
 import changePlates from '../assets/hero/change-plates.webp'
 import barSleeve from '../assets/hero/bar-sleeve.webp'
@@ -106,6 +107,7 @@ export default function LoadedBar() {
     <section className="lb" aria-labelledby="lb-title">
       <div className="lb-stage" data-phase={phase} dir="ltr" ref={stageRef}>
         <div className="lb-floor" aria-hidden="true"><img className="lb-chalk" src={chalk} alt="" draggable="false" /></div>
+        <ChalkDust />
 
         <div className="lb-copy">
           <h1 id="lb-title" className="lb-headline" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
@@ -138,7 +140,7 @@ export default function LoadedBar() {
         {/* The loaded goal: one big 25 kg plate, total on the hub. */}
         <div className="lb-plate">
           <div className="lb-plate-roll" key={loaded}>
-            <img src={giantPlate} alt="" draggable="false" fetchPriority="high" />
+            <img src={giantPlate} alt="" draggable="false" fetchpriority="high" />
             <svg className="lb-rim" viewBox="0 0 1798 1815" aria-hidden="true">
               <defs><path id="lb-arc" d="M 394 907 A 505 505 0 0 1 1404 907" /></defs>
               <text style={{ fontSize: rimSize }}><textPath href="#lb-arc" startOffset="50%" textAnchor="middle">{goalName}</textPath></text>

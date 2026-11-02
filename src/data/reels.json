@@ -1,22 +1,30 @@
 [
-    {
-        "id":  2,
-        "title":  "كيف اتمرن؟",
-        "url":  "https://www.instagram.com/p/Db2-B24tUt9/"
-    },
-    {
-        "id":  3,
-        "title":  "الببتايد الاقوى لحرق الدهون الريتاتروتايد",
-        "url":  "https://www.instagram.com/p/DZruSHbAKQ_/"
-    },
-    {
-        "id":  4,
-        "title":  "محسنات الاداء تحت المجهر",
-        "url":  "https://www.instagram.com/p/DZClodkgl0w/"
-    },
-    {
-        "id":  5,
-        "title":  "هل انت مع نظام الطيبات ؟",
-        "url":  "https://www.instagram.com/p/DYrtWCLNmK2/"
-    }
+  {
+    "id": 2,
+    "title": "كيف اتمرن؟",
+    "url": "https://www.instagram.com/p/Db2-B24tUt9/",
+    "code": "Db2-B24tUt9",
+    "cover": "/images/fn/reels/2.webp"
+  },
+  {
+    "id": 3,
+    "title": "الببتايد الاقوى لحرق الدهون الريتاتروتايد",
+    "url": "https://www.instagram.com/p/DZruSHbAKQ_/",
+    "code": "DZruSHbAKQ_",
+    "cover": "/images/fn/reels/3.webp"
+  },
+  {
+    "id": 4,
+    "title": "محسنات الاداء تحت المجهر",
+    "url": "https://www.instagram.com/p/DZClodkgl0w/",
+    "code": "DZClodkgl0w",
+    "cover": "/images/fn/reels/4.webp"
+  },
+  {
+    "id": 5,
+    "title": "هل انت مع نظام الطيبات ؟",
+    "url": "https://www.instagram.com/p/DYrtWCLNmK2/",
+    "code": "DYrtWCLNmK2",
+    "cover": "/images/fn/reels/5.webp"
+  }
 ]

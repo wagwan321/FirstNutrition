@@ -7,6 +7,10 @@ import Toast from './components/Toast.jsx'
 import Loader from './components/Loader.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
 import FloatingWidgets from './components/FloatingWidgets.jsx'
+import TabBar from './components/TabBar.jsx'
+import CompareTray from './components/CompareTray.jsx'
+import InstallPrompt from './components/InstallPrompt.jsx'
+import ChalkPuffs from './components/ChalkPuffs.jsx'
 import Home from './pages/Home.jsx'
 import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
@@ -14,6 +18,8 @@ import Checkout from './pages/Checkout.jsx'
 import Branches from './pages/Branches.jsx'
 import Brands from './pages/Brands.jsx'
 import About from './pages/About.jsx'
+import Coach from './pages/Coach.jsx'
+import Compare from './pages/Compare.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { boot, LOADER_MS, LOADER_FADE_MS } from './boot.js'
 
@@ -44,11 +50,17 @@ export default function App() {
           <Route path="/brands" element={<Brands />} />
           <Route path="/branches" element={<Branches />} />
           <Route path="/about" element={<About />} />
+          <Route path="/coach" element={<Coach />} />
+          <Route path="/compare" element={<Compare />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
       <FloatingWidgets />
+      <CompareTray />
+      <InstallPrompt />
+      <TabBar />
+      <ChalkPuffs />
     </>
   )
 }

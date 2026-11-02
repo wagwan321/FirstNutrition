@@ -80,6 +80,19 @@ const ICONS = {
     </>,
     bridges: <><rect x="10" y="24" width="28" height="2.2" /><rect x="10" y="31.5" width="28" height="2.2" /></>,
   },
+  // the coach's clipboard: a plan, line by line (used for the Coach tab)
+  coach: {
+    shapes: <>
+      <rect x="9" y="8" width="30" height="37" rx="4" />
+      <rect x="17" y="3" width="14" height="9" rx="2.5" />
+    </>,
+    bridges: <>
+      <rect x="13" y="11.4" width="22" height="1.8" />
+      <rect x="15" y="19" width="18" height="3" rx="1.5" />
+      <rect x="15" y="26.5" width="18" height="3" rx="1.5" />
+      <rect x="15" y="34" width="11" height="3" rx="1.5" />
+    </>,
+  },
   // two tubs tied as one deal
   bundles: {
     shapes: <>

@@ -59,7 +59,8 @@ export default function FloatingWidgets() {
           <ArrowUp size={18} strokeWidth={2.4} />
         </button>
 
-        <a className={`fab fab-wa${heroCta ? ' is-hidden' : ''}`} target="_blank" rel="noopener noreferrer" tabIndex={heroCta ? -1 : undefined}
+        {/* the Coach page has its own "Ask a real coach" WhatsApp button */}
+        <a className={`fab fab-wa${heroCta || pathname === '/coach' ? ' is-hidden' : ''}`} target="_blank" rel="noopener noreferrer" tabIndex={heroCta || pathname === '/coach' ? -1 : undefined}
           href={waUrl(t('Hi First Nutrition! I need help choosing supplements.'), country)}
           aria-label={t('Chat with us on WhatsApp')}>
           <WhatsAppIcon size={26} />

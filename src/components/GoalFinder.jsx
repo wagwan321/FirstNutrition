@@ -48,7 +48,10 @@ export default function GoalFinder() {
 
       <div className="goal-panel" id="goal-panel" role="tabpanel" aria-labelledby={`goal-tab-${goal.id}`} key={goal.id}>
         <div className="goal-panel-head">
-          <h3>{t(goal.name)}</h3>
+          <div>
+            <h3>{t(goal.name)}</h3>
+            <p className="goal-panel-blurb">{t(goal.blurb)}</p>
+          </div>
           <Link to={`/shop?goal=${goal.id}`} className="link-arrow">
             {t('Shop all')} <ArrowRight size={16} className="flip-rtl" />
           </Link>

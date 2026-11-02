@@ -4,6 +4,7 @@ import {
   Search, X, SlidersHorizontal, ChevronDown, Check, LayoutGrid, SearchX, RotateCcw, ArrowDownUp,
 } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
+import CategoryIcon from '../components/CategoryIcon.jsx'
 import Reveal, { RevealText } from '../components/Reveal.jsx'
 import { PRODUCTS, CATEGORIES, BRAND_NAMES, GOALS, convert } from '../data/catalog.js'
 import { matchesQuery } from '../utils/search.js'
@@ -208,7 +209,7 @@ export default function Shop() {
               <button key={c.id} role="tab" aria-selected={f.cat === c.id}
                 className={`cat-pill${f.cat === c.id ? ' active' : ''}${catCounts[c.id] ? '' : ' empty'}`}
                 onClick={() => goCategory(c.id)}>
-                <c.icon size={16} /> {t(c.name)} <em>{catCounts[c.id]}</em>
+                <CategoryIcon id={c.id} size={18} /> {t(c.name)} <em>{catCounts[c.id]}</em>
               </button>
             ))}
           </div>

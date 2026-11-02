@@ -50,8 +50,10 @@ export function LocaleProvider({ children }) {
     region: COUNTRIES[country],
     // JOD catalog price -> number in the local currency
     amount: (jod) => convert(jod, country),
-    // JOD catalog price -> formatted local price, e.g. "50 JOD" / "$71"
-    price: (jod) => formatPrice(convert(jod, country), country, lang),
+    // JOD catalog price -> formatted local price, e.g. "50 JOD" / "$71".
+    // { decimals: true } keeps two decimals (per-serving costs).
+    price: (jod, opts) => formatPrice(
+      opts?.decimals ? Number((jod * (COUNTRIES[country]?.rate || 1)).toFixed(2)) : convert(jod, country), country, lang),
     // already-local amount -> formatted
     format: (amount) => formatPrice(amount, country, lang),
   }), [country, lang, t])

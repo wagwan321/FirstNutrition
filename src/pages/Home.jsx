@@ -14,6 +14,8 @@ import KineticBand from '../components/KineticBand.jsx'
 import CountUp from '../components/CountUp.jsx'
 import GoalFinder from '../components/GoalFinder.jsx'
 import BrandMarquee from '../components/BrandMarquee.jsx'
+import ChalkDust from '../components/ChalkDust.jsx'
+import ReelViewer from '../components/ReelViewer.jsx'
 import { InstagramIcon } from '../components/BrandIcons.jsx'
 import { CATEGORIES, PRODUCTS, ALL_BRANDS, REELS } from '../data/catalog.js'
 import { useLocale } from '../i18n.jsx'
@@ -46,6 +48,7 @@ export default function Home() {
   const { t, region } = useLocale()
   // Wait for the first-load splash screen before playing the hero intro.
   const [intro] = useState(() => boot.introDelay)
+  const [reel, setReel] = useState(-1)
   const bestSellers = PRODUCTS.filter(p => p.bestseller).slice(0, 8)
   const offers = PRODUCTS.filter(p => p.category === 'bundles')
   const counts = Object.fromEntries(CATEGORIES.map(c => [c.id, PRODUCTS.filter(p => p.category === c.id).length]))
@@ -104,6 +107,7 @@ export default function Home() {
 
       {/* HOT OFFERS */}
       <section className="section offers-band">
+        <ChalkDust density={0.8} />
         <div className="container">
           <SectionHead title={t('Bundles that save you more')}>
             <Link to="/shop/bundles" className="link-arrow">{t('All offers')} <ArrowRight size={16} className="flip-rtl" /></Link>
@@ -122,6 +126,11 @@ export default function Home() {
           <SectionHead title={t('What are you training for?')}
             sub={t('Pick a goal and we’ll show you where to start.')} />
           <GoalFinder />
+          <Link to="/coach" className="coach-teaser">
+            <span className="coach-teaser-ico" aria-hidden="true"><CategoryIcon id="coach" size={26} /></span>
+            <span><b>{t('Not sure what you need?')}</b><small>{t('The Coach works out your calories, macros and stack in six taps.')}</small></span>
+            <ArrowRight size={20} className="flip-rtl" />
+          </Link>
         </div>
       </section>
 
@@ -171,15 +180,18 @@ export default function Home() {
             <div className="reels">
               {REELS.map((r, i) => (
                 <Reveal key={r.id} variant={i % 2 ? 'right' : 'left'} delay={i * 80}>
-                  <a href={r.url} target="_blank" rel="noreferrer" className={`reel reel-${i % 4}`}>
+                  <a href={r.url} target="_blank" rel="noreferrer" className="reel"
+                    onClick={(e) => { if (e.button === 0 && !e.metaKey && !e.ctrlKey) { e.preventDefault(); setReel(i) } }}>
+                    <img className="reel-cover" src={r.cover} alt="" loading="lazy" />
                     <span className="reel-play"><Play size={20} fill="currentColor" /></span>
-                    <span className="reel-title" dir="rtl" lang="ar">{r.title}</span>
                     <span className="reel-src"><InstagramIcon size={14} /> {t('Watch reel')}</span>
                   </a>
+                  <p className="reel-title" dir="rtl" lang="ar">{r.title}</p>
                 </Reveal>
               ))}
             </div>
           </div>
+          {reel >= 0 && <ReelViewer reels={REELS} index={reel} onIndex={setReel} onClose={() => setReel(-1)} />}
         </section>
       )}
 

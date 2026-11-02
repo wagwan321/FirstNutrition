@@ -36,7 +36,7 @@ export default function Branches() {
               <Reveal className="branch-card" key={b.city} variant={i % 2 ? 'right' : 'left'} delay={Math.floor(i / 2) * 120}>
                 <span className="branch-pin"><MapPin size={22} /></span>
                 <div className="branch-body">
-                  <span className="branch-num">0{i + 1}</span>
+                  <span className="branch-num">{String(i + 1).padStart(2, '0')}</span>
                   <h3>{t(b.city)}</h3>
                   {b.confirmed
                     ? <p>{t(b.address)}</p>

@@ -9,8 +9,9 @@
 export const SHOP = {
   name: 'First Nutrition',
   email: 'info@firstnutrition.com',
-  instagram: 'https://www.instagram.com/firstnutritionlebanon/',
-  facebook: 'https://www.facebook.com/firstnutritionlebanon/',
+  instagram: 'https://www.instagram.com/firstnutritionjo/',
+  facebook: 'https://www.facebook.com/firstnutritionjordan/',
+  youtube: 'https://www.youtube.com/@FirstNutritionofficial',
   certifications: ['ISO 9001', 'ISO 22000', 'ISO 45001'],
 }
 
@@ -28,11 +29,22 @@ export const COUNTRIES = {
     hq: 'Amman – Al Abdali, Al Fareed Complex · P.O. Box 927807, Amman 11190',
     areas: ['Amman', 'Zarqa', 'Irbid', 'Aqaba', 'Salt', 'Madaba', 'Jerash', 'Mafraq', 'Karak', 'Other'],
     // `hours: null` hides the opening-hours line until the owners provide it.
+    // From the store's own branch list (name, city, phone). Street addresses and
+    // hours are not published yet: TODO(owner) add them and set confirmed: true.
     branches: [
-      { city: 'Abdali, Amman', address: 'Al Fareed Complex, Al Abdali — head office', phone: '+962 6 5678232', hours: null, confirmed: true },
-      // TODO(owner): confirm the exact address, phone and hours of these branches.
-      { city: 'Sweifieh, Amman', address: 'Sweifieh, Amman', phone: '+962 6 5678232', hours: null, confirmed: false },
-      { city: 'Rabieh, Amman', address: 'Rabieh, Amman', phone: '+962 6 5678232', hours: null, confirmed: false },
+      { city: 'Abdali, Amman', address: 'Al Fareed Complex, Al Abdali — head office', phone: '+962 6 567 8232', hours: null, confirmed: true },
+      { city: 'Sweifieh (1), Amman', address: 'Sweifieh (1), Amman', phone: '+962 6 581 9339', hours: null, confirmed: false },
+      { city: 'Sweifieh (2), Amman', address: 'Sweifieh (2), Amman', phone: '+962 6 583 1128', hours: null, confirmed: false },
+      { city: 'Abdoun, Amman', address: 'Abdoun, Amman', phone: '+962 6 593 0059', hours: null, confirmed: false },
+      { city: 'Rabieh, Amman', address: 'Rabieh, Amman', phone: '+962 6 554 5888', hours: null, confirmed: false },
+      { city: 'Jubeihah, Amman', address: 'Jubeihah, Amman', phone: '+962 6 535 4071', hours: null, confirmed: false },
+      { city: 'Tabarbour, Amman', address: 'Tabarbour, Amman', phone: '+962 78 991 6722', hours: null, confirmed: false },
+      { city: 'Irbid', address: 'Irbid', phone: '+962 2 724 1666', hours: null, confirmed: false },
+      { city: 'Zarqa', address: 'Zarqa', phone: '+962 79 704 1470', hours: null, confirmed: false },
+      { city: 'Salt', address: 'Salt', phone: '+962 5 355 6374', hours: null, confirmed: false },
+      { city: 'Madaba', address: 'Madaba', phone: '+962 79 611 1767', hours: null, confirmed: false },
+      { city: 'Karak', address: 'Karak', phone: '+962 79 569 9373', hours: null, confirmed: false },
+      { city: 'Aqaba', address: 'Aqaba', phone: '+962 3 204 7575', hours: null, confirmed: false },
     ],
   },
   lb: {
