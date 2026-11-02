@@ -100,22 +100,24 @@ export const AR = {
 
   // ---- teardown ----
   'Inside the tub': 'داخل العبوة',
-  'Everything that goes into one scoop.': 'كل ما تحتويه مغرفة واحدة.',
-  'Sealed at the source': 'مختومة من المصدر',
-  'Every tub ships sealed from the official brand — that is how we guarantee 100% authentic.':
-    'تصل كل عبوة مختومة من العلامة الرسمية — وهكذا نضمن أنها أصلية 100%.',
-  'Real numbers in every scoop': 'أرقام حقيقية في كل مغرفة',
-  'A typical 30 g scoop of premium whey delivers about 24 g of protein and 5.5 g of BCAAs.':
-    'تمنحك مغرفة نموذجية من بروتين الواي الفاخر (30 غ) نحو 24 غ من البروتين و5.5 غ من BCAA.',
-  'Mix, drink, recover': 'اخلط، اشرب، تعافَ',
-  'Shake one scoop with 200–250 ml of water or milk after training, or whenever you need a protein boost.':
-    'اخلط مغرفة واحدة مع 200–250 مل من الماء أو الحليب بعد التمرين، أو متى احتجت دفعة بروتين.',
+  'Anatomy of a protein tub.': 'تشريح عبوة البروتين.',
+  'Every tub we sell arrives sealed from the official brand. Here is exactly what you get when you open one.':
+    'كل عبوة نبيعها تصل مختومة من العلامة الرسمية. إليك بالضبط ما تجده عندما تفتحها.',
+  'Replay': 'إعادة التشغيل',
+  'Exploded view of a protein tub: screw cap, freshness seal, scoop, whey blend and tub':
+    'عرض مفكّك لعبوة بروتين: الغطاء، ختم الحماية، المغرفة، مسحوق الواي، والعبوة',
+  'Screw cap': 'غطاء لولبي',
+  'tamper-evident · twist-lock': 'مانع للعبث · قفل بالتدوير',
+  'Freshness seal': 'ختم الحماية',
+  'peel-off foil · factory sealed': 'رقاقة قابلة للنزع · مختومة في المصنع',
+  'Scoop': 'المغرفة',
+  '1 level scoop ≈ 30 g': 'مغرفة واحدة مستوية ≈ 30 غ',
+  'Whey blend': 'مزيج الواي',
+  '≈ 24 g protein · 5.5 g BCAA': '≈ 24 غ بروتين · 5.5 غ BCAA',
+  'Tub': 'العبوة',
+  '5 lb · ≈ 74 servings': '5 باوند · ≈ 74 حصة',
   'Shop protein': 'تسوّق البروتين',
   'Typical values for premium whey. Always check each product’s label.': 'قيم نموذجية لبروتين الواي الفاخر. راجع دائماً ملصق كل منتج.',
-  'Authentic, sealed lid': 'غطاء أصلي مختوم',
-  'Protein per scoop': 'بروتين في المغرفة',
-  'BCAAs per scoop': 'BCAA في المغرفة',
-  'kcal · 1–2 g sugar': 'سعرة · 1–2 غ سكر',
 
   // ---- categories & goals ----
   'Protein': 'البروتين',
