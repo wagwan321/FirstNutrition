@@ -1,70 +1,51 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Dumbbell, Flame, Zap, Activity, HeartPulse, Cookie, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import ProductCard from './ProductCard.jsx'
 import Reveal from './Reveal.jsx'
-import { PRODUCTS } from '../data/catalog.js'
+import { GOALS, PRODUCTS } from '../data/catalog.js'
+import { useLocale } from '../i18n.jsx'
 
-const GOALS = [
-  { id: 'muscle', label: 'Build Muscle', icon: Dumbbell, cat: 'protein',
-    blurb: 'Quality protein and creatine to grow, repair and get stronger.',
-    match: p => p.category === 'protein' || /creatine/i.test(p.name) },
-  { id: 'lean', label: 'Lose Fat', icon: Flame, cat: 'burners',
-    blurb: 'Thermogenics and lean-friendly support for your cut.',
-    match: p => p.category === 'burners' },
-  { id: 'energy', label: 'Energy & Focus', icon: Zap, cat: 'preworkout',
-    blurb: 'Pre-workouts for explosive sessions and laser focus.',
-    match: p => p.category === 'preworkout' },
-  { id: 'recover', label: 'Recover Faster', icon: Activity, cat: 'aminos',
-    blurb: 'Aminos, glutamine and minerals to bounce back between sessions.',
-    match: p => p.category === 'aminos' || /zma/i.test(p.name) },
-  { id: 'health', label: 'Daily Health', icon: HeartPulse, cat: 'vitamins',
-    blurb: 'Multivitamins and omega-3s to cover the basics every day.',
-    match: p => p.category === 'vitamins' },
-  { id: 'snack', label: 'Snack Smart', icon: Cookie, cat: 'bars',
-    blurb: 'High-protein bars and shakes for busy days on the go.',
-    match: p => p.category === 'bars' },
-]
-
-// "What's your goal?" — tabbed product recommendations.
+// "Shop by goal": photo tiles work as tabs; the picks below follow the goal.
 export default function GoalFinder() {
+  const { t } = useLocale()
   const [active, setActive] = useState(GOALS[0].id)
   const goal = GOALS.find(g => g.id === active)
-  // best sellers first, then the rest in catalog order
-  const picks = PRODUCTS.filter(goal.match)
-    .sort((a, b) => (b.tag === 'Best Seller') - (a.tag === 'Best Seller'))
+  const picks = PRODUCTS
+    .filter(p => goal.cats.includes(p.category))
+    .sort((a, b) => (b.bestseller - a.bestseller) || (goal.cats.indexOf(a.category) - goal.cats.indexOf(b.category)))
     .slice(0, 4)
 
   return (
     <div className="goal-finder">
-      <Reveal variant="left" className="goal-tabs" role="tablist" aria-label="Choose your goal">
-        {GOALS.map(({ id, label, icon: Icon }) => (
-          <button key={id} role="tab" aria-selected={active === id}
-            className={`goal-tab${active === id ? ' active' : ''}`} onClick={() => setActive(id)}>
-            <Icon size={18} aria-hidden="true" /> {label}
-          </button>
+      <div className="goal-tiles" role="tablist" aria-label={t('Choose your goal')}>
+        {GOALS.map((g, i) => (
+          <Reveal key={g.id} variant={i % 2 ? 'right' : 'left'} delay={i * 80}>
+            <button type="button" role="tab" aria-selected={active === g.id}
+              className={`goal-tile${active === g.id ? ' active' : ''}`} onClick={() => setActive(g.id)}>
+              <img src={g.img} alt="" loading="lazy" />
+              <span className="goal-tile-txt">
+                <b>{t(g.name)}</b>
+                <small>{t(g.blurb)}</small>
+              </span>
+            </button>
+          </Reveal>
         ))}
-      </Reveal>
+      </div>
 
-      <Reveal variant="right" delay={150}>
-        <div className="goal-panel" role="tabpanel" key={goal.id}>
-          <div className="goal-intro">
-            <span className="goal-icon"><goal.icon size={26} /></span>
-            <div>
-              <h3>{goal.label}</h3>
-              <p>{goal.blurb}</p>
-            </div>
-            <Link to={`/shop/${goal.cat}`} className="btn btn-ghost btn-sm">
-              Shop all <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="grid product-grid goal-grid">
-            {picks.map((p, i) => (
-              <div key={p.id} style={{ '--i': i }}><ProductCard product={p} /></div>
-            ))}
-          </div>
+      <div className="goal-panel" role="tabpanel" key={goal.id}>
+        <div className="goal-panel-head">
+          <h3><small>{t('Top picks')}</small>{t(goal.name)}</h3>
+          <Link to={`/shop?goal=${goal.id}`} className="link-arrow">
+            {t('Shop all')} <ArrowRight size={16} className="flip-rtl" />
+          </Link>
         </div>
-      </Reveal>
+        <div className="grid product-grid goal-grid">
+          {picks.map((p, i) => (
+            <div key={p.id} style={{ '--i': i }}><ProductCard product={p} /></div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

@@ -12,6 +12,7 @@ import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Branches from './pages/Branches.jsx'
+import Brands from './pages/Brands.jsx'
 import About from './pages/About.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { boot, LOADER_MS, LOADER_FADE_MS } from './boot.js'
@@ -38,7 +39,9 @@ export default function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:category" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/product/:id/:slug" element={<ProductDetail />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/brands" element={<Brands />} />
           <Route path="/branches" element={<Branches />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />

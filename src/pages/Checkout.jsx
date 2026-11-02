@@ -1,34 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Banknote, CircleCheck } from 'lucide-react'
 import { WhatsAppIcon } from '../components/BrandIcons.jsx'
 import { RevealText } from '../components/Reveal.jsx'
-import { useCart } from '../context/CartContext.jsx'
-import { money } from '../data/catalog.js'
-import { SHOP } from '../config.js'
+import { useCart, variantLabel } from '../context/CartContext.jsx'
+import { useLocale } from '../i18n.jsx'
 import { buildOrderMessage, openWhatsApp } from '../utils/whatsapp.js'
 
 export default function Checkout() {
-  const { items, subtotal, clearCart } = useCart()
+  const { lines, subtotal, clearCart } = useCart()
+  const { t, price, region, country } = useLocale()
   const [placed, setPlaced] = useState(false)
   const [waLink, setWaLink] = useState('')
-  const [form, setForm] = useState({
-    name: '', phone: '', email: '', city: SHOP.areas[0], address: '', notes: '',
-  })
+  const [form, setForm] = useState({ name: '', phone: '', email: '', area: region.areas[0], address: '', notes: '' })
+
+  // keep the delivery area valid when the country changes
+  useEffect(() => {
+    setForm(f => (region.areas.includes(f.area) ? f : { ...f, area: region.areas[0] }))
+  }, [region])
 
   const update = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
   const submit = (e) => {
     e.preventDefault()
-    const customer = {
-      name: form.name, phone: form.phone, email: form.email,
-      area: form.city, address: form.address, notes: form.notes,
-    }
-    const text = buildOrderMessage({ items, subtotal, customer })
-    // Open WhatsApp now (must be inside the click handler so it isn't blocked),
-    // and keep the URL for a reliable fallback link on the confirmation screen.
-    const url = openWhatsApp(text)
-    setWaLink(url)
+    const text = buildOrderMessage({ lines, subtotal, customer: form, country })
+    // Open WhatsApp now (inside the click handler so it isn't blocked) and keep
+    // the URL for a reliable fallback link on the confirmation screen.
+    setWaLink(openWhatsApp(text, country))
     setPlaced(true)
     window.scrollTo(0, 0)
   }
@@ -37,38 +35,35 @@ export default function Checkout() {
     return (
       <div className="container section">
         <div className="success-box">
-          <div className="check wa"><CircleCheck size={40} /></div>
-          <h1>Your Order Is Ready</h1>
-          <p className="text-muted" style={{ maxWidth: 500, margin: '12px auto 4px' }}>
-            Thanks, {form.name.split(' ')[0] || 'athlete'}! We've opened <strong className="text-accent">WhatsApp</strong> with
-            your full order — just press <strong>send</strong> and our team will confirm delivery and the fee.
+          <div className="check"><CircleCheck size={40} /></div>
+          <h1>{t('Your order is ready')}</h1>
+          <p className="text-muted">
+            {t('Thanks, {name}! We opened WhatsApp with your full order — just press send and our team will confirm delivery and the fee.', { name: form.name.split(' ')[0] || t('athlete') })}
           </p>
-          <p className="text-muted" style={{ fontSize: 14, marginBottom: 22 }}>
-            Payment: <strong>Cash on Delivery</strong>
-          </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <p className="text-muted small">{t('Payment')}: <strong>{t('Cash on delivery')}</strong></p>
+          <div className="success-actions">
             {waLink && (
               <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon size={18} /> Open WhatsApp Again
+                <WhatsAppIcon size={18} /> {t('Open WhatsApp again')}
               </a>
             )}
-            <Link to="/shop" className="btn btn-ghost">Continue Shopping</Link>
+            <Link to="/shop" className="btn btn-ghost">{t('Continue shopping')}</Link>
           </div>
-          <p className="text-muted" style={{ fontSize: 13, marginTop: 18 }}>
-            Didn't go through? Message us directly on <strong>{SHOP.whatsappDisplay}</strong>.<br />
-            <button className="link-btn" onClick={clearCart}>Clear my cart</button>
+          <p className="text-muted small">
+            {t('Didn’t go through? Message us on {number}.', { number: region.whatsappDisplay })}{' '}
+            <button className="link-btn" onClick={clearCart}>{t('Clear my cart')}</button>
           </p>
         </div>
       </div>
     )
   }
 
-  if (items.length === 0) {
+  if (lines.length === 0) {
     return (
       <div className="container section center">
-        <h1>Your cart is empty</h1>
-        <p className="text-muted" style={{ margin: '12px 0 20px' }}>Add some supplements before ordering.</p>
-        <Link to="/shop" className="btn btn-primary">Shop Now</Link>
+        <h1>{t('Your cart is empty')}</h1>
+        <p className="text-muted" style={{ margin: '12px 0 20px' }}>{t('Add some supplements before checking out.')}</p>
+        <Link to="/shop" className="btn btn-primary">{t('Shop now')}</Link>
       </div>
     )
   }
@@ -77,75 +72,73 @@ export default function Checkout() {
     <>
       <section className="page-head">
         <div className="container">
-          <span className="eyebrow">Almost There</span>
-          <RevealText as="h1" text="Complete Your Order" delay={100} />
-          <p>Fill in your delivery details and send the order on WhatsApp — we deliver across all of Lebanon, cash on delivery.</p>
+          <span className="eyebrow">{t('Almost there')}</span>
+          <RevealText as="h1" text={t('Complete your order')} delay={100} />
+          <p>{t('Add your delivery details and send the order on WhatsApp — cash on delivery across {country}.', { country: t(region.name) })}</p>
         </div>
       </section>
 
       <section className="section">
         <form className="container checkout-layout" onSubmit={submit}>
-          <div>
-            <div className="form-card">
-              <h3>Delivery Details</h3>
-              <div className="field-row">
-                <div className="field">
-                  <label>Full Name *</label>
-                  <input required value={form.name} onChange={update('name')} placeholder="e.g. Karim Haddad" />
-                </div>
-                <div className="field">
-                  <label>Phone *</label>
-                  <input required value={form.phone} onChange={update('phone')} placeholder="+961 …" />
-                </div>
+          <div className="form-card">
+            <h3>{t('Delivery details')}</h3>
+            <div className="field-row">
+              <div className="field">
+                <label htmlFor="co-name">{t('Full name')} *</label>
+                <input id="co-name" required value={form.name} onChange={update('name')} autoComplete="name" />
               </div>
               <div className="field">
-                <label>Email</label>
-                <input type="email" value={form.email} onChange={update('email')} placeholder="you@email.com" />
+                <label htmlFor="co-phone">{t('Phone')} *</label>
+                <input id="co-phone" required type="tel" value={form.phone} onChange={update('phone')} autoComplete="tel" dir="ltr" />
               </div>
-              <div className="field-row">
-                <div className="field">
-                  <label>Delivery Area *</label>
-                  <select value={form.city} onChange={update('city')}>
-                    {SHOP.areas.map(a => <option key={a}>{a}</option>)}
-                  </select>
-                </div>
-                <div className="field">
-                  <label>Building / Street *</label>
-                  <input required value={form.address} onChange={update('address')} placeholder="Street, building, floor" />
-                </div>
+            </div>
+            <div className="field">
+              <label htmlFor="co-email">{t('Email')}</label>
+              <input id="co-email" type="email" value={form.email} onChange={update('email')} autoComplete="email" />
+            </div>
+            <div className="field-row">
+              <div className="field">
+                <label htmlFor="co-area">{t('Delivery area')} *</label>
+                <select id="co-area" value={form.area} onChange={update('area')}>
+                  {region.areas.map(a => <option key={a} value={a}>{t(a)}</option>)}
+                </select>
               </div>
               <div className="field">
-                <label>Order Notes</label>
-                <textarea rows="3" value={form.notes} onChange={update('notes')} placeholder="Landmark, delivery instructions…" />
+                <label htmlFor="co-address">{t('Building / street')} *</label>
+                <input id="co-address" required value={form.address} onChange={update('address')} autoComplete="street-address" />
               </div>
-              <div className="cod-note">
-                <Banknote size={20} aria-hidden="true" />
-                <span><strong>Cash on Delivery</strong> — pay in cash when your order arrives. The delivery fee is confirmed by the store on WhatsApp.</span>
-              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="co-notes">{t('Order notes')}</label>
+              <textarea id="co-notes" rows="3" value={form.notes} onChange={update('notes')} />
+            </div>
+            <div className="cod-note">
+              <Banknote size={20} aria-hidden="true" />
+              <span><strong>{t('Cash on delivery')}</strong> — {t('pay in cash when your order arrives. The delivery fee is confirmed by the store on WhatsApp.')}</span>
             </div>
           </div>
 
-          {/* SUMMARY */}
-          <aside className="form-card">
-            <h3>Order Summary</h3>
-            <div style={{ marginBottom: 14 }}>
-              {items.map(i => (
-                <div className="order-item" key={i.key}>
-                  <span><span className="q">{i.qty}×</span> {i.name}{i.flavor ? ` (${i.flavor})` : ''}</span>
-                  <span>{money(i.price * i.qty)}</span>
+          <aside className="form-card summary-card">
+            <h3>{t('Order summary')}</h3>
+            <div className="order-items">
+              {lines.map(l => (
+                <div className="order-item" key={l.key}>
+                  <img src={l.product.img} alt="" />
+                  <span className="oi-name">
+                    <b>{l.product.name}</b>
+                    <small>{[variantLabel(l.variant), `× ${l.qty}`].filter(Boolean).join(' · ')}</small>
+                  </span>
+                  <span className="oi-price">{price(l.unit * l.qty)}</span>
                 </div>
               ))}
             </div>
-            <div className="summary-line"><span className="text-muted">Subtotal</span><span>{money(subtotal)}</span></div>
-            <div className="summary-line">
-              <span className="text-muted">Delivery</span>
-              <span className="text-muted">Confirmed by store</span>
-            </div>
-            <div className="summary-line total"><span>Total</span><span>{money(subtotal)}</span></div>
-            <button type="submit" className="btn btn-wa btn-block" style={{ marginTop: 16 }}>
-              <WhatsAppIcon size={18} /> Order on WhatsApp
+            <div className="summary-line"><span>{t('Subtotal')}</span><span>{price(subtotal)}</span></div>
+            <div className="summary-line"><span>{t('Delivery')}</span><span className="text-muted">{t('Confirmed by store')}</span></div>
+            <div className="summary-line total"><span>{t('Total')}</span><span>{price(subtotal)}</span></div>
+            <button type="submit" className="btn btn-wa btn-block">
+              <WhatsAppIcon size={18} /> {t('Send order on WhatsApp')}
             </button>
-            <Link to="/shop" className="btn btn-ghost btn-block" style={{ marginTop: 10 }}>Continue Shopping</Link>
+            <Link to="/shop" className="btn btn-link btn-block">{t('Continue shopping')}</Link>
           </aside>
         </form>
       </section>

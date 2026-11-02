@@ -6,3 +6,4 @@ dist
 .vite
 *.log
 scratch_dev.log
+scripts/catalog/.data

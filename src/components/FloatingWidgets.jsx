@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { WhatsAppIcon } from './BrandIcons.jsx'
 import { waUrl } from '../utils/whatsapp.js'
+import { useLocale } from '../i18n.jsx'
 
 const RING = 2 * Math.PI * 21 // circumference of the back-to-top progress ring
 
 // Page-level widgets: top scroll-progress bar, back-to-top button with a
 // progress ring, and a floating "chat on WhatsApp" button.
 export default function FloatingWidgets() {
+  const { t, country } = useLocale()
   const barRef = useRef(null)
   const ringRef = useRef(null)
   const [showTop, setShowTop] = useState(false)
@@ -41,7 +43,7 @@ export default function FloatingWidgets() {
       <div className="fab-stack">
         <button type="button" className={`fab fab-top${showTop ? ' show' : ''}`}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Back to top" tabIndex={showTop ? 0 : -1}>
+          aria-label={t('Back to top')} tabIndex={showTop ? 0 : -1}>
           <svg className="fab-ring" viewBox="0 0 48 48" aria-hidden="true">
             <circle cx="24" cy="24" r="21" />
             <circle ref={ringRef} cx="24" cy="24" r="21" className="fab-ring-fill"
@@ -51,10 +53,10 @@ export default function FloatingWidgets() {
         </button>
 
         <a className="fab fab-wa" target="_blank" rel="noopener noreferrer"
-          href={waUrl("Hi First Nutrition! I'd like some help choosing supplements.")}
-          aria-label="Chat with us on WhatsApp">
+          href={waUrl(t('Hi First Nutrition! I need help choosing supplements.'), country)}
+          aria-label={t('Chat with us on WhatsApp')}>
           <WhatsAppIcon size={26} />
-          <span className="fab-label">Need help? Chat with us</span>
+          <span className="fab-label">{t('Need advice? Chat with us')}</span>
         </a>
       </div>
     </>

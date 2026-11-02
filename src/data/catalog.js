@@ -1,160 +1,77 @@
-// First Nutrition Lebanon — catalog data
-// Brands & branches are from real research (firstnutrition.com).
-// Prices are realistic placeholders in USD (the common pricing currency for
-// supplements in Lebanon). Swap these for the store's real prices/inventory.
-import { Dumbbell, Zap, Activity, Flame, Pill, Cookie } from 'lucide-react'
+// First Nutrition catalog.
+// products.json / brands.json are generated from the store's own catalog
+// (names, brands, variants, Jordan JOD prices, descriptions, photos in
+// public/images/fn/). Prices are stored in JOD; other countries convert via
+// COUNTRIES[code].rate in src/config.js.
+import {
+  Dumbbell, Weight, FlaskConical, Zap, Atom, Flame, HeartPulse, Cookie, Package, BadgePercent,
+} from 'lucide-react'
+import productsData from './products.json'
+import brandsData from './brands.json'
+import reelsData from './reels.json'
+import { COUNTRIES } from '../config.js'
 
 export const CATEGORIES = [
-  { id: 'protein',    name: 'Proteins',          icon: Dumbbell, blurb: 'Whey, isolate, casein & mass gainers' },
-  { id: 'preworkout', name: 'Pre-Workout',       icon: Zap,      blurb: 'Energy, focus & pumps' },
-  { id: 'aminos',     name: 'Amino & Recovery',  icon: Activity, blurb: 'BCAA, EAA, glutamine & creatine' },
-  { id: 'burners',    name: 'Fat Burners',       icon: Flame,    blurb: 'Thermogenics & diet support' },
-  { id: 'vitamins',   name: 'Vitamins',          icon: Pill,     blurb: 'Multivitamins & health' },
-  { id: 'bars',       name: 'Bars & Snacks',     icon: Cookie,   blurb: 'Protein bars & ready-to-drink' },
+  { id: 'protein',     name: 'Protein',           icon: Dumbbell,     img: '/images/fn/categories/23.webp', blurb: 'Whey, isolate, casein & plant' },
+  { id: 'gainers',     name: 'Weight Gainers',    icon: Weight,       img: '/images/fn/categories/29.webp', blurb: 'Mass gainers & carb fuel' },
+  { id: 'creatine',    name: 'Creatine',          icon: FlaskConical, img: '/images/fn/categories/30.webp', blurb: 'Strength, power & recovery' },
+  { id: 'preworkout',  name: 'Pre-Workout',       icon: Zap,          img: '/images/fn/categories/36.webp', blurb: 'Energy, focus & pump' },
+  { id: 'aminos',      name: 'Amino Acids',       icon: Atom,         img: '/images/fn/categories/31.webp', blurb: 'BCAA, EAA & glutamine' },
+  { id: 'weight',      name: 'Weight Management', icon: Flame,        img: '/images/fn/categories/37.webp', blurb: 'Burners, carnitine & CLA' },
+  { id: 'wellness',    name: 'Health & Wellness', icon: HeartPulse,   img: '/images/fn/categories/43.webp', blurb: 'Omega-3, collagen & joints' },
+  { id: 'snacks',      name: 'Snacks',            icon: Cookie,       img: '/images/fn/categories/38.webp', blurb: 'High-protein bars' },
+  { id: 'accessories', name: 'Accessories',       icon: Package,      img: '/images/fn/categories/39.webp', blurb: 'Shakers, belts & wraps' },
+  { id: 'bundles',     name: 'Offers & Bundles',  icon: BadgePercent, img: '/images/fn/categories/46.webp', blurb: 'Stacks at a better price' },
 ]
 
-export const BRANDS = [
-  'Optimum Nutrition', 'BSN', 'MuscleTech', 'Universal Nutrition',
-  'MusclePharm', 'Cellucor', 'BPI Sports', 'Scivation',
-  'Quest Nutrition', 'Gaspari', 'ABB', 'Oh Yeah!',
+export const GOALS = [
+  { id: 'muscle', name: 'Build Muscle', cats: ['protein', 'creatine', 'aminos'], img: '/images/gym.jpg',
+    blurb: 'Protein, creatine and aminos to grow and repair.' },
+  { id: 'gain', name: 'Gain Weight', cats: ['gainers'], img: '/images/hero.jpg',
+    blurb: 'High-calorie gainers and carbs for hard gainers.' },
+  { id: 'lose', name: 'Lose Weight', cats: ['weight'], img: '/images/athlete.jpg',
+    blurb: 'Burners, carnitine and CLA to support your cut.' },
+  { id: 'performance', name: 'Performance', cats: ['preworkout', 'aminos', 'creatine'], img: '/images/training.jpg',
+    blurb: 'Pre-workouts and aminos for harder sessions.' },
 ]
 
-// Official brand logo files. Drop a file into public/images/brands/ and map the
-// brand name to it here — the brand marquee shows the image instead of the
-// built-in wordmark. White/monochrome SVG or transparent PNG works best.
-//   e.g. 'Optimum Nutrition': '/images/brands/optimum-nutrition.svg',
-export const BRAND_LOGOS = {}
+export const PRODUCTS = productsData
+export const REELS = reelsData
 
-export const BRANCHES = [
-  { city: 'Hamra, Beirut',   address: 'Sidani St., facing Socrat Restaurant',                 phone: '+961 1 745 136' },
-  { city: 'Achrafieh, Beirut', address: 'Adeeb Ishac St., next to Byblos Bank',               phone: '+961 1 334 224' },
-  { city: 'Saida',           address: 'Eastern Road Highway Main St., facing Saida Mall',      phone: '+961 7 733 888' },
-  { city: 'Tripoli',         address: 'Next to Al Nini Hospital, facing Audi Company',         phone: '+961 6 447 575' },
-]
+const byId = new Map(PRODUCTS.map(p => [p.id, p]))
+export const productById = (id) => byId.get(Number(id))
 
-// helper to build product ids
-let _id = 0
-const p = (o) => ({ id: ++_id, rating: 5, ...o })
+// All partner brands (logo wall), and the ones that currently have products
+// (filters), plus "First Nutrition" for house bundles and merch.
+export const ALL_BRANDS = brandsData
+export const BRANDS = brandsData.filter(b => PRODUCTS.some(p => p.brand === b.name))
+export const BRAND_NAMES = [...BRANDS.map(b => b.name), 'First Nutrition']
+export const brandByName = (name) => brandsData.find(b => b.name === name)
 
-export const PRODUCTS = [
-  p({ name: 'Gold Standard 100% Whey', brand: 'Optimum Nutrition', category: 'protein',
-      price: 62, oldPrice: 72, tag: 'Best Seller', mark: 'GS',
-      flavors: ['Double Rich Chocolate', 'Vanilla Ice Cream', 'Cookies & Cream', 'Strawberry'],
-      desc: '24g of premium whey protein per serving to support muscle recovery and growth. The world\'s best-selling whey, trusted by athletes for over 30 years.',
-      size: '2.27 kg (5 lb)', servings: 74 }),
-  p({ name: 'Nitro-Tech Whey Gold', brand: 'MuscleTech', category: 'protein',
-      price: 58, oldPrice: null, tag: 'New', mark: 'NT',
-      flavors: ['Double Chocolate', 'French Vanilla', 'Cookies & Cream'],
-      desc: 'Ultra-clean whey protein peptides & isolate delivering 24g protein and 5.5g BCAAs per scoop for lean muscle and strength.',
-      size: '2.2 kg (5 lb)', servings: 70 }),
-  p({ name: 'Syntha-6 Protein Matrix', brand: 'BSN', category: 'protein',
-      price: 49, oldPrice: 55, tag: null, mark: 'S6',
-      flavors: ['Chocolate Milkshake', 'Vanilla Ice Cream', 'Strawberry Milkshake'],
-      desc: 'Sustained-release protein blend with 22g protein and a legendary taste. Perfect as a between-meal shake or dessert replacement.',
-      size: '2.27 kg (5 lb)', servings: 48 }),
-  p({ name: 'Serious Mass Gainer', brand: 'Optimum Nutrition', category: 'protein',
-      price: 54, oldPrice: null, tag: null, mark: 'SM',
-      flavors: ['Chocolate', 'Vanilla', 'Banana'],
-      desc: 'High-calorie weight gainer with 1,250 calories and 50g protein per serving. Ideal for hardgainers looking to add size.',
-      size: '5.44 kg (12 lb)', servings: 16 }),
-  p({ name: 'C4 Original Pre-Workout', brand: 'Cellucor', category: 'preworkout',
-      price: 34, oldPrice: 39, tag: 'Best Seller', mark: 'C4',
-      flavors: ['Fruit Punch', 'Icy Blue Razz', 'Watermelon', 'Cherry Limeade'],
-      desc: 'Explosive energy, heightened focus and skin-tearing pumps. America\'s #1 selling pre-workout with CarnoSyn beta-alanine.',
-      size: '390 g', servings: 60 }),
-  p({ name: 'N.O.-XPLODE Pre-Workout', brand: 'BSN', category: 'preworkout',
-      price: 38, oldPrice: null, tag: null, mark: 'NO',
-      flavors: ['Grape', 'Fruit Punch', 'Green Apple'],
-      desc: 'Legendary pre-workout igniter formulated to deliver more energy, endurance, strength and performance.',
-      size: '555 g', servings: 30 }),
-  p({ name: 'Pre JYM Pre-Workout', brand: 'BPI Sports', category: 'preworkout',
-      price: 42, oldPrice: 48, tag: null, mark: 'PJ',
-      flavors: ['Rainbow Sherbet', 'Black Cherry', 'Pineapple Strawberry'],
-      desc: 'Fully-dosed, transparent pre-workout with 13 active ingredients including citrulline malate and beta-alanine.',
-      size: '500 g', servings: 20 }),
-  p({ name: 'Xtend BCAA', brand: 'Scivation', category: 'aminos',
-      price: 32, oldPrice: 37, tag: 'Best Seller', mark: 'XT',
-      flavors: ['Blue Raspberry', 'Mango Madness', 'Watermelon Explosion', 'Lemon Lime'],
-      desc: '7g of BCAAs in the clinically studied 2:1:1 ratio plus electrolytes for intra-workout hydration and recovery.',
-      size: '420 g', servings: 30 }),
-  p({ name: 'Micronized Creatine Powder', brand: 'Optimum Nutrition', category: 'aminos',
-      price: 26, oldPrice: null, tag: null, mark: 'CR',
-      flavors: ['Unflavored'],
-      desc: '5g of pure micronized Creatine Monohydrate per serving to support strength, power and lean muscle mass.',
-      size: '634 g', servings: 120 }),
-  p({ name: 'Glutamine Powder', brand: 'MusclePharm', category: 'aminos',
-      price: 24, oldPrice: 28, tag: null, mark: 'GL',
-      flavors: ['Unflavored'],
-      desc: '5g of L-Glutamine to support muscle recovery, reduce soreness and promote a healthy immune system.',
-      size: '300 g', servings: 60 }),
-  p({ name: 'Hydroxycut Hardcore Elite', brand: 'MuscleTech', category: 'burners',
-      price: 36, oldPrice: 42, tag: 'Best Seller', mark: 'HX',
-      flavors: ['Capsules'],
-      desc: 'Advanced thermogenic with C. canephora robusta for weight loss, plus caffeine for energy and enhanced focus.',
-      size: '100 capsules', servings: 50 }),
-  p({ name: 'Animal Cuts Fat Burner', brand: 'Universal Nutrition', category: 'burners',
-      price: 39, oldPrice: null, tag: null, mark: 'AC',
-      flavors: ['Packs'],
-      desc: 'The complete cutting stack — thermogenic, metabolic, diuretic and nootropic complexes in one comprehensive pack.',
-      size: '42 packs', servings: 42 }),
-  p({ name: 'CLA Core Series', brand: 'MusclePharm', category: 'burners',
-      price: 22, oldPrice: 26, tag: null, mark: 'CL',
-      flavors: ['Softgels'],
-      desc: 'Conjugated Linoleic Acid from safflower oil to support a lean physique when combined with diet and exercise.',
-      size: '90 softgels', servings: 45 }),
-  p({ name: 'Opti-Men Multivitamin', brand: 'Optimum Nutrition', category: 'vitamins',
-      price: 29, oldPrice: null, tag: null, mark: 'OM',
-      flavors: ['Tablets'],
-      desc: 'Complete daily multivitamin for active men with 75+ active ingredients including amino acids and phytonutrients.',
-      size: '150 tablets', servings: 50 }),
-  p({ name: 'Fish Oil Omega-3', brand: 'Optimum Nutrition', category: 'vitamins',
-      price: 19, oldPrice: 24, tag: null, mark: 'FO',
-      flavors: ['Softgels'],
-      desc: 'Enteric-coated omega-3 fish oil providing EPA and DHA to support heart, joint and brain health.',
-      size: '200 softgels', servings: 100 }),
-  p({ name: 'ZMA Recovery Support', brand: 'Universal Nutrition', category: 'vitamins',
-      price: 21, oldPrice: null, tag: null, mark: 'ZM',
-      flavors: ['Capsules'],
-      desc: 'Zinc, Magnesium & Vitamin B6 to support recovery, sleep quality and healthy testosterone levels.',
-      size: '90 capsules', servings: 30 }),
-  p({ name: 'Quest Protein Bar (Box of 12)', brand: 'Quest Nutrition', category: 'bars',
-      price: 28, oldPrice: 32, tag: 'Best Seller', mark: 'QB',
-      flavors: ['Chocolate Chip Cookie Dough', 'Cookies & Cream', 'Birthday Cake'],
-      desc: '21g protein, 1g sugar and high fibre in a deliciously chewy bar. The clean snack that fits any macro plan.',
-      size: '12 × 60 g', servings: 12 }),
-  p({ name: 'Oh Yeah! ONE Bar (Box of 12)', brand: 'Oh Yeah!', category: 'bars',
-      price: 27, oldPrice: null, tag: null, mark: 'OY',
-      flavors: ['Chocolate Chip Cookie Dough', 'Salted Caramel', 'Brownie'],
-      desc: '20g protein and just 1g sugar with an indulgent, bakery-style taste. Guilt-free snacking done right.',
-      size: '12 × 60 g', servings: 12 }),
-  p({ name: 'ABB Pure Pro 50 RTD (Case of 12)', brand: 'ABB', category: 'bars',
-      price: 44, oldPrice: 49, tag: null, mark: 'PP',
-      flavors: ['Chocolate', 'Vanilla'],
-      desc: 'Ready-to-drink shake with 50g of protein per bottle. Grab-and-go nutrition for busy training days.',
-      size: '12 × 500 ml', servings: 12 }),
-  p({ name: 'SuperPump Aggression', brand: 'Gaspari', category: 'preworkout',
-      price: 40, oldPrice: null, tag: 'New', mark: 'SP',
-      flavors: ['Refreshing Orange', 'Fruit Punch', 'Blueberry Lemonade'],
-      desc: 'Next-generation pre-workout engineered for relentless energy, laser focus and sustained performance.',
-      size: '450 g', servings: 25 }),
-]
+export const categoryById = (id) => CATEGORIES.find(c => c.id === id)
 
-// Assign a real product photo to each item, round-robin within its category
-// so visually-similar products don't repeat side by side. Swap these files in
-// public/images/products/ (same names) to change the pictures.
-const CAT_IMG = {
-  protein:    ['tub1', 'jar1', 'tubshaker', 'jar2'],
-  preworkout: ['preworkout', 'powder', 'jar1'],
-  aminos:     ['jar2', 'powder', 'tub1'],
-  burners:    ['capsules', 'jar2', 'powder'],
-  vitamins:   ['capsules', 'powder'],
-  bars:       ['bar2', 'tubshaker'],
+// ---- prices ----
+// Convert a JOD catalog price into the selected country's currency.
+export function convert(jod, country) {
+  const c = COUNTRIES[country] || COUNTRIES.jo
+  return c.rate === 1 ? jod : Math.round(jod * c.rate)
 }
-const _catSeen = {}
-PRODUCTS.forEach(pr => {
-  const pool = CAT_IMG[pr.category] || ['tub1']
-  const i = (_catSeen[pr.category] = (_catSeen[pr.category] ?? -1) + 1)
-  pr.img = `/images/products/${pool[i % pool.length]}.jpg`
-})
 
-export const money = (n) => `$${n.toFixed(2)}`
+export function formatPrice(amount, country, lang = 'en') {
+  const c = COUNTRIES[country] || COUNTRIES.jo
+  const n = Number.isInteger(amount) ? String(amount) : amount.toFixed(2)
+  if (c.currency === 'USD') return `$${n}`
+  return lang === 'ar' ? `${n} د.أ` : `${n} JOD`
+}
+
+// Variant helpers: options are e.g. { size: [...], flavor: [...] }.
+export function findVariant(product, selection) {
+  return product.variants.find(v =>
+    Object.keys(product.options).every(k => !selection[k] || v[k] === selection[k]))
+}
+
+export function defaultSelection(product) {
+  const first = product.variants[0]
+  if (!first) return {}
+  return Object.fromEntries(Object.keys(product.options).map(k => [k, first[k]]))
+}

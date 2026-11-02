@@ -1,16 +1,9 @@
-import ProteinTub from './ProteinTub.jsx'
-
+// First-load splash: the official logo with a progress line.
 export default function Loader({ hiding }) {
   return (
     <div className={`loader${hiding ? ' hiding' : ''}`} aria-hidden="true">
       <div className="loader-inner">
-        <div className="loader-glow" />
-        <div className="loader-tub">
-          <ProteinTub mark="FN" label="WHEY GOLD" uid="loader" />
-        </div>
-        <div className="loader-brand">
-          <span className="logo-mark">FN</span> FIRST NUTRITION
-        </div>
+        <img src="/images/fn/site/logo.svg" alt="" className="loader-logo" />
         <div className="loader-bar"><span /></div>
       </div>
     </div>

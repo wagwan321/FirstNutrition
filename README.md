@@ -1,20 +1,22 @@
-# First Nutrition Lebanon — E-Commerce Site
+# First Nutrition — E-Commerce Site
 
-A custom storefront for **First Nutrition**, Lebanon's leading sports-nutrition retailer.
-Built with **React + Vite**. Dark black/red athletic theme, full product catalog,
-cart, and cash/card-on-delivery checkout flow.
+A custom storefront for **First Nutrition**, official distributor of the world's leading
+sports-nutrition brands. Built with **React + Vite**. Clean red & white retail design,
+the store's real catalog (69 products with variants), Jordan / Lebanon country switch,
+English / Arabic (right-to-left), and WhatsApp cash-on-delivery ordering.
 
-> ⚠️ Demo notes: product **prices are placeholders (USD)** and the product **photos are
-> generic free-to-use stock images**, not the exact branded products. Delivery fees and
-> the checkout flow are sensible defaults and should be confirmed with the store. See
-> `AI-IMAGE-PROMPTS.md` for how to swap in custom images.
+> ⚠️ Before launch, the owners need to confirm (all marked `TODO(owner)` in `src/config.js`):
+> - the **WhatsApp business numbers** for Jordan and Lebanon (currently a test number);
+> - **Lebanon prices** — estimated from Jordan JOD prices × `rate` (1.41);
+> - the exact addresses / hours of the Sweifieh and Rabieh branches, and the Lebanon branches.
 
 ## Tech
-- React 18 + React Router
-- Vite
-- Cart state via Context + localStorage (no backend yet)
+- React 18 + React Router · Vite
+- Cart via Context + localStorage (stores product + variant ids; prices always come from the catalog)
+- `src/i18n.jsx` — country (currency, branches, WhatsApp) + language; `t('English text')`
+  returns the Arabic from `src/i18n-ar.js` when Arabic is on
 - Icons: `lucide-react` (+ WhatsApp/Instagram/Facebook glyphs in `BrandIcons.jsx`)
-- Fonts: Archivo (condensed display) + Manrope (body), from Google Fonts
+- Fonts: Plus Jakarta Sans + IBM Plex Sans Arabic (Google Fonts)
 
 ## Run locally
 ```bash
@@ -24,19 +26,30 @@ npm run build    # production build to /dist
 ```
 
 ## Structure
-- `src/pages/` — Home, Shop, ProductDetail, Checkout, Branches, About
-- `src/components/` — Navbar (+ SearchOverlay), Footer, CartDrawer, ProductCard, Loader
-  - `ProteinTub.jsx` — the realistic SVG tub; `HeroTub.jsx` — the hero display stage around it
-  - `Reveal.jsx` / `CountUp.jsx` — scroll-reveal animations and animated counters
-  - `BrandMarquee.jsx` / `BrandLogo.jsx` — scrolling brand logo strip
-  - `GoalFinder.jsx`, `FloatingWidgets.jsx` — home goal finder, WhatsApp / back-to-top buttons
-- `src/data/catalog.js` — products, brands, branches, product-image mapping, and
-  `BRAND_LOGOS` (map a brand to a logo file in `public/images/brands/` to replace its wordmark)
-- `public/images/` — site & product photography
+- `src/pages/` — Home, Shop, ProductDetail, Checkout, Brands, Branches, About
+- `src/components/`
+  - `Navbar.jsx` (+ `HeaderSearch.jsx`), `Footer.jsx`, `CartDrawer.jsx`, `ProductCard.jsx`
+  - `HeroStage.jsx` — hero product photos; `Teardown.jsx` + `ProteinTub.jsx` — the pinned,
+    scroll-driven exploded view of a tub (lid, scoop, powder, nutrition callouts)
+  - `Reveal.jsx`, `ScrollScene.jsx`, `SectionHead.jsx`, `KineticBand.jsx` — scroll animations
+  - `GoalFinder.jsx`, `BrandMarquee.jsx`, `FloatingWidgets.jsx`
+- `src/config.js` — per-country WhatsApp numbers, delivery areas, branches, price rate
+- `src/data/products.json`, `brands.json`, `reels.json` — generated catalog (see below)
+- `public/images/fn/` — the store's product photos, brand logos, category icons, logo and TÜV badges
 
-Shop filters live in the URL (`/shop/protein?brand=BSN&sale=1&q=whey&sort=price-low`),
+Shop filters live in the URL (`/shop/protein?brand=Rule1&goal=muscle&q=whey&sort=price-low`),
 so any filtered view can be shared or linked to.
 
+## Refreshing the catalog
+The catalog was pulled (with the owners' approval) from the store's current site.
+To refresh names, prices, variants, descriptions and images:
+```bash
+node scripts/catalog/scrape.mjs . scripts/catalog/.data
+node scripts/catalog/bundle-prices.mjs scripts/catalog/.data
+node scripts/catalog/build-catalog.mjs scripts/catalog/.data .
+```
+Add or remove products in `scripts/catalog/index.json` (`[id, name, label]`).
+
 ## Roadmap
-- Backend (Node + SQLite) for real order capture + an admin dashboard to manage
-  products/prices/stock and view orders.
+- Connect directly to the store's Odoo ERP for live stock and prices.
+- Online card payment + customer accounts.
