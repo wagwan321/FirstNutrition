@@ -3,5 +3,8 @@
   "model": "gpt_image_2_5 (Higgsfield, quality high, 2k, 16:9)",
   "job": "404c0bfa-cb96-4c47-90f8-9644ebf3f728",
   "references": [],
-  "round": "comp round"
+  "round": "comp round",
+  "approved": true,
+  "approvedAt": "2026-11-02T19:17:42.881Z",
+  "approvedVia": "AskUserQuestion (decision page closed unanswered)"
 }

@@ -1,0 +1,2021 @@
+{
+  "tool": "comp-spec inspect-map",
+  "version": 1,
+  "referenceOnly": true,
+  "stateChanged": false,
+  "comp": ".impeccable/mocks/comp-2-giant-plate.png",
+  "compSize": {
+    "width": 2688,
+    "height": 1520
+  },
+  "inputRegionCount": 28,
+  "regions": [
+    {
+      "id": "logo",
+      "kind": "image",
+      "note": "official First Nutrition red wordmark logo (brand SVG asset)",
+      "grid": null,
+      "box": {
+        "x": 0.0208,
+        "y": 0.0053,
+        "w": 0.1324,
+        "h": 0.0842
+      },
+      "px": {
+        "x": 56,
+        "y": 8,
+        "w": 356,
+        "h": 128
+      },
+      "aspect": 2.7813,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.6668
+        },
+        {
+          "hex": "#dd2529",
+          "coverage": 0.2842
+        },
+        {
+          "hex": "#e66466",
+          "coverage": 0.0216
+        },
+        {
+          "hex": "#f8cfce",
+          "coverage": 0.0169
+        },
+        {
+          "hex": "#ed9898",
+          "coverage": 0.0104
+        }
+      ],
+      "detail": {
+        "energy": 34.5283
+      },
+      "medium": "raster",
+      "clipped": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "plate": "assets/plates/logo.png",
+      "text": null,
+      "number": 1,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 0,
+        "totalPixels": 45568,
+        "remainingPixels": 45568,
+        "excludedFraction": 0.0,
+        "fullyExcluded": false,
+        "regions": [],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-1.png",
+      "referencePath": "reference-1.png"
+    },
+    {
+      "id": "nav-links",
+      "kind": "text",
+      "note": "navigation links Shop, Brands, Offers, Branches, About in dark grotesk",
+      "grid": null,
+      "box": {
+        "x": 0.2009,
+        "y": 0.0289,
+        "w": 0.2679,
+        "h": 0.0382
+      },
+      "px": {
+        "x": 540,
+        "y": 44,
+        "w": 720,
+        "h": 58
+      },
+      "aspect": 12.4138,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.9005
+        },
+        {
+          "hex": "#24303f",
+          "coverage": 0.0621
+        },
+        {
+          "hex": "#5c6671",
+          "coverage": 0.018
+        },
+        {
+          "hex": "#b7bdc0",
+          "coverage": 0.013
+        },
+        {
+          "hex": "#8d929c",
+          "coverage": 0.0065
+        }
+      ],
+      "detail": {
+        "energy": 41.5363
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 2,
+      "cropPath": "region-2.png"
+    },
+    {
+      "id": "search",
+      "kind": "control",
+      "note": "rounded search field with magnifier icon and placeholder 'Search for products, brands...'",
+      "grid": null,
+      "box": {
+        "x": 0.5134,
+        "y": 0.0197,
+        "w": 0.2381,
+        "h": 0.0553
+      },
+      "px": {
+        "x": 1380,
+        "y": 30,
+        "w": 640,
+        "h": 84
+      },
+      "aspect": 7.619,
+      "palette": [
+        {
+          "hex": "#f7f7f7",
+          "coverage": 0.9601
+        },
+        {
+          "hex": "#9497a4",
+          "coverage": 0.0245
+        },
+        {
+          "hex": "#b5bcbf",
+          "coverage": 0.0154
+        }
+      ],
+      "detail": {
+        "energy": 12.3177
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 3,
+      "cropPath": "region-3.png"
+    },
+    {
+      "id": "country",
+      "kind": "control",
+      "note": "Jordan flag with 'Jordan · JOD' and chevron, country switch",
+      "grid": null,
+      "box": {
+        "x": 0.7693,
+        "y": 0.0263,
+        "w": 0.1071,
+        "h": 0.0434
+      },
+      "px": {
+        "x": 2068,
+        "y": 40,
+        "w": 288,
+        "h": 66
+      },
+      "aspect": 4.3636,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.8617
+        },
+        {
+          "hex": "#1f2d3d",
+          "coverage": 0.0402
+        },
+        {
+          "hex": "#257444",
+          "coverage": 0.0332
+        },
+        {
+          "hex": "#080808",
+          "coverage": 0.0327
+        },
+        {
+          "hex": "#cb1429",
+          "coverage": 0.0322
+        }
+      ],
+      "detail": {
+        "energy": 28.7259
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 4,
+      "cropPath": "region-4.png"
+    },
+    {
+      "id": "lang",
+      "kind": "control",
+      "note": "Arabic language switch 'العربية'",
+      "grid": null,
+      "box": {
+        "x": 0.8869,
+        "y": 0.0289,
+        "w": 0.0372,
+        "h": 0.0382
+      },
+      "px": {
+        "x": 2384,
+        "y": 44,
+        "w": 100,
+        "h": 58
+      },
+      "aspect": 1.7241,
+      "palette": [
+        {
+          "hex": "#f7f7f7",
+          "coverage": 0.8658
+        },
+        {
+          "hex": "#21303f",
+          "coverage": 0.0737
+        },
+        {
+          "hex": "#5a6673",
+          "coverage": 0.0295
+        },
+        {
+          "hex": "#8e989f",
+          "coverage": 0.0162
+        },
+        {
+          "hex": "#c5c6d0",
+          "coverage": 0.0147
+        }
+      ],
+      "detail": {
+        "energy": 12.7918
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 5,
+      "cropPath": "region-5.png"
+    },
+    {
+      "id": "cart",
+      "kind": "control",
+      "note": "cart icon with red count badge 0",
+      "grid": null,
+      "box": {
+        "x": 0.942,
+        "y": 0.0145,
+        "w": 0.0372,
+        "h": 0.0605
+      },
+      "px": {
+        "x": 2532,
+        "y": 22,
+        "w": 100,
+        "h": 92
+      },
+      "aspect": 1.087,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.8271
+        },
+        {
+          "hex": "#e52728",
+          "coverage": 0.0859
+        },
+        {
+          "hex": "#1e2b3a",
+          "coverage": 0.0566
+        },
+        {
+          "hex": "#b1b5bf",
+          "coverage": 0.0156
+        },
+        {
+          "hex": "#43515b",
+          "coverage": 0.0146
+        }
+      ],
+      "detail": {
+        "energy": 11.0281
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 6,
+      "cropPath": "region-6.png"
+    },
+    {
+      "id": "wall",
+      "kind": "texture",
+      "note": "clean patch of chalk-white concrete wall, soft daylight, no ink",
+      "grid": null,
+      "box": {
+        "x": 0.4018,
+        "y": 0.1053,
+        "w": 0.0893,
+        "h": 0.0855
+      },
+      "px": {
+        "x": 1080,
+        "y": 160,
+        "w": 240,
+        "h": 130
+      },
+      "aspect": 1.8462,
+      "palette": [
+        {
+          "hex": "#e8e8e8",
+          "coverage": 1
+        }
+      ],
+      "detail": {
+        "energy": 1.3837
+      },
+      "medium": "raster",
+      "plate": "assets/plates/wall.png",
+      "text": null,
+      "number": 7,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 0,
+        "totalPixels": 31200,
+        "remainingPixels": 31200,
+        "excludedFraction": 0.0,
+        "fullyExcluded": false,
+        "regions": [],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-7.png",
+      "referencePath": "reference-7.png"
+    },
+    {
+      "id": "floor",
+      "kind": "texture",
+      "note": "clean patch of dark grey rubber lifting-platform floor dusted with chalk",
+      "grid": null,
+      "box": {
+        "x": 0.5208,
+        "y": 0.9099,
+        "w": 0.1042,
+        "h": 0.0789
+      },
+      "px": {
+        "x": 1400,
+        "y": 1383,
+        "w": 280,
+        "h": 120
+      },
+      "aspect": 2.3333,
+      "palette": [
+        {
+          "hex": "#6f7279",
+          "coverage": 0.7929
+        },
+        {
+          "hex": "#a3a6ae",
+          "coverage": 0.127
+        },
+        {
+          "hex": "#d3d7dc",
+          "coverage": 0.0788
+        },
+        {
+          "hex": "#484e58",
+          "coverage": 0.0013
+        }
+      ],
+      "detail": {
+        "energy": 19.45
+      },
+      "medium": "raster",
+      "plate": "assets/plates/floor.png",
+      "text": null,
+      "number": 8,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 0,
+        "totalPixels": 33600,
+        "remainingPixels": 33600,
+        "excludedFraction": 0.0,
+        "fullyExcluded": false,
+        "regions": [],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-8.png",
+      "referencePath": "reference-8.png"
+    },
+    {
+      "id": "headline",
+      "kind": "text",
+      "note": "headline 'LOAD YOUR GOAL.' in two lines of heavy distressed stencil caps, near-black",
+      "grid": null,
+      "box": {
+        "x": 0.0268,
+        "y": 0.1434,
+        "w": 0.369,
+        "h": 0.2382
+      },
+      "px": {
+        "x": 72,
+        "y": 218,
+        "w": 992,
+        "h": 362
+      },
+      "aspect": 2.7403,
+      "palette": [
+        {
+          "hex": "#ececec",
+          "coverage": 0.5807
+        },
+        {
+          "hex": "#292b2e",
+          "coverage": 0.3933
+        },
+        {
+          "hex": "#b8b9bc",
+          "coverage": 0.0117
+        },
+        {
+          "hex": "#87898c",
+          "coverage": 0.0074
+        },
+        {
+          "hex": "#585c5e",
+          "coverage": 0.007
+        }
+      ],
+      "detail": {
+        "energy": 44.917
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 9,
+      "cropPath": "region-9.png"
+    },
+    {
+      "id": "trust",
+      "kind": "text",
+      "note": "two-line trust line 'Official distributor · 21 brands · ISO 9001 / 22000 / 45001 · Cash on delivery across Jordan' in dark grotesk",
+      "grid": null,
+      "box": {
+        "x": 0.0283,
+        "y": 0.3947,
+        "w": 0.244,
+        "h": 0.0579
+      },
+      "px": {
+        "x": 76,
+        "y": 600,
+        "w": 656,
+        "h": 88
+      },
+      "aspect": 7.4545,
+      "palette": [
+        {
+          "hex": "#e9e9e9",
+          "coverage": 0.8523
+        },
+        {
+          "hex": "#202831",
+          "coverage": 0.0856
+        },
+        {
+          "hex": "#9b9ea1",
+          "coverage": 0.0328
+        },
+        {
+          "hex": "#575f5f",
+          "coverage": 0.0176
+        },
+        {
+          "hex": "#5c5c6c",
+          "coverage": 0.0117
+        }
+      ],
+      "detail": {
+        "energy": 57.3309
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 10,
+      "cropPath": "region-10.png"
+    },
+    {
+      "id": "giant-plate",
+      "kind": "plate",
+      "note": "photographic red rubber 25 kg competition bumper plate seen straight on with a brushed steel hub and moulded 25 KG markings, cropped by the right edge",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.5863,
+        "y": 0.0921,
+        "w": 0.4137,
+        "h": 0.6513
+      },
+      "px": {
+        "x": 1576,
+        "y": 140,
+        "w": 1112,
+        "h": 990
+      },
+      "aspect": 1.1232,
+      "palette": [
+        {
+          "hex": "#bf241f",
+          "coverage": 0.6611
+        },
+        {
+          "hex": "#e6e3e4",
+          "coverage": 0.1702
+        },
+        {
+          "hex": "#7c7d81",
+          "coverage": 0.0841
+        },
+        {
+          "hex": "#931916",
+          "coverage": 0.0433
+        },
+        {
+          "hex": "#a6a9b0",
+          "coverage": 0.0412
+        }
+      ],
+      "detail": {
+        "energy": 28.1703
+      },
+      "medium": "raster",
+      "plate": "assets/plates/giant-plate.png",
+      "text": null,
+      "number": 11,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 323160,
+        "totalPixels": 1100880,
+        "remainingPixels": 777720,
+        "excludedFraction": 0.2935469805973403,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "goal-rim",
+            "kind": "text",
+            "cropPx": {
+              "x": 164,
+              "y": 28,
+              "w": 850,
+              "h": 360
+            },
+            "pixels": 306000
+          },
+          {
+            "id": "hub-total",
+            "kind": "text",
+            "cropPx": {
+              "x": 508,
+              "y": 416,
+              "w": 132,
+              "h": 130
+            },
+            "pixels": 17160
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-11.png",
+      "referencePath": "reference-11.png"
+    },
+    {
+      "id": "goal-rim",
+      "kind": "text",
+      "note": "selected goal name 'BUILD MUSCLE' in white stencil caps curved along the plate rim",
+      "grid": null,
+      "box": {
+        "x": 0.6473,
+        "y": 0.1105,
+        "w": 0.3162,
+        "h": 0.2368
+      },
+      "px": {
+        "x": 1740,
+        "y": 168,
+        "w": 850,
+        "h": 360
+      },
+      "aspect": 2.3611,
+      "palette": [
+        {
+          "hex": "#cf2924",
+          "coverage": 0.685
+        },
+        {
+          "hex": "#ece6e8",
+          "coverage": 0.2127
+        },
+        {
+          "hex": "#9f211e",
+          "coverage": 0.045
+        },
+        {
+          "hex": "#8b8e96",
+          "coverage": 0.0365
+        },
+        {
+          "hex": "#7b1d17",
+          "coverage": 0.0208
+        }
+      ],
+      "detail": {
+        "energy": 35.7209
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "flags": [
+        {
+          "id": "painted-pixels",
+          "message": "Looks painted: 32 colours beyond its two main tones and soft shading across 59% of it. Drawn in code, this becomes a flat copy."
+        }
+      ],
+      "number": 12,
+      "cropPath": "region-12.png"
+    },
+    {
+      "id": "hub-total",
+      "kind": "text",
+      "note": "stack total '108 JOD' in dark stencil numerals on the steel hub",
+      "grid": null,
+      "box": {
+        "x": 0.7753,
+        "y": 0.3658,
+        "w": 0.0491,
+        "h": 0.0855
+      },
+      "px": {
+        "x": 2084,
+        "y": 556,
+        "w": 132,
+        "h": 130
+      },
+      "aspect": 1.0154,
+      "palette": [
+        {
+          "hex": "#adafb5",
+          "coverage": 0.6674
+        },
+        {
+          "hex": "#151f1f",
+          "coverage": 0.1768
+        },
+        {
+          "hex": "#171727",
+          "coverage": 0.0857
+        },
+        {
+          "hex": "#d8dadf",
+          "coverage": 0.0391
+        },
+        {
+          "hex": "#434a4a",
+          "coverage": 0.0311
+        }
+      ],
+      "detail": {
+        "energy": 17.593
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 13,
+      "cropPath": "region-13.png"
+    },
+    {
+      "id": "bar-sleeve",
+      "kind": "plate",
+      "note": "photographic knurled steel barbell sleeve entering from the left toward the plates",
+      "grid": null,
+      "box": {
+        "x": 0.2738,
+        "y": 0.3461,
+        "w": 0.1897,
+        "h": 0.0961
+      },
+      "px": {
+        "x": 736,
+        "y": 526,
+        "w": 510,
+        "h": 146
+      },
+      "aspect": 3.4932,
+      "palette": [
+        {
+          "hex": "#e6e6e8",
+          "coverage": 0.5053
+        },
+        {
+          "hex": "#3d3e41",
+          "coverage": 0.249
+        },
+        {
+          "hex": "#76787b",
+          "coverage": 0.1073
+        },
+        {
+          "hex": "#a6aab0",
+          "coverage": 0.1042
+        },
+        {
+          "hex": "#17191d",
+          "coverage": 0.0343
+        }
+      ],
+      "detail": {
+        "energy": 45.4588
+      },
+      "medium": "raster",
+      "clipped": [
+        "left",
+        "right",
+        "top"
+      ],
+      "plate": "assets/plates/bar-sleeve.png",
+      "text": null,
+      "number": 14,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 21960,
+        "totalPixels": 74460,
+        "remainingPixels": 52500,
+        "excludedFraction": 0.29492344883158744,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "headline",
+            "kind": "text",
+            "cropPx": {
+              "x": 0,
+              "y": 0,
+              "w": 328,
+              "h": 54
+            },
+            "pixels": 17712
+          },
+          {
+            "id": "goal-perform",
+            "kind": "text",
+            "cropPx": {
+              "x": 474,
+              "y": 0,
+              "w": 36,
+              "h": 118
+            },
+            "pixels": 4248
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-14.png",
+      "referencePath": "reference-14.png"
+    },
+    {
+      "id": "change-plates",
+      "kind": "plate",
+      "note": "three photographic change plates on the sleeve seen at an angle, black, red, black rubber, with moulded 25 numerals",
+      "grid": null,
+      "box": {
+        "x": 0.4301,
+        "y": 0.1882,
+        "w": 0.1771,
+        "h": 0.4342
+      },
+      "px": {
+        "x": 1156,
+        "y": 286,
+        "w": 476,
+        "h": 660
+      },
+      "aspect": 0.7212,
+      "palette": [
+        {
+          "hex": "#141315",
+          "coverage": 0.3164
+        },
+        {
+          "hex": "#e6e6e8",
+          "coverage": 0.3083
+        },
+        {
+          "hex": "#414349",
+          "coverage": 0.1919
+        },
+        {
+          "hex": "#d22e2a",
+          "coverage": 0.1414
+        },
+        {
+          "hex": "#e15351",
+          "coverage": 0.0421
+        }
+      ],
+      "detail": {
+        "energy": 26.6533
+      },
+      "medium": "raster",
+      "clipped": [
+        "left",
+        "top",
+        "bottom"
+      ],
+      "plate": "assets/plates/change-plates.png",
+      "text": null,
+      "number": 15,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 43892,
+        "totalPixels": 314160,
+        "remainingPixels": 270268,
+        "excludedFraction": 0.13971224853577796,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "goal-perform",
+            "kind": "text",
+            "cropPx": {
+              "x": 54,
+              "y": 102,
+              "w": 86,
+              "h": 256
+            },
+            "pixels": 22016
+          },
+          {
+            "id": "goal-cut",
+            "kind": "text",
+            "cropPx": {
+              "x": 194,
+              "y": 166,
+              "w": 70,
+              "h": 132
+            },
+            "pixels": 9240
+          },
+          {
+            "id": "goal-bulk",
+            "kind": "text",
+            "cropPx": {
+              "x": 316,
+              "y": 166,
+              "w": 78,
+              "h": 162
+            },
+            "pixels": 12636
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-15.png",
+      "referencePath": "reference-15.png"
+    },
+    {
+      "id": "goal-perform",
+      "kind": "text",
+      "note": "goal label 'PERFORM' in white stencil caps rotated vertical on the first change plate",
+      "grid": null,
+      "box": {
+        "x": 0.4501,
+        "y": 0.2553,
+        "w": 0.032,
+        "h": 0.1684
+      },
+      "px": {
+        "x": 1210,
+        "y": 388,
+        "w": 86,
+        "h": 256
+      },
+      "aspect": 0.3359,
+      "palette": [
+        {
+          "hex": "#45484f",
+          "coverage": 0.4356
+        },
+        {
+          "hex": "#edeef1",
+          "coverage": 0.3088
+        },
+        {
+          "hex": "#24272c",
+          "coverage": 0.1199
+        },
+        {
+          "hex": "#6b7077",
+          "coverage": 0.0876
+        },
+        {
+          "hex": "#b4b7bd",
+          "coverage": 0.048
+        }
+      ],
+      "detail": {
+        "energy": 15.8332
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 16,
+      "cropPath": "region-16.png"
+    },
+    {
+      "id": "goal-cut",
+      "kind": "text",
+      "note": "goal label 'CUT' in white stencil caps rotated vertical on the red change plate",
+      "grid": null,
+      "box": {
+        "x": 0.5022,
+        "y": 0.2974,
+        "w": 0.026,
+        "h": 0.0868
+      },
+      "px": {
+        "x": 1350,
+        "y": 452,
+        "w": 70,
+        "h": 132
+      },
+      "aspect": 0.5303,
+      "palette": [
+        {
+          "hex": "#df4f50",
+          "coverage": 0.4159
+        },
+        {
+          "hex": "#f4f1f2",
+          "coverage": 0.3219
+        },
+        {
+          "hex": "#da322f",
+          "coverage": 0.2192
+        },
+        {
+          "hex": "#f57778",
+          "coverage": 0.0235
+        },
+        {
+          "hex": "#f0c3c6",
+          "coverage": 0.0196
+        }
+      ],
+      "detail": {
+        "energy": 9.181
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 17,
+      "cropPath": "region-17.png"
+    },
+    {
+      "id": "goal-bulk",
+      "kind": "text",
+      "note": "goal label 'BULK' in white stencil caps rotated vertical on the third change plate",
+      "grid": null,
+      "box": {
+        "x": 0.5476,
+        "y": 0.2974,
+        "w": 0.029,
+        "h": 0.1066
+      },
+      "px": {
+        "x": 1472,
+        "y": 452,
+        "w": 78,
+        "h": 162
+      },
+      "aspect": 0.4815,
+      "palette": [
+        {
+          "hex": "#50535e",
+          "coverage": 0.3333
+        },
+        {
+          "hex": "#ececf0",
+          "coverage": 0.3254
+        },
+        {
+          "hex": "#36393a",
+          "coverage": 0.2946
+        },
+        {
+          "hex": "#787f83",
+          "coverage": 0.0237
+        },
+        {
+          "hex": "#aaacb4",
+          "coverage": 0.0229
+        }
+      ],
+      "detail": {
+        "energy": 13.1743
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 18,
+      "cropPath": "region-18.png"
+    },
+    {
+      "id": "tub-whey",
+      "kind": "image",
+      "note": "product photo of the Optimum Nutrition Gold Standard 100% Whey tub standing on the floor",
+      "grid": null,
+      "box": {
+        "x": 0.0543,
+        "y": 0.4579,
+        "w": 0.1815,
+        "h": 0.3289
+      },
+      "px": {
+        "x": 146,
+        "y": 696,
+        "w": 488,
+        "h": 500
+      },
+      "aspect": 0.976,
+      "palette": [
+        {
+          "hex": "#131316",
+          "coverage": 0.4992
+        },
+        {
+          "hex": "#e7e5e5",
+          "coverage": 0.2579
+        },
+        {
+          "hex": "#30353b",
+          "coverage": 0.1388
+        },
+        {
+          "hex": "#8c8f95",
+          "coverage": 0.064
+        },
+        {
+          "hex": "#5c6269",
+          "coverage": 0.0401
+        }
+      ],
+      "detail": {
+        "energy": 31.8018
+      },
+      "medium": "raster",
+      "clipped": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "plate": "assets/plates/tub-whey.png",
+      "text": null,
+      "number": 19,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 4400,
+        "totalPixels": 244000,
+        "remainingPixels": 239600,
+        "excludedFraction": 0.018032786885245903,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "ticket-1-text",
+            "kind": "text",
+            "cropPx": {
+              "x": 120,
+              "y": 480,
+              "w": 220,
+              "h": 20
+            },
+            "pixels": 4400
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-19.png",
+      "referencePath": "reference-19.png"
+    },
+    {
+      "id": "tub-creatine",
+      "kind": "image",
+      "note": "product photo of the MuscleTech Platinum Creatine tub standing on the floor",
+      "grid": null,
+      "box": {
+        "x": 0.2366,
+        "y": 0.5171,
+        "w": 0.1369,
+        "h": 0.2658
+      },
+      "px": {
+        "x": 636,
+        "y": 786,
+        "w": 368,
+        "h": 404
+      },
+      "aspect": 0.9109,
+      "palette": [
+        {
+          "hex": "#dedee0",
+          "coverage": 0.333
+        },
+        {
+          "hex": "#9da0a8",
+          "coverage": 0.3066
+        },
+        {
+          "hex": "#15171a",
+          "coverage": 0.1621
+        },
+        {
+          "hex": "#676a71",
+          "coverage": 0.1203
+        },
+        {
+          "hex": "#3a3c44",
+          "coverage": 0.0779
+        }
+      ],
+      "detail": {
+        "energy": 37.3727
+      },
+      "medium": "raster",
+      "clipped": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "plate": "assets/plates/tub-creatine.png",
+      "text": null,
+      "number": 20,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 2996,
+        "totalPixels": 148672,
+        "remainingPixels": 145676,
+        "excludedFraction": 0.020151743435213088,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "ticket-2-text",
+            "kind": "text",
+            "cropPx": {
+              "x": 102,
+              "y": 390,
+              "w": 214,
+              "h": 14
+            },
+            "pixels": 2996
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-20.png",
+      "referencePath": "reference-20.png"
+    },
+    {
+      "id": "tub-xtend",
+      "kind": "image",
+      "note": "product photo of the Scivation Xtend tub standing on the floor",
+      "grid": null,
+      "box": {
+        "x": 0.3854,
+        "y": 0.5303,
+        "w": 0.125,
+        "h": 0.2526
+      },
+      "px": {
+        "x": 1036,
+        "y": 806,
+        "w": 336,
+        "h": 384
+      },
+      "aspect": 0.875,
+      "palette": [
+        {
+          "hex": "#e4e4e8",
+          "coverage": 0.6709
+        },
+        {
+          "hex": "#141517",
+          "coverage": 0.1645
+        },
+        {
+          "hex": "#a1a2a8",
+          "coverage": 0.0791
+        },
+        {
+          "hex": "#696c71",
+          "coverage": 0.0444
+        },
+        {
+          "hex": "#383a41",
+          "coverage": 0.0411
+        }
+      ],
+      "detail": {
+        "energy": 28.2048
+      },
+      "medium": "raster",
+      "clipped": [
+        "left",
+        "top",
+        "bottom"
+      ],
+      "plate": "assets/plates/tub-xtend.png",
+      "text": null,
+      "number": 21,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 5424,
+        "totalPixels": 129024,
+        "remainingPixels": 123600,
+        "excludedFraction": 0.04203869047619048,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "ticket-3-text",
+            "kind": "text",
+            "cropPx": {
+              "x": 100,
+              "y": 360,
+              "w": 226,
+              "h": 24
+            },
+            "pixels": 5424
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-21.png",
+      "referencePath": "reference-21.png"
+    },
+    {
+      "id": "ticket-1",
+      "kind": "plate",
+      "note": "slightly tilted cream paper price ticket, blank, propped against the whey tub",
+      "grid": null,
+      "box": {
+        "x": 0.0856,
+        "y": 0.7539,
+        "w": 0.1079,
+        "h": 0.1908
+      },
+      "px": {
+        "x": 230,
+        "y": 1146,
+        "w": 290,
+        "h": 290
+      },
+      "aspect": 1,
+      "palette": [
+        {
+          "hex": "#e9e1d7",
+          "coverage": 0.6729
+        },
+        {
+          "hex": "#141618",
+          "coverage": 0.1352
+        },
+        {
+          "hex": "#5f6063",
+          "coverage": 0.0858
+        },
+        {
+          "hex": "#8f9197",
+          "coverage": 0.0668
+        },
+        {
+          "hex": "#353840",
+          "coverage": 0.0393
+        }
+      ],
+      "detail": {
+        "energy": 42.3108
+      },
+      "medium": "raster",
+      "clipped": [
+        "top"
+      ],
+      "plate": "assets/plates/ticket-1.png",
+      "text": null,
+      "number": 22,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 50600,
+        "totalPixels": 84100,
+        "remainingPixels": 33500,
+        "excludedFraction": 0.6016646848989299,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "ticket-1-text",
+            "kind": "text",
+            "cropPx": {
+              "x": 36,
+              "y": 30,
+              "w": 220,
+              "h": 230
+            },
+            "pixels": 50600
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-22.png",
+      "referencePath": "reference-22.png"
+    },
+    {
+      "id": "ticket-1-text",
+      "kind": "text",
+      "note": "ticket text 'OPTIMUM NUTRITION GOLD STANDARD 100% WHEY 5 lb 50 JOD' with a red 'Official stock' stamp",
+      "grid": null,
+      "box": {
+        "x": 0.099,
+        "y": 0.7737,
+        "w": 0.0818,
+        "h": 0.1513
+      },
+      "px": {
+        "x": 266,
+        "y": 1176,
+        "w": 220,
+        "h": 230
+      },
+      "aspect": 0.9565,
+      "palette": [
+        {
+          "hex": "#eae2d7",
+          "coverage": 0.8489
+        },
+        {
+          "hex": "#21272c",
+          "coverage": 0.0729
+        },
+        {
+          "hex": "#ca4346",
+          "coverage": 0.0407
+        },
+        {
+          "hex": "#585958",
+          "coverage": 0.0193
+        },
+        {
+          "hex": "#898884",
+          "coverage": 0.0182
+        }
+      ],
+      "detail": {
+        "energy": 35.7565
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 23,
+      "cropPath": "region-23.png"
+    },
+    {
+      "id": "ticket-2",
+      "kind": "plate",
+      "note": "slightly tilted cream paper price ticket, blank, propped against the creatine tub",
+      "grid": null,
+      "box": {
+        "x": 0.2641,
+        "y": 0.7632,
+        "w": 0.0997,
+        "h": 0.175
+      },
+      "px": {
+        "x": 710,
+        "y": 1160,
+        "w": 268,
+        "h": 266
+      },
+      "aspect": 1.0075,
+      "palette": [
+        {
+          "hex": "#ebe3d8",
+          "coverage": 0.7125
+        },
+        {
+          "hex": "#7d8085",
+          "coverage": 0.0982
+        },
+        {
+          "hex": "#484a4e",
+          "coverage": 0.0898
+        },
+        {
+          "hex": "#b3b5ba",
+          "coverage": 0.0535
+        },
+        {
+          "hex": "#1f2327",
+          "coverage": 0.046
+        }
+      ],
+      "detail": {
+        "energy": 38.6347
+      },
+      "medium": "raster",
+      "plate": "assets/plates/ticket-2.png",
+      "text": null,
+      "number": 24,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 49220,
+        "totalPixels": 71288,
+        "remainingPixels": 22068,
+        "excludedFraction": 0.6904387835259791,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "ticket-2-text",
+            "kind": "text",
+            "cropPx": {
+              "x": 28,
+              "y": 16,
+              "w": 214,
+              "h": 230
+            },
+            "pixels": 49220
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-24.png",
+      "referencePath": "reference-24.png"
+    },
+    {
+      "id": "ticket-2-text",
+      "kind": "text",
+      "note": "ticket text 'MUSCLETECH PLATINUM CREATINE 300 g 28 JOD' with a red 'Official stock' stamp",
+      "grid": null,
+      "box": {
+        "x": 0.2746,
+        "y": 0.7737,
+        "w": 0.0796,
+        "h": 0.1513
+      },
+      "px": {
+        "x": 738,
+        "y": 1176,
+        "w": 214,
+        "h": 230
+      },
+      "aspect": 0.9304,
+      "palette": [
+        {
+          "hex": "#ede4d9",
+          "coverage": 0.8623
+        },
+        {
+          "hex": "#212727",
+          "coverage": 0.0463
+        },
+        {
+          "hex": "#cc4446",
+          "coverage": 0.0442
+        },
+        {
+          "hex": "#5f5f62",
+          "coverage": 0.0274
+        },
+        {
+          "hex": "#202030",
+          "coverage": 0.0197
+        }
+      ],
+      "detail": {
+        "energy": 30.9101
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 25,
+      "cropPath": "region-25.png"
+    },
+    {
+      "id": "ticket-3",
+      "kind": "plate",
+      "note": "slightly tilted cream paper price ticket, blank, propped against the Xtend tub",
+      "grid": null,
+      "box": {
+        "x": 0.407,
+        "y": 0.7474,
+        "w": 0.1116,
+        "h": 0.1947
+      },
+      "px": {
+        "x": 1094,
+        "y": 1136,
+        "w": 300,
+        "h": 296
+      },
+      "aspect": 1.0135,
+      "palette": [
+        {
+          "hex": "#ede6db",
+          "coverage": 0.651
+        },
+        {
+          "hex": "#5d6065",
+          "coverage": 0.153
+        },
+        {
+          "hex": "#cdcdd7",
+          "coverage": 0.083
+        },
+        {
+          "hex": "#8f9298",
+          "coverage": 0.0756
+        },
+        {
+          "hex": "#1f2429",
+          "coverage": 0.0373
+        }
+      ],
+      "detail": {
+        "energy": 37.3983
+      },
+      "medium": "raster",
+      "clipped": [
+        "left"
+      ],
+      "plate": "assets/plates/ticket-3.png",
+      "text": null,
+      "number": 26,
+      "reference": {
+        "policy": "plate-reference-v2",
+        "excludedPixels": 54240,
+        "totalPixels": 88800,
+        "remainingPixels": 34560,
+        "excludedFraction": 0.6108108108108108,
+        "fullyExcluded": false,
+        "regions": [
+          {
+            "id": "ticket-3-text",
+            "kind": "text",
+            "cropPx": {
+              "x": 42,
+              "y": 30,
+              "w": 226,
+              "h": 240
+            },
+            "pixels": 54240
+          }
+        ],
+        "ignoredContainers": []
+      },
+      "cropPath": "region-26.png",
+      "referencePath": "reference-26.png"
+    },
+    {
+      "id": "ticket-3-text",
+      "kind": "text",
+      "note": "ticket text 'SCIVATION XTEND 30 SERVINGS 30 JOD' with a red 'Official stock' stamp",
+      "grid": null,
+      "box": {
+        "x": 0.4226,
+        "y": 0.7671,
+        "w": 0.0841,
+        "h": 0.1579
+      },
+      "px": {
+        "x": 1136,
+        "y": 1166,
+        "w": 226,
+        "h": 240
+      },
+      "aspect": 0.9417,
+      "palette": [
+        {
+          "hex": "#efe6da",
+          "coverage": 0.8592
+        },
+        {
+          "hex": "#1e252a",
+          "coverage": 0.0478
+        },
+        {
+          "hex": "#5c5e62",
+          "coverage": 0.0407
+        },
+        {
+          "hex": "#cd4347",
+          "coverage": 0.0345
+        },
+        {
+          "hex": "#e6c2bb",
+          "coverage": 0.0178
+        }
+      ],
+      "detail": {
+        "energy": 28.8742
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 27,
+      "cropPath": "region-27.png"
+    },
+    {
+      "id": "cta",
+      "kind": "control",
+      "note": "red pill button with WhatsApp icon 'Order this stack on WhatsApp' and arrow",
+      "grid": null,
+      "box": {
+        "x": 0.6436,
+        "y": 0.8105,
+        "w": 0.3118,
+        "h": 0.0842
+      },
+      "px": {
+        "x": 1730,
+        "y": 1232,
+        "w": 838,
+        "h": 128
+      },
+      "aspect": 6.5469,
+      "palette": [
+        {
+          "hex": "#e42829",
+          "coverage": 0.7711
+        },
+        {
+          "hex": "#6e6c71",
+          "coverage": 0.1111
+        },
+        {
+          "hex": "#f8f7f7",
+          "coverage": 0.0689
+        },
+        {
+          "hex": "#de8d8d",
+          "coverage": 0.0295
+        },
+        {
+          "hex": "#96999e",
+          "coverage": 0.0193
+        }
+      ],
+      "detail": {
+        "energy": 37.2406
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "number": 28,
+      "cropPath": "region-28.png"
+    }
+  ],
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "giant-plate",
+      "message": "goal-rim, hub-total exclude 29.4% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "bar-sleeve",
+      "message": "headline, goal-perform exclude 29.5% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "change-plates",
+      "message": "goal-perform, goal-cut, goal-bulk exclude 14.0% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "tub-whey",
+      "message": "ticket-1-text exclude 1.8% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "tub-creatine",
+      "message": "ticket-2-text exclude 2.0% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "tub-xtend",
+      "message": "ticket-3-text exclude 4.2% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "ticket-1",
+      "message": "ticket-1-text exclude 60.2% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "ticket-2",
+      "message": "ticket-2-text exclude 69.0% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "foreground-mask",
+      "regionId": "ticket-3",
+      "message": "ticket-3-text exclude 61.1% of this reference. Check that the excluded pixels contain foreground, not artwork between separate text elements. Split overly broad foreground bounds; review grouping must not change geometry."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region logo: the artwork runs off the box on the left and right and top and bottom (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region giant-plate: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)"
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region bar-sleeve: the artwork runs off the box on the left and right and top (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region change-plates: the artwork runs off the box on the left and top and bottom (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region tub-whey: the artwork runs off the box on the left and right and top and bottom (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region tub-creatine: the artwork runs off the box on the left and right and top and bottom (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region tub-xtend: the artwork runs off the box on the left and top and bottom (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region ticket-1: the artwork runs off the box on the top (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "measurement-warning",
+      "regionId": null,
+      "message": "region ticket-3: the artwork runs off the box on the left (its ink reaches the edge over 35% of that side). Widen the region so the box holds the whole shape with a margin; a plate placed with object-fit: cover on this box would be cut there."
+    },
+    {
+      "severity": "warning",
+      "code": "uncovered-ink",
+      "regionId": null,
+      "message": "7 grid cells have detail outside named regions. This is a coverage heuristic, not proof of missing components."
+    }
+  ],
+  "overlaps": [
+    {
+      "a": "wall",
+      "b": "change-plates",
+      "pixels": 656.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "headline",
+      "b": "bar-sleeve",
+      "pixels": 17712.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "giant-plate",
+      "b": "goal-rim",
+      "pixels": 306000.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "giant-plate",
+      "b": "hub-total",
+      "pixels": 17160.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "giant-plate",
+      "b": "change-plates",
+      "pixels": 36960.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "bar-sleeve",
+      "b": "change-plates",
+      "pixels": 13140.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "bar-sleeve",
+      "b": "goal-perform",
+      "pixels": 4248.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "change-plates",
+      "b": "goal-perform",
+      "pixels": 22016.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "change-plates",
+      "b": "goal-cut",
+      "pixels": 9240.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "change-plates",
+      "b": "goal-bulk",
+      "pixels": 12636.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "change-plates",
+      "b": "tub-xtend",
+      "pixels": 30240.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "tub-whey",
+      "b": "ticket-1",
+      "pixels": 14500.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "tub-whey",
+      "b": "ticket-1-text",
+      "pixels": 4400.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "tub-creatine",
+      "b": "ticket-2",
+      "pixels": 8040.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "tub-creatine",
+      "b": "ticket-2-text",
+      "pixels": 2996.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "tub-xtend",
+      "b": "ticket-3",
+      "pixels": 15012.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "tub-xtend",
+      "b": "ticket-3-text",
+      "pixels": 5424.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "ticket-1",
+      "b": "ticket-1-text",
+      "pixels": 50600.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "ticket-2",
+      "b": "ticket-2-text",
+      "pixels": 49220.0,
+      "relationship": "overlapping elements"
+    },
+    {
+      "a": "ticket-3",
+      "b": "ticket-3-text",
+      "pixels": 54240.0,
+      "relationship": "overlapping elements"
+    }
+  ],
+  "reviewGroups": {},
+  "uncoveredInkCells": [
+    "A6",
+    "A8",
+    "C8",
+    "A9",
+    "B9",
+    "C9",
+    "E9"
+  ],
+  "comparisonSheets": [
+    {
+      "path": "comparison-1.png",
+      "regionIds": [
+        "ticket-2",
+        "ticket-3",
+        "ticket-1",
+        "bar-sleeve",
+        "giant-plate",
+        "change-plates"
+      ]
+    },
+    {
+      "path": "comparison-2.png",
+      "regionIds": [
+        "tub-xtend",
+        "tub-creatine",
+        "tub-whey"
+      ]
+    }
+  ]
+}

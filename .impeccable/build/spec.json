@@ -1,0 +1,1723 @@
+{
+  "tool": "comp-spec",
+  "version": 1,
+  "createdAt": "2026-11-02T19:23:10.208Z",
+  "comp": ".impeccable/mocks/comp-2-giant-plate.png",
+  "warnings": [
+    "region giant-plate: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region bar-sleeve: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region change-plates: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region tub-whey: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region tub-creatine: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region tub-xtend: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region ticket-1: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)",
+    "region ticket-3: \"bleed\": true set in the regions file (the clipped-artwork refusal is overridden: the page crops it there)"
+  ],
+  "uncoveredInkCells": [
+    "A6",
+    "A8",
+    "C8",
+    "A9",
+    "B9",
+    "C9",
+    "E9"
+  ],
+  "compSize": {
+    "width": 2688,
+    "height": 1520
+  },
+  "aspect": 1.7684,
+  "orientation": "landscape",
+  "palette": [
+    {
+      "hex": "#ecebea",
+      "coverage": 0.4298
+    },
+    {
+      "hex": "#707278",
+      "coverage": 0.2007
+    },
+    {
+      "hex": "#bf2420",
+      "coverage": 0.1923
+    },
+    {
+      "hex": "#1a1b1e",
+      "coverage": 0.115
+    },
+    {
+      "hex": "#a2a5aa",
+      "coverage": 0.0622
+    }
+  ],
+  "bands": [
+    {
+      "y": 0.0556,
+      "strength": 0.2677
+    },
+    {
+      "y": 0.0972,
+      "strength": 0.7771
+    },
+    {
+      "y": 0.1528,
+      "strength": 0.5924
+    },
+    {
+      "y": 0.25,
+      "strength": 0.4847
+    },
+    {
+      "y": 0.375,
+      "strength": 0.243
+    },
+    {
+      "y": 0.4028,
+      "strength": 0.4356
+    },
+    {
+      "y": 0.4444,
+      "strength": 0.3441
+    },
+    {
+      "y": 0.4722,
+      "strength": 0.2979
+    },
+    {
+      "y": 0.5694,
+      "strength": 0.3056
+    },
+    {
+      "y": 0.6667,
+      "strength": 0.4092
+    },
+    {
+      "y": 0.7639,
+      "strength": 0.5301
+    },
+    {
+      "y": 0.8194,
+      "strength": 0.2542
+    },
+    {
+      "y": 0.8889,
+      "strength": 0.3152
+    },
+    {
+      "y": 0.9444,
+      "strength": 0.3195
+    }
+  ],
+  "regions": [
+    {
+      "id": "logo",
+      "kind": "chrome",
+      "note": "official First Nutrition red wordmark logo, served as the brand own SVG file",
+      "grid": null,
+      "box": {
+        "x": 0.026,
+        "y": 0.0105,
+        "w": 0.1265,
+        "h": 0.0763
+      },
+      "px": {
+        "x": 70,
+        "y": 16,
+        "w": 340,
+        "h": 116
+      },
+      "aspect": 2.931,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.6317
+        },
+        {
+          "hex": "#dd262a",
+          "coverage": 0.3323
+        },
+        {
+          "hex": "#e34d54",
+          "coverage": 0.0141
+        },
+        {
+          "hex": "#f4acaa",
+          "coverage": 0.0112
+        },
+        {
+          "hex": "#f8d1cf",
+          "coverage": 0.0107
+        }
+      ],
+      "detail": {
+        "energy": 38.2858
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "nav-links",
+      "kind": "text",
+      "note": "navigation links Shop, Brands, Offers, Branches, About in dark grotesk",
+      "grid": null,
+      "box": {
+        "x": 0.2009,
+        "y": 0.0289,
+        "w": 0.2679,
+        "h": 0.0382
+      },
+      "px": {
+        "x": 540,
+        "y": 44,
+        "w": 720,
+        "h": 58
+      },
+      "aspect": 12.4138,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.9005
+        },
+        {
+          "hex": "#24303f",
+          "coverage": 0.0621
+        },
+        {
+          "hex": "#5c6671",
+          "coverage": 0.018
+        },
+        {
+          "hex": "#b7bdc0",
+          "coverage": 0.013
+        },
+        {
+          "hex": "#8d929c",
+          "coverage": 0.0065
+        }
+      ],
+      "detail": {
+        "energy": 41.5363
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 28,
+          "capHeightPx": 21.8,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.5732,
+          "advTall": 0.6075,
+          "advX": 0.5502,
+          "gap": 0.0917,
+          "xRatio": 0.662,
+          "stemW": 0.1964,
+          "contrast": 1.2262,
+          "serif": 1.7324,
+          "densTall": 0.5919,
+          "densX": 0.674,
+          "weight": 0.5919
+        },
+        "widthClass": "condensed",
+        "weightClass": "bold"
+      }
+    },
+    {
+      "id": "search",
+      "kind": "control",
+      "note": "rounded search field with magnifier icon and placeholder 'Search for products, brands...'",
+      "grid": null,
+      "box": {
+        "x": 0.5134,
+        "y": 0.0197,
+        "w": 0.2381,
+        "h": 0.0553
+      },
+      "px": {
+        "x": 1380,
+        "y": 30,
+        "w": 640,
+        "h": 84
+      },
+      "aspect": 7.619,
+      "palette": [
+        {
+          "hex": "#f7f7f7",
+          "coverage": 0.9601
+        },
+        {
+          "hex": "#9497a4",
+          "coverage": 0.0245
+        },
+        {
+          "hex": "#b5bcbf",
+          "coverage": 0.0154
+        }
+      ],
+      "detail": {
+        "energy": 12.3177
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "country",
+      "kind": "control",
+      "note": "Jordan flag with 'Jordan · JOD' and chevron, country switch",
+      "grid": null,
+      "box": {
+        "x": 0.7693,
+        "y": 0.0263,
+        "w": 0.1071,
+        "h": 0.0434
+      },
+      "px": {
+        "x": 2068,
+        "y": 40,
+        "w": 288,
+        "h": 66
+      },
+      "aspect": 4.3636,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.8617
+        },
+        {
+          "hex": "#1f2d3d",
+          "coverage": 0.0402
+        },
+        {
+          "hex": "#257444",
+          "coverage": 0.0332
+        },
+        {
+          "hex": "#080808",
+          "coverage": 0.0327
+        },
+        {
+          "hex": "#cb1429",
+          "coverage": 0.0322
+        }
+      ],
+      "detail": {
+        "energy": 28.7259
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "lang",
+      "kind": "control",
+      "note": "Arabic language switch 'العربية'",
+      "grid": null,
+      "box": {
+        "x": 0.8869,
+        "y": 0.0289,
+        "w": 0.0372,
+        "h": 0.0382
+      },
+      "px": {
+        "x": 2384,
+        "y": 44,
+        "w": 100,
+        "h": 58
+      },
+      "aspect": 1.7241,
+      "palette": [
+        {
+          "hex": "#f7f7f7",
+          "coverage": 0.8658
+        },
+        {
+          "hex": "#21303f",
+          "coverage": 0.0737
+        },
+        {
+          "hex": "#5a6673",
+          "coverage": 0.0295
+        },
+        {
+          "hex": "#8e989f",
+          "coverage": 0.0162
+        },
+        {
+          "hex": "#c5c6d0",
+          "coverage": 0.0147
+        }
+      ],
+      "detail": {
+        "energy": 12.7918
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "cart",
+      "kind": "control",
+      "note": "cart icon with red count badge 0",
+      "grid": null,
+      "box": {
+        "x": 0.942,
+        "y": 0.0145,
+        "w": 0.0372,
+        "h": 0.0605
+      },
+      "px": {
+        "x": 2532,
+        "y": 22,
+        "w": 100,
+        "h": 92
+      },
+      "aspect": 1.087,
+      "palette": [
+        {
+          "hex": "#f8f8f8",
+          "coverage": 0.8271
+        },
+        {
+          "hex": "#e52728",
+          "coverage": 0.0859
+        },
+        {
+          "hex": "#1e2b3a",
+          "coverage": 0.0566
+        },
+        {
+          "hex": "#b1b5bf",
+          "coverage": 0.0156
+        },
+        {
+          "hex": "#43515b",
+          "coverage": 0.0146
+        }
+      ],
+      "detail": {
+        "energy": 11.0281
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "wall",
+      "kind": "texture",
+      "note": "clean patch of chalk-white concrete wall, soft daylight, no ink",
+      "grid": null,
+      "box": {
+        "x": 0.4018,
+        "y": 0.1053,
+        "w": 0.0893,
+        "h": 0.0855
+      },
+      "px": {
+        "x": 1080,
+        "y": 160,
+        "w": 240,
+        "h": 130
+      },
+      "aspect": 1.8462,
+      "palette": [
+        {
+          "hex": "#e8e8e8",
+          "coverage": 1
+        }
+      ],
+      "detail": {
+        "energy": 1.3837
+      },
+      "medium": "raster",
+      "plate": "assets/plates/wall.png",
+      "text": null
+    },
+    {
+      "id": "floor",
+      "kind": "texture",
+      "note": "clean patch of dark grey rubber lifting-platform floor dusted with chalk",
+      "grid": null,
+      "box": {
+        "x": 0.5208,
+        "y": 0.9099,
+        "w": 0.1042,
+        "h": 0.0789
+      },
+      "px": {
+        "x": 1400,
+        "y": 1383,
+        "w": 280,
+        "h": 120
+      },
+      "aspect": 2.3333,
+      "palette": [
+        {
+          "hex": "#6f7279",
+          "coverage": 0.7929
+        },
+        {
+          "hex": "#a3a6ae",
+          "coverage": 0.127
+        },
+        {
+          "hex": "#d3d7dc",
+          "coverage": 0.0788
+        },
+        {
+          "hex": "#484e58",
+          "coverage": 0.0013
+        }
+      ],
+      "detail": {
+        "energy": 19.45
+      },
+      "medium": "raster",
+      "plate": "assets/plates/floor.png",
+      "text": null
+    },
+    {
+      "id": "headline",
+      "kind": "text",
+      "note": "headline 'LOAD YOUR GOAL.' in two lines of heavy distressed stencil caps, near-black",
+      "grid": null,
+      "box": {
+        "x": 0.0268,
+        "y": 0.1434,
+        "w": 0.369,
+        "h": 0.2382
+      },
+      "px": {
+        "x": 72,
+        "y": 218,
+        "w": 992,
+        "h": 362
+      },
+      "aspect": 2.7403,
+      "palette": [
+        {
+          "hex": "#ececec",
+          "coverage": 0.5807
+        },
+        {
+          "hex": "#292b2e",
+          "coverage": 0.3933
+        },
+        {
+          "hex": "#b8b9bc",
+          "coverage": 0.0117
+        },
+        {
+          "hex": "#87898c",
+          "coverage": 0.0074
+        },
+        {
+          "hex": "#585c5e",
+          "coverage": 0.007
+        }
+      ],
+      "detail": {
+        "energy": 44.917
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 19,
+          "capHeightPx": 156.7,
+          "inkIsDark": true,
+          "allCaps": true,
+          "advance": 0.3344,
+          "advTall": 0.3344,
+          "advX": null,
+          "gap": 0.0255,
+          "xRatio": null,
+          "stemW": 0.2652,
+          "contrast": 1.3178,
+          "serif": 0.9932,
+          "densTall": 0.7988,
+          "densX": null,
+          "weight": 0.7988
+        },
+        "widthClass": "compressed",
+        "weightClass": "black",
+        "chosen": {
+          "family": "Saira Stencil One",
+          "weight": 400,
+          "fontSizePx": 229,
+          "source": "index",
+          "fp": {
+            "lines": 1,
+            "glyphs": 15,
+            "capHeightPx": 156.9,
+            "inkIsDark": true,
+            "allCaps": true,
+            "advance": 0.4779,
+            "advTall": 0.4779,
+            "advX": null,
+            "gap": 0.1019,
+            "xRatio": null,
+            "stemW": 0.2931,
+            "contrast": 1.3036,
+            "serif": 0.9155,
+            "densTall": 0.7155,
+            "densX": null,
+            "weight": 0.7155
+          },
+          "stamp": "ca11eb31478b"
+        }
+      }
+    },
+    {
+      "id": "trust",
+      "kind": "text",
+      "note": "two-line trust line 'Official distributor · 21 brands · ISO 9001 / 22000 / 45001 · Cash on delivery across Jordan' in dark grotesk",
+      "grid": null,
+      "box": {
+        "x": 0.0283,
+        "y": 0.3947,
+        "w": 0.244,
+        "h": 0.0579
+      },
+      "px": {
+        "x": 76,
+        "y": 600,
+        "w": 656,
+        "h": 88
+      },
+      "aspect": 7.4545,
+      "palette": [
+        {
+          "hex": "#e9e9e9",
+          "coverage": 0.8523
+        },
+        {
+          "hex": "#202831",
+          "coverage": 0.0856
+        },
+        {
+          "hex": "#9b9ea1",
+          "coverage": 0.0328
+        },
+        {
+          "hex": "#575f5f",
+          "coverage": 0.0176
+        },
+        {
+          "hex": "#5c5c6c",
+          "coverage": 0.0117
+        }
+      ],
+      "detail": {
+        "energy": 57.3309
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 74,
+          "capHeightPx": 20.1,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.5556,
+          "advTall": 0.5556,
+          "advX": 0.5556,
+          "gap": 0.123,
+          "xRatio": 0.712,
+          "stemW": 0.1942,
+          "contrast": 1.169,
+          "serif": 1.0253,
+          "densTall": 0.5966,
+          "densX": 0.6458,
+          "weight": 0.5966
+        },
+        "widthClass": "condensed",
+        "weightClass": "bold",
+        "chosen": {
+          "family": "Cairo Play",
+          "weight": 700,
+          "fontSizePx": 28,
+          "source": "index",
+          "fp": {
+            "lines": 1,
+            "glyphs": 19,
+            "capHeightPx": 19.8,
+            "inkIsDark": true,
+            "allCaps": false,
+            "advance": 0.4537,
+            "advTall": 0.4411,
+            "advX": 0.5545,
+            "gap": 0.1008,
+            "xRatio": 0.719,
+            "stemW": 0.1981,
+            "contrast": 1.2164,
+            "serif": 1.6473,
+            "densTall": 0.6018,
+            "densX": 0.648,
+            "weight": 0.6018
+          },
+          "stamp": "872259ff2463"
+        }
+      }
+    },
+    {
+      "id": "giant-plate",
+      "kind": "plate",
+      "note": "photographic red rubber 25 kg competition bumper plate seen straight on with a brushed steel hub and moulded 25 KG markings, cropped by the right edge",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.5863,
+        "y": 0.0921,
+        "w": 0.4137,
+        "h": 0.6513
+      },
+      "px": {
+        "x": 1576,
+        "y": 140,
+        "w": 1112,
+        "h": 990
+      },
+      "aspect": 1.1232,
+      "palette": [
+        {
+          "hex": "#bf241f",
+          "coverage": 0.6611
+        },
+        {
+          "hex": "#e6e3e4",
+          "coverage": 0.1702
+        },
+        {
+          "hex": "#7c7d81",
+          "coverage": 0.0841
+        },
+        {
+          "hex": "#931916",
+          "coverage": 0.0433
+        },
+        {
+          "hex": "#a6a9b0",
+          "coverage": 0.0412
+        }
+      ],
+      "detail": {
+        "energy": 28.1703
+      },
+      "medium": "raster",
+      "plate": "assets/plates/giant-plate.png",
+      "text": null
+    },
+    {
+      "id": "goal-rim",
+      "kind": "text",
+      "note": "selected goal name 'BUILD MUSCLE' in white stencil caps curved along the plate rim",
+      "grid": null,
+      "box": {
+        "x": 0.6473,
+        "y": 0.1105,
+        "w": 0.3162,
+        "h": 0.2368
+      },
+      "px": {
+        "x": 1740,
+        "y": 168,
+        "w": 850,
+        "h": 360
+      },
+      "aspect": 2.3611,
+      "palette": [
+        {
+          "hex": "#cf2924",
+          "coverage": 0.685
+        },
+        {
+          "hex": "#ece6e8",
+          "coverage": 0.2127
+        },
+        {
+          "hex": "#9f211e",
+          "coverage": 0.045
+        },
+        {
+          "hex": "#8b8e96",
+          "coverage": 0.0365
+        },
+        {
+          "hex": "#7b1d17",
+          "coverage": 0.0208
+        }
+      ],
+      "detail": {
+        "energy": 35.7209
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": null,
+        "measuredAt": "2026-11-02T19:23:39.355Z",
+        "note": "no separable lettering in the crop; size by the region box"
+      }
+    },
+    {
+      "id": "hub-total",
+      "kind": "text",
+      "note": "stack total '108 JOD' in dark stencil numerals on the steel hub",
+      "grid": null,
+      "box": {
+        "x": 0.7753,
+        "y": 0.3658,
+        "w": 0.0491,
+        "h": 0.0855
+      },
+      "px": {
+        "x": 2084,
+        "y": 556,
+        "w": 132,
+        "h": 130
+      },
+      "aspect": 1.0154,
+      "palette": [
+        {
+          "hex": "#adafb5",
+          "coverage": 0.6674
+        },
+        {
+          "hex": "#151f1f",
+          "coverage": 0.1768
+        },
+        {
+          "hex": "#171727",
+          "coverage": 0.0857
+        },
+        {
+          "hex": "#d8dadf",
+          "coverage": 0.0391
+        },
+        {
+          "hex": "#434a4a",
+          "coverage": 0.0311
+        }
+      ],
+      "detail": {
+        "energy": 17.593
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 6,
+          "capHeightPx": 44.2,
+          "inkIsDark": true,
+          "allCaps": true,
+          "advance": 0.6205,
+          "advTall": 0.6205,
+          "advX": null,
+          "gap": 0.1272,
+          "xRatio": null,
+          "stemW": 0.2319,
+          "contrast": 1.2396,
+          "serif": 1.9063,
+          "densTall": 0.7687,
+          "densX": null,
+          "weight": 0.7687
+        },
+        "widthClass": "normal",
+        "weightClass": "black"
+      }
+    },
+    {
+      "id": "bar-sleeve",
+      "kind": "plate",
+      "note": "photographic knurled steel barbell sleeve entering from the left toward the plates (layered: partly hidden behind the object in front of it)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.279,
+        "y": 0.3553,
+        "w": 0.1749,
+        "h": 0.1053
+      },
+      "px": {
+        "x": 750,
+        "y": 540,
+        "w": 470,
+        "h": 160
+      },
+      "aspect": 2.9375,
+      "palette": [
+        {
+          "hex": "#e5e6e7",
+          "coverage": 0.4393
+        },
+        {
+          "hex": "#37373a",
+          "coverage": 0.2404
+        },
+        {
+          "hex": "#6a6b6f",
+          "coverage": 0.1575
+        },
+        {
+          "hex": "#a1a4ac",
+          "coverage": 0.1179
+        },
+        {
+          "hex": "#17181c",
+          "coverage": 0.0449
+        }
+      ],
+      "detail": {
+        "energy": 47.2866
+      },
+      "medium": "raster",
+      "plate": "assets/plates/bar-sleeve.png",
+      "text": null
+    },
+    {
+      "id": "change-plates",
+      "kind": "plate",
+      "note": "three photographic change plates on the sleeve seen at an angle, black, red, black rubber, with moulded 25 numerals (layered against neighbouring objects; shipped as a transparent cutout, never cover-cropped)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.4278,
+        "y": 0.1908,
+        "w": 0.1749,
+        "h": 0.4342
+      },
+      "px": {
+        "x": 1150,
+        "y": 290,
+        "w": 470,
+        "h": 660
+      },
+      "aspect": 0.7121,
+      "palette": [
+        {
+          "hex": "#141315",
+          "coverage": 0.3349
+        },
+        {
+          "hex": "#e6e6e8",
+          "coverage": 0.3236
+        },
+        {
+          "hex": "#43454a",
+          "coverage": 0.193
+        },
+        {
+          "hex": "#e13935",
+          "coverage": 0.0925
+        },
+        {
+          "hex": "#ae1111",
+          "coverage": 0.056
+        }
+      ],
+      "detail": {
+        "energy": 26.7556
+      },
+      "medium": "raster",
+      "plate": "assets/plates/change-plates.png",
+      "text": null
+    },
+    {
+      "id": "goal-perform",
+      "kind": "text",
+      "note": "goal label 'PERFORM' in white stencil caps rotated vertical on the first change plate",
+      "grid": null,
+      "box": {
+        "x": 0.4501,
+        "y": 0.2553,
+        "w": 0.032,
+        "h": 0.1684
+      },
+      "px": {
+        "x": 1210,
+        "y": 388,
+        "w": 86,
+        "h": 256
+      },
+      "aspect": 0.3359,
+      "palette": [
+        {
+          "hex": "#45484f",
+          "coverage": 0.4356
+        },
+        {
+          "hex": "#edeef1",
+          "coverage": 0.3088
+        },
+        {
+          "hex": "#24272c",
+          "coverage": 0.1199
+        },
+        {
+          "hex": "#6b7077",
+          "coverage": 0.0876
+        },
+        {
+          "hex": "#b4b7bd",
+          "coverage": 0.048
+        }
+      ],
+      "detail": {
+        "energy": 15.8332
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 6,
+          "glyphs": 6,
+          "capHeightPx": 31.1,
+          "inkIsDark": false,
+          "allCaps": true,
+          "advance": 1.5596,
+          "advTall": 1.5596,
+          "advX": null,
+          "gap": 0,
+          "xRatio": null,
+          "stemW": 0.3681,
+          "contrast": 1.5677,
+          "serif": null,
+          "densTall": 0.6855,
+          "densX": null,
+          "weight": 0.6855
+        },
+        "widthClass": "wide",
+        "weightClass": "black"
+      }
+    },
+    {
+      "id": "goal-cut",
+      "kind": "text",
+      "note": "goal label 'CUT' in white stencil caps rotated vertical on the red change plate",
+      "grid": null,
+      "box": {
+        "x": 0.5022,
+        "y": 0.2974,
+        "w": 0.026,
+        "h": 0.0868
+      },
+      "px": {
+        "x": 1350,
+        "y": 452,
+        "w": 70,
+        "h": 132
+      },
+      "aspect": 0.5303,
+      "palette": [
+        {
+          "hex": "#df4f50",
+          "coverage": 0.4159
+        },
+        {
+          "hex": "#f4f1f2",
+          "coverage": 0.3219
+        },
+        {
+          "hex": "#da322f",
+          "coverage": 0.2192
+        },
+        {
+          "hex": "#f57778",
+          "coverage": 0.0235
+        },
+        {
+          "hex": "#f0c3c6",
+          "coverage": 0.0196
+        }
+      ],
+      "detail": {
+        "energy": 9.181
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": null,
+        "measuredAt": "2026-11-02T19:23:44.194Z",
+        "note": "no separable lettering in the crop; size by the region box"
+      }
+    },
+    {
+      "id": "goal-bulk",
+      "kind": "text",
+      "note": "goal label 'BULK' in white stencil caps rotated vertical on the third change plate",
+      "grid": null,
+      "box": {
+        "x": 0.5476,
+        "y": 0.2974,
+        "w": 0.029,
+        "h": 0.1066
+      },
+      "px": {
+        "x": 1472,
+        "y": 452,
+        "w": 78,
+        "h": 162
+      },
+      "aspect": 0.4815,
+      "palette": [
+        {
+          "hex": "#50535e",
+          "coverage": 0.3333
+        },
+        {
+          "hex": "#ececf0",
+          "coverage": 0.3254
+        },
+        {
+          "hex": "#36393a",
+          "coverage": 0.2946
+        },
+        {
+          "hex": "#787f83",
+          "coverage": 0.0237
+        },
+        {
+          "hex": "#aaacb4",
+          "coverage": 0.0229
+        }
+      ],
+      "detail": {
+        "energy": 13.1743
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 4,
+          "glyphs": 4,
+          "capHeightPx": 32.1,
+          "inkIsDark": false,
+          "allCaps": true,
+          "advance": 1.3952,
+          "advTall": 1.3952,
+          "advX": null,
+          "gap": 0,
+          "xRatio": null,
+          "stemW": 0.0631,
+          "contrast": 0.2564,
+          "serif": null,
+          "densTall": 0.7334,
+          "densX": null,
+          "weight": 0.7334
+        },
+        "widthClass": "wide",
+        "weightClass": "black"
+      }
+    },
+    {
+      "id": "tub-whey",
+      "kind": "image",
+      "note": "product photo of the Optimum Nutrition Gold Standard 100% Whey tub standing on the floor (layered: partly hidden behind the object in front of it)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.0558,
+        "y": 0.4605,
+        "w": 0.1786,
+        "h": 0.3882
+      },
+      "px": {
+        "x": 150,
+        "y": 700,
+        "w": 480,
+        "h": 590
+      },
+      "aspect": 0.8136,
+      "palette": [
+        {
+          "hex": "#131316",
+          "coverage": 0.4843
+        },
+        {
+          "hex": "#e7e4e1",
+          "coverage": 0.2866
+        },
+        {
+          "hex": "#30353a",
+          "coverage": 0.1218
+        },
+        {
+          "hex": "#7e8185",
+          "coverage": 0.0617
+        },
+        {
+          "hex": "#545862",
+          "coverage": 0.0456
+        }
+      ],
+      "detail": {
+        "energy": 33.5826
+      },
+      "medium": "raster",
+      "plate": "assets/plates/tub-whey.png",
+      "text": null
+    },
+    {
+      "id": "tub-creatine",
+      "kind": "image",
+      "note": "product photo of the MuscleTech Platinum Creatine tub standing on the floor (layered: partly hidden behind the object in front of it)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.24,
+        "y": 0.5164,
+        "w": 0.1321,
+        "h": 0.3289
+      },
+      "px": {
+        "x": 645,
+        "y": 785,
+        "w": 355,
+        "h": 500
+      },
+      "aspect": 0.71,
+      "palette": [
+        {
+          "hex": "#e2dfdd",
+          "coverage": 0.38
+        },
+        {
+          "hex": "#9ea1a9",
+          "coverage": 0.2449
+        },
+        {
+          "hex": "#17191c",
+          "coverage": 0.1637
+        },
+        {
+          "hex": "#45484d",
+          "coverage": 0.1121
+        },
+        {
+          "hex": "#6e7479",
+          "coverage": 0.0993
+        }
+      ],
+      "detail": {
+        "energy": 39.4228
+      },
+      "medium": "raster",
+      "plate": "assets/plates/tub-creatine.png",
+      "text": null
+    },
+    {
+      "id": "tub-xtend",
+      "kind": "image",
+      "note": "product photo of the Scivation Xtend tub standing on the floor (layered: partly hidden behind the object in front of it)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.3869,
+        "y": 0.5303,
+        "w": 0.1265,
+        "h": 0.3158
+      },
+      "px": {
+        "x": 1040,
+        "y": 806,
+        "w": 340,
+        "h": 480
+      },
+      "aspect": 0.7083,
+      "palette": [
+        {
+          "hex": "#e6e5e5",
+          "coverage": 0.6568
+        },
+        {
+          "hex": "#15161a",
+          "coverage": 0.149
+        },
+        {
+          "hex": "#aeafb6",
+          "coverage": 0.0791
+        },
+        {
+          "hex": "#727377",
+          "coverage": 0.0735
+        },
+        {
+          "hex": "#42444a",
+          "coverage": 0.0416
+        }
+      ],
+      "detail": {
+        "energy": 30.7102
+      },
+      "medium": "raster",
+      "plate": "assets/plates/tub-xtend.png",
+      "text": null
+    },
+    {
+      "id": "ticket-1",
+      "kind": "plate",
+      "note": "slightly tilted cream paper price ticket, blank, propped against the whey tub (layered against neighbouring objects; shipped as a transparent cutout, never cover-cropped)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.0826,
+        "y": 0.7395,
+        "w": 0.1101,
+        "h": 0.2053
+      },
+      "px": {
+        "x": 222,
+        "y": 1124,
+        "w": 296,
+        "h": 312
+      },
+      "aspect": 0.9487,
+      "palette": [
+        {
+          "hex": "#eae1d7",
+          "coverage": 0.6022
+        },
+        {
+          "hex": "#141619",
+          "coverage": 0.2059
+        },
+        {
+          "hex": "#4e4f52",
+          "coverage": 0.087
+        },
+        {
+          "hex": "#a9aaaf",
+          "coverage": 0.0551
+        },
+        {
+          "hex": "#7a7c83",
+          "coverage": 0.0498
+        }
+      ],
+      "detail": {
+        "energy": 44.1521
+      },
+      "medium": "raster",
+      "plate": "assets/plates/ticket-1.png",
+      "text": null
+    },
+    {
+      "id": "ticket-1-text",
+      "kind": "text",
+      "note": "ticket text 'OPTIMUM NUTRITION GOLD STANDARD 100% WHEY 5 lb 50 JOD' with a red 'Official stock' stamp",
+      "grid": null,
+      "box": {
+        "x": 0.099,
+        "y": 0.7737,
+        "w": 0.0818,
+        "h": 0.1513
+      },
+      "px": {
+        "x": 266,
+        "y": 1176,
+        "w": 220,
+        "h": 230
+      },
+      "aspect": 0.9565,
+      "palette": [
+        {
+          "hex": "#eae2d7",
+          "coverage": 0.8489
+        },
+        {
+          "hex": "#21272c",
+          "coverage": 0.0729
+        },
+        {
+          "hex": "#ca4346",
+          "coverage": 0.0407
+        },
+        {
+          "hex": "#585958",
+          "coverage": 0.0193
+        },
+        {
+          "hex": "#898884",
+          "coverage": 0.0182
+        }
+      ],
+      "detail": {
+        "energy": 35.7565
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 3,
+          "glyphs": 39,
+          "capHeightPx": 18.1,
+          "inkIsDark": true,
+          "allCaps": true,
+          "advance": 0.5717,
+          "advTall": 0.4522,
+          "advX": null,
+          "gap": 0.0997,
+          "xRatio": null,
+          "stemW": 0.1663,
+          "contrast": 1.0134,
+          "serif": 0.9916,
+          "densTall": 0.6415,
+          "densX": null,
+          "weight": 0.6415
+        },
+        "widthClass": "condensed",
+        "weightClass": "bold"
+      }
+    },
+    {
+      "id": "ticket-2",
+      "kind": "plate",
+      "note": "slightly tilted cream paper price ticket, blank, propped against the creatine tub",
+      "grid": null,
+      "box": {
+        "x": 0.2641,
+        "y": 0.7632,
+        "w": 0.0997,
+        "h": 0.175
+      },
+      "px": {
+        "x": 710,
+        "y": 1160,
+        "w": 268,
+        "h": 266
+      },
+      "aspect": 1.0075,
+      "palette": [
+        {
+          "hex": "#ebe3d8",
+          "coverage": 0.7125
+        },
+        {
+          "hex": "#7d8085",
+          "coverage": 0.0982
+        },
+        {
+          "hex": "#484a4e",
+          "coverage": 0.0898
+        },
+        {
+          "hex": "#b3b5ba",
+          "coverage": 0.0535
+        },
+        {
+          "hex": "#1f2327",
+          "coverage": 0.046
+        }
+      ],
+      "detail": {
+        "energy": 38.6347
+      },
+      "medium": "raster",
+      "plate": "assets/plates/ticket-2.png",
+      "text": null
+    },
+    {
+      "id": "ticket-2-text",
+      "kind": "text",
+      "note": "ticket text 'MUSCLETECH PLATINUM CREATINE 300 g 28 JOD' with a red 'Official stock' stamp",
+      "grid": null,
+      "box": {
+        "x": 0.2746,
+        "y": 0.7737,
+        "w": 0.0796,
+        "h": 0.1513
+      },
+      "px": {
+        "x": 738,
+        "y": 1176,
+        "w": 214,
+        "h": 230
+      },
+      "aspect": 0.9304,
+      "palette": [
+        {
+          "hex": "#ede4d9",
+          "coverage": 0.8623
+        },
+        {
+          "hex": "#212727",
+          "coverage": 0.0463
+        },
+        {
+          "hex": "#cc4446",
+          "coverage": 0.0442
+        },
+        {
+          "hex": "#5f5f62",
+          "coverage": 0.0274
+        },
+        {
+          "hex": "#202030",
+          "coverage": 0.0197
+        }
+      ],
+      "detail": {
+        "energy": 30.9101
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": null,
+        "measuredAt": "2026-11-02T19:23:42.562Z",
+        "note": "no separable lettering in the crop; size by the region box"
+      }
+    },
+    {
+      "id": "ticket-3",
+      "kind": "plate",
+      "note": "slightly tilted cream paper price ticket, blank, propped against the Xtend tub (layered against neighbouring objects; shipped as a transparent cutout, never cover-cropped)",
+      "grid": null,
+      "bleed": true,
+      "box": {
+        "x": 0.4129,
+        "y": 0.7474,
+        "w": 0.1086,
+        "h": 0.1868
+      },
+      "px": {
+        "x": 1110,
+        "y": 1136,
+        "w": 292,
+        "h": 284
+      },
+      "aspect": 1.0282,
+      "palette": [
+        {
+          "hex": "#efe6db",
+          "coverage": 0.6394
+        },
+        {
+          "hex": "#5e6065",
+          "coverage": 0.1564
+        },
+        {
+          "hex": "#d3d5dc",
+          "coverage": 0.094
+        },
+        {
+          "hex": "#8e9097",
+          "coverage": 0.0693
+        },
+        {
+          "hex": "#21252a",
+          "coverage": 0.0409
+        }
+      ],
+      "detail": {
+        "energy": 37.5884
+      },
+      "medium": "raster",
+      "plate": "assets/plates/ticket-3.png",
+      "text": null
+    },
+    {
+      "id": "ticket-3-text",
+      "kind": "text",
+      "note": "ticket text 'SCIVATION XTEND 30 SERVINGS 30 JOD' with a red 'Official stock' stamp",
+      "grid": null,
+      "box": {
+        "x": 0.4226,
+        "y": 0.7671,
+        "w": 0.0841,
+        "h": 0.1579
+      },
+      "px": {
+        "x": 1136,
+        "y": 1166,
+        "w": 226,
+        "h": 240
+      },
+      "aspect": 0.9417,
+      "palette": [
+        {
+          "hex": "#efe6da",
+          "coverage": 0.8592
+        },
+        {
+          "hex": "#1e252a",
+          "coverage": 0.0478
+        },
+        {
+          "hex": "#5c5e62",
+          "coverage": 0.0407
+        },
+        {
+          "hex": "#cd4347",
+          "coverage": 0.0345
+        },
+        {
+          "hex": "#e6c2bb",
+          "coverage": 0.0178
+        }
+      ],
+      "detail": {
+        "energy": 28.8742
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 13,
+          "capHeightPx": 30.7,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.405,
+          "advTall": 0.5653,
+          "advX": 0.322,
+          "gap": 0.0339,
+          "xRatio": 0.6361,
+          "stemW": 0.196,
+          "contrast": 1.1467,
+          "serif": 1.7609,
+          "densTall": 0.6658,
+          "densX": 0.5364,
+          "weight": 0.6658
+        },
+        "widthClass": "compressed",
+        "weightClass": "black"
+      }
+    },
+    {
+      "id": "cta",
+      "kind": "control",
+      "note": "red pill button with WhatsApp icon 'Order this stack on WhatsApp' and arrow",
+      "grid": null,
+      "box": {
+        "x": 0.6436,
+        "y": 0.8105,
+        "w": 0.3118,
+        "h": 0.0842
+      },
+      "px": {
+        "x": 1730,
+        "y": 1232,
+        "w": 838,
+        "h": 128
+      },
+      "aspect": 6.5469,
+      "palette": [
+        {
+          "hex": "#e42829",
+          "coverage": 0.7711
+        },
+        {
+          "hex": "#6e6c71",
+          "coverage": 0.1111
+        },
+        {
+          "hex": "#f8f7f7",
+          "coverage": 0.0689
+        },
+        {
+          "hex": "#de8d8d",
+          "coverage": 0.0295
+        },
+        {
+          "hex": "#96999e",
+          "coverage": 0.0193
+        }
+      ],
+      "detail": {
+        "energy": 37.2406
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    }
+  ],
+  "compSha256": "63936ef3e24db7fd55189737d35fb43e2f63f68cd501733c18c372ae0a592fa0",
+  "regionsSource": {
+    "path": ".impeccable/build/regions.json",
+    "sha256": "776833fc47a2a1b81b3f0e23e44beb94ba2d1fd6dd61464b70d2966ff8b1c67d"
+  }
+}
