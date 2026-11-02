@@ -4,7 +4,7 @@ import {
   ArrowRight, ShieldCheck, Truck, BadgeCheck, Award, Store, Play, ChevronLeft, ChevronRight,
 } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
-import HeroStage from '../components/HeroStage.jsx'
+import LoadedBar from '../components/LoadedBar.jsx'
 import Teardown from '../components/Teardown.jsx'
 import Reveal, { RevealText } from '../components/Reveal.jsx'
 import ScrollScene from '../components/ScrollScene.jsx'
@@ -51,36 +51,7 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <ScrollScene as="section" className="hero" style={{ '--intro': `${intro}ms` }}>
-        <div className="container hero-inner">
-          <div className="hero-copy">
-            <span className="hero-pill hero-in" style={{ '--i': 0 }}>
-              <BadgeCheck size={15} /> {t('Official distributor · {n}+ global brands', { n: ALL_BRANDS.length })}
-            </span>
-            <h1 className="hero-title">
-              <span className="line"><span style={{ '--i': 1 }}>{t('Fuel your')}</span></span>
-              <span className="line"><span style={{ '--i': 2 }} className="text-accent">{t('strength.')}</span></span>
-              <span className="line"><span style={{ '--i': 3 }}>{t('Start the change.')}</span></span>
-            </h1>
-            <p className="hero-lead hero-in from-left" style={{ '--i': 4 }}>
-              {t('100% authentic supplements from Optimum Nutrition, MuscleTech, Dymatize and more — delivered across {country}.', { country: t(region.name) })}
-            </p>
-            <div className="hero-cta hero-in" style={{ '--i': 5 }}>
-              <Link to="/shop" className="btn btn-primary btn-lg">{t('Shop now')} <ArrowRight size={18} className="flip-rtl" /></Link>
-              <Link to="/shop/bundles" className="btn btn-ghost btn-lg">{t('See offers')}</Link>
-            </div>
-            <ul className="hero-trust hero-in from-right" style={{ '--i': 6 }}>
-              <li><ShieldCheck size={18} /> {t('100% authentic')}</li>
-              <li><Award size={18} /> {t('ISO certified')}</li>
-              <li><Truck size={18} /> {t('Fast delivery')}</li>
-            </ul>
-          </div>
-          <div className="hero-visual hero-in-scale">
-            <HeroStage />
-          </div>
-        </div>
-      </ScrollScene>
+      <div style={{ '--intro': `${intro}ms` }}><LoadedBar /></div>
 
       {/* TRUST TICKER */}
       <div className="ticker" aria-label={t('Why shop with us')}>
@@ -96,7 +67,7 @@ export default function Home() {
       {/* CATEGORIES */}
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow={t('Shop by category')} title={t('Find your formula')}>
+          <SectionHead title={t('Find your formula')}>
             <Link to="/shop" className="link-arrow">{t('All products')} <ArrowRight size={16} className="flip-rtl" /></Link>
           </SectionHead>
           <div className="cat-grid">
@@ -116,7 +87,7 @@ export default function Home() {
       {/* BEST SELLERS */}
       <section className="section pt-0">
         <div className="container">
-          <SectionHead eyebrow={t('Trending now')} title={t('Best sellers')}>
+          <SectionHead title={t('Best sellers')}>
             <Link to="/shop?tag=best" className="link-arrow">{t('View all')} <ArrowRight size={16} className="flip-rtl" /></Link>
           </SectionHead>
           <ScrollScene className="grid product-grid drift">
@@ -133,7 +104,7 @@ export default function Home() {
       {/* HOT OFFERS */}
       <section className="section offers-band">
         <div className="container">
-          <SectionHead eyebrow={t('Hottest offers')} title={t('Bundles that save you more')}>
+          <SectionHead title={t('Bundles that save you more')}>
             <Link to="/shop/bundles" className="link-arrow">{t('All offers')} <ArrowRight size={16} className="flip-rtl" /></Link>
           </SectionHead>
           <Reveal variant="right">
@@ -147,7 +118,7 @@ export default function Home() {
       {/* SHOP BY GOAL */}
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow={t('Shop by goal')} title={t('What are you training for?')}
+          <SectionHead title={t('What are you training for?')}
             sub={t('Pick a goal and we’ll show you where to start.')} />
           <GoalFinder />
         </div>
@@ -159,7 +130,7 @@ export default function Home() {
       {/* BRANDS */}
       <section className="section pt-0">
         <div className="container">
-          <SectionHead center eyebrow={t('Official partner brands')} title={t('The brands we carry')}
+          <SectionHead center title={t('The brands we carry')}
             sub={t('We are the official distributor for the biggest names in sports nutrition. Tap a brand to shop it.')} />
         </div>
         <BrandMarquee />
@@ -193,7 +164,7 @@ export default function Home() {
       {REELS.length > 0 && (
         <section className="section">
           <div className="container">
-            <SectionHead eyebrow={t('Learn with us')} title={t('Watch on Instagram')}
+            <SectionHead title={t('Watch on Instagram')}
               sub={t('Short, honest answers to the questions we hear in store every day.')} />
             <div className="reels">
               {REELS.map((r, i) => (
@@ -215,7 +186,6 @@ export default function Home() {
         <div className="container">
           <ScrollScene className="cta-band cta-expand">
             <div className="cta-copy">
-              <Reveal as="span" variant="left" className="eyebrow light">{t('Visit us')}</Reveal>
               <RevealText text={t('Expert advice in every branch.')} delay={100} />
               <Reveal as="p" variant="left" delay={250}>
                 {t('Talk to people who train. We’ll help you build the right stack for your goal and budget.')}

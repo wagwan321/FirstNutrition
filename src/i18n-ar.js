@@ -357,4 +357,23 @@ export const AR = {
   'Page not found': 'الصفحة غير موجودة',
   'Looks like this page skipped leg day. Let’s get you back on track.': 'يبدو أن هذه الصفحة تغيّبت عن التمرين. لنُعِدك إلى المسار الصحيح.',
   'Back to home': 'العودة إلى الرئيسية',
+
+  // ---- the Loaded Bar (homepage hero) ----
+  'Load your': 'حمّل',
+  'goal.': 'هدفك.',
+  '{n} brands': '{n} علامة تجارية',
+  'Cash on delivery across {country}': 'الدفع عند الاستلام في كل {country}',
+  'Build muscle': 'بناء العضل',
+  'Bulk': 'زيادة الوزن',
+  'Cut': 'التنشيف',
+  'Perform': 'الأداء',
+  'Load the {goal} stack': 'حمّل مجموعة {goal}',
+  '{goal} stack': 'مجموعة {goal}',
+  '{goal} stack total': 'مجموع مجموعة {goal}',
+  'JOD': 'د.أ',
+  'Official stock': 'بضاعة أصلية',
+  'Order this stack on WhatsApp': 'اطلب هذه المجموعة عبر واتساب',
+  'Order the {goal} stack': 'اطلب مجموعة {goal}',
+  'Main': 'القائمة الرئيسية',
+  'Country: {c}': 'البلد: {c}',
 }

@@ -31,7 +31,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link to="/" aria-label="First Nutrition — home">
-              <img src="/images/fn/site/logo.svg" alt="First Nutrition" className="footer-logo" />
+              <img src="/images/fn/site/logo-light.svg" alt="First Nutrition" className="footer-logo" />
             </Link>
             <p>{t('Official distributor of the world’s leading sports nutrition brands. 100% authentic, always.')}</p>
             <div className="socials">

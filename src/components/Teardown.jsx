@@ -73,7 +73,6 @@ export default function Teardown() {
     <section className="section teardown" aria-labelledby="td-title">
       <div className="container td-grid">
         <div className="td-copy">
-          <span className="eyebrow">{t('Inside the tub')}</span>
           <h2 id="td-title" className="section-title">{t('Anatomy of a protein tub.')}</h2>
           <p className="td-lead">
             {t('Every tub we sell arrives sealed from the official brand. Here is exactly what you get when you open one.')}

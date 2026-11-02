@@ -169,7 +169,7 @@ function ProductView({ product }) {
       {together.length > 0 && (
         <section className="section pt-0">
           <div className="container">
-            <SectionHead eyebrow={t('Complete your stack')} title={t('Frequently bought together')} />
+            <SectionHead title={t('Frequently bought together')} />
             <ScrollScene className="grid product-grid drift">
               {together.slice(0, 4).map((p, i) => (
                 <Reveal key={p.id} variant={i % 2 ? 'right' : 'left'} delay={i * 90}><ProductCard product={p} /></Reveal>
@@ -182,7 +182,7 @@ function ProductView({ product }) {
       {similar.length > 0 && (
         <section className="section pt-0">
           <div className="container">
-            <SectionHead eyebrow={t('Similar products')} title={t('You might also like')} />
+            <SectionHead title={t('You might also like')} />
             <div className="grid product-grid">
               {similar.slice(0, 4).map((p, i) => (
                 <Reveal key={p.id} variant="flip" delay={i * 100}><ProductCard product={p} /></Reveal>

@@ -72,7 +72,6 @@ export default function Checkout() {
     <>
       <section className="page-head">
         <div className="container">
-          <span className="eyebrow">{t('Almost there')}</span>
           <RevealText as="h1" text={t('Complete your order')} delay={100} />
           <p>{t('Add your delivery details and send the order on WhatsApp — cash on delivery across {country}.', { country: t(region.name) })}</p>
         </div>

@@ -15,7 +15,6 @@ export default function Branches() {
     <>
       <section className="page-head">
         <div className="container">
-          <span className="eyebrow">{t('Visit us')}</span>
           <RevealText as="h1" text={t('Our branches')} delay={100} />
           <p>{t('Genuine supplements and expert advice in store — or order online with delivery across the country.')}</p>
         </div>

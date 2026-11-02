@@ -45,7 +45,6 @@ export default function Brands() {
     <>
       <section className="page-head">
         <div className="container">
-          <span className="eyebrow">{t('Official partners')}</span>
           <RevealText as="h1" text={t('Our brands')} delay={100} />
           <p>{t('We partner with the world’s leading nutrition brands to bring you 100% authentic products.')}</p>
         </div>

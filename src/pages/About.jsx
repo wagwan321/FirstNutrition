@@ -26,7 +26,6 @@ export default function About() {
     <>
       <section className="page-head has-photo" style={{ backgroundImage: 'url(/images/shake.jpg)' }}>
         <div className="container">
-          <span className="eyebrow light">{t('About First Nutrition')}</span>
           <RevealText as="h1" text={t('Your ultimate supplement provider')} delay={150} />
           <p>{t('First Nutrition is a leading regional distributor of the world’s top sports nutrition brands — bringing authentic, result-driven products to athletes of every level.')}</p>
         </div>
@@ -46,7 +45,6 @@ export default function About() {
 
           <div className="split-band">
             <div className="split-copy">
-              <Reveal as="span" variant="left" className="eyebrow">{t('Quality you can trust')}</Reveal>
               <RevealText className="section-title" text={t('Only the real thing.')} delay={100} />
               <Reveal as="p" variant="left" delay={250} className="text-muted">
                 {t('Every tub, bar and capsule on our shelves comes directly from official brand partners. When you buy from First Nutrition, you know exactly what you are putting in your body.')}
@@ -69,7 +67,7 @@ export default function About() {
 
       <section className="section pt-0">
         <div className="container">
-          <SectionHead center eyebrow={t('Certified')} title={t('Held to international standards')}
+          <SectionHead center title={t('Held to international standards')}
             sub={t('Our operations are certified by TÜV Austria for quality, food safety and workplace safety.')} />
           <div className="cert-grid">
             {CERTS.map((c, i) => (
@@ -88,7 +86,7 @@ export default function About() {
 
       <section className="section pt-0">
         <div className="container">
-          <SectionHead center eyebrow={t('Our portfolio')} title={t('World-class brands')}
+          <SectionHead center title={t('World-class brands')}
             sub={t('Available in our stores and delivered nationwide.')} />
         </div>
         <BrandMarquee />
@@ -98,7 +96,6 @@ export default function About() {
         <div className="container">
           <ScrollScene className="cta-band cta-expand">
             <div className="cta-copy">
-              <Reveal as="span" variant="left" className="eyebrow light">{t('Whatever your goal')}</Reveal>
               <RevealText text={t('Start the change today.')} delay={100} />
               <Reveal as="p" variant="left" delay={250}>
                 {t('Building muscle, losing fat or chasing performance — we’ve got the fuel.')}

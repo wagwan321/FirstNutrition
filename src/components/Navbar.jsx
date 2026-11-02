@@ -1,30 +1,63 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import { ShoppingBag, Menu, X, ShieldCheck, Truck, Banknote, Phone, Search, ChevronRight } from 'lucide-react'
+import { ShoppingCart, Menu, X, Search, ChevronDown, ChevronRight, Check } from 'lucide-react'
 import { useCart } from '../context/CartContext.jsx'
 import { useLocale } from '../i18n.jsx'
 import { CATEGORIES } from '../data/catalog.js'
 import { COUNTRIES } from '../config.js'
-import { WhatsAppIcon } from './BrandIcons.jsx'
-import { waUrl } from '../utils/whatsapp.js'
 import HeaderSearch from './HeaderSearch.jsx'
 
-const ANNOUNCEMENTS = [
-  { icon: ShieldCheck, text: '100% authentic — official distributor of 20+ global brands' },
-  { icon: Truck, text: 'Fast delivery across {country}' },
-  { icon: Banknote, text: 'Cash on delivery · order in seconds on WhatsApp' },
-]
+// Small authored flags (icon size only).
+export function Flag({ code, size = 22 }) {
+  const h = Math.round(size * 2 / 3)
+  if (code === 'lb') {
+    return (
+      <svg className="flag" width={size} height={h} viewBox="0 0 30 20" aria-hidden="true">
+        <rect width="30" height="20" fill="#ED1C24" /><rect y="5" width="30" height="10" fill="#fff" />
+        <path d="M15 6.2l1.6 2.4h-1l1.9 2.3h-1.2l2.1 2.4h-2.6v1.3h-1.6v-1.3h-2.6l2.1-2.4h-1.2l1.9-2.3h-1z" fill="#00A651" />
+      </svg>
+    )
+  }
+  return (
+    <svg className="flag" width={size} height={h} viewBox="0 0 30 20" aria-hidden="true">
+      <rect width="30" height="20" fill="#fff" /><rect width="30" height="6.67" fill="#000" />
+      <rect y="13.33" width="30" height="6.67" fill="#007A3D" /><path d="M0 0l15 10L0 20z" fill="#CE1126" />
+      <path d="M5.2 8.6l.55 1.05 1.15-.2-.75.9.75.9-1.15-.2-.55 1.05-.55-1.05-1.15.2.75-.9-.75-.9 1.15.2z" fill="#fff" />
+    </svg>
+  )
+}
 
 export function CountrySwitch({ className = '' }) {
   const { country, setCountry, t } = useLocale()
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  useEffect(() => {
+    if (!open) return
+    const close = (e) => { if (!ref.current?.contains(e.target)) setOpen(false) }
+    const esc = (e) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('pointerdown', close)
+    document.addEventListener('keydown', esc)
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', esc) }
+  }, [open])
+  const current = COUNTRIES[country]
   return (
-    <div className={`seg ${className}`} role="group" aria-label={t('Country')}>
-      {Object.values(COUNTRIES).map(c => (
-        <button key={c.code} type="button" aria-pressed={country === c.code}
-          className={country === c.code ? 'on' : ''} onClick={() => setCountry(c.code)}>
-          {t(c.name)}
-        </button>
-      ))}
+    <div className={`country ${className}`} ref={ref}>
+      <button type="button" className="country-btn" aria-haspopup="listbox" aria-expanded={open}
+        aria-label={t('Country: {c}', { c: t(current.name) })} onClick={() => setOpen(o => !o)}>
+        <Flag code={country} /> <span>{t(current.name)} · {current.currency}</span> <ChevronDown size={16} aria-hidden="true" />
+      </button>
+      {open && (
+        <ul className="country-menu" role="listbox" aria-label={t('Country')}>
+          {Object.values(COUNTRIES).map(c => (
+            <li key={c.code} role="option" aria-selected={c.code === country}>
+              <button type="button" onClick={() => { setCountry(c.code); setOpen(false) }}>
+                <Flag code={c.code} /> <span>{t(c.name)} · {c.currency}</span>
+                {c.code === country && <Check size={16} aria-hidden="true" />}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
@@ -40,25 +73,19 @@ export function LangSwitch({ className = '' }) {
 }
 
 export default function Navbar() {
-  const { count, subtotal, setDrawerOpen } = useCart()
-  const { t, price, region, country } = useLocale()
+  const { count, setDrawerOpen } = useCart()
+  const { t } = useLocale()
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [msg, setMsg] = useState(0)
   const [bump, setBump] = useState(false)
   const { pathname, search } = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    const id = setInterval(() => setMsg(m => (m + 1) % ANNOUNCEMENTS.length), 4500)
-    return () => clearInterval(id)
   }, [])
 
   // close menus whenever the route changes
@@ -76,83 +103,52 @@ export default function Navbar() {
     return () => clearTimeout(id)
   }, [count])
 
-  const pages = [
+  const links = [
+    { to: '/shop', label: t('Shop'), end: true },
     { to: '/brands', label: t('Brands') },
+    { to: '/shop/bundles', label: t('Offers') },
     { to: '/branches', label: t('Branches') },
     { to: '/about', label: t('About') },
   ]
 
   return (
     <>
-      {/* red utility bar */}
-      <div className="topbar">
-        <div className="container topbar-inner">
-          <div className="topbar-msg" aria-live="polite">
-            {ANNOUNCEMENTS.map(({ icon: Icon, text }, i) => (
-              <p key={text} className={i === msg ? 'on' : ''} aria-hidden={i !== msg}>
-                <Icon size={14} aria-hidden="true" /> {t(text, { country: t(region.name) })}
-              </p>
-            ))}
-          </div>
-          <div className="topbar-tools">
-            <a href={`tel:${region.phone.replace(/\s/g, '')}`} className="topbar-phone">
-              <Phone size={13} aria-hidden="true" /> <span dir="ltr">{region.phone}</span>
-            </a>
-            <CountrySwitch />
-            <LangSwitch />
-          </div>
-        </div>
-      </div>
-
       <header className={`header${scrolled ? ' scrolled' : ''}`}>
-        <div className="container header-inner">
+        <div className="header-inner">
           <button className="icon-btn menu-btn" onClick={() => setMenuOpen(true)} aria-label={t('Open menu')}>
-            <Menu size={21} />
+            <Menu size={22} />
           </button>
 
           <Link to="/" className="brand-logo" aria-label="First Nutrition — home">
             <img src="/images/fn/site/logo.svg" alt="First Nutrition" width="211" height="111" />
           </Link>
 
+          <nav className="nav-links" aria-label={t('Main')}>
+            {links.map(l => <NavLink key={l.to} to={l.to} end={l.end}>{l.label}</NavLink>)}
+          </nav>
+
           <HeaderSearch className="hsearch-desktop" />
 
           <div className="header-actions">
             <button className="icon-btn search-btn" onClick={() => setSearchOpen(s => !s)} aria-label={t('Search products')}>
-              {searchOpen ? <X size={20} /> : <Search size={20} />}
+              {searchOpen ? <X size={21} /> : <Search size={21} />}
             </button>
-            <a className="hdr-help" href={waUrl(t('Hi First Nutrition! I need help choosing supplements.'), country)}
-              target="_blank" rel="noopener noreferrer">
-              <span className="hdr-ico wa"><WhatsAppIcon size={18} /></span>
-              <span className="hdr-txt"><small>{t('Need advice?')}</small><b>{t('Chat with us')}</b></span>
-            </a>
+            <CountrySwitch className="hide-sm" />
+            <span className="hdr-rule hide-sm" aria-hidden="true" />
+            <LangSwitch className="hide-sm" />
+            <span className="hdr-rule hide-sm" aria-hidden="true" />
             <button className="hdr-cart" onClick={() => setDrawerOpen(true)} aria-label={t('Open cart ({n} items)', { n: count })}>
-              <span className="hdr-ico">
-                <ShoppingBag size={19} />
-                {count > 0 && <span className={`cart-count${bump ? ' bump' : ''}`}>{count}</span>}
-              </span>
-              <span className="hdr-txt"><small>{t('Cart')}</small><b>{price(subtotal)}</b></span>
+              <ShoppingCart size={26} strokeWidth={1.8} />
+              <span className={`cart-count${bump ? ' bump' : ''}`}>{count}</span>
             </button>
           </div>
         </div>
 
         {searchOpen && (
-          <div className="container hsearch-mobile-row">
+          <div className="hsearch-mobile-row">
             <HeaderSearch autoFocus onDone={() => setSearchOpen(false)} />
           </div>
         )}
-
-        <nav className="catnav" aria-label={t('Categories')}>
-          <div className="container catnav-inner">
-            <NavLink to="/shop" end className="catnav-all">{t('All products')}</NavLink>
-            {CATEGORIES.map(c => (
-              <NavLink key={c.id} to={`/shop/${c.id}`} className={c.id === 'bundles' ? 'hot' : undefined}>
-                {t(c.name)}
-              </NavLink>
-            ))}
-            <span className="catnav-sep" aria-hidden="true" />
-            {pages.map(p => <NavLink key={p.to} to={p.to}>{p.label}</NavLink>)}
-          </div>
-        </nav>
       </header>
 
       {/* mobile drawer */}
@@ -171,7 +167,7 @@ export default function Navbar() {
             </Link>
           ))}
           <p className="mmenu-label">{t('Company')}</p>
-          {pages.map(p => <Link key={p.to} to={p.to} className="mmenu-link">{p.label}</Link>)}
+          {links.slice(1).map(p => <Link key={p.to} to={p.to} className="mmenu-link">{p.label}</Link>)}
         </div>
         <div className="mmenu-foot">
           <CountrySwitch />

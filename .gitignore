@@ -30,3 +30,11 @@ scripts/catalog/.data
 **/.impeccable/live/deferred-svelte-component-accepts.json
 **/.impeccable/live/*.png
 # impeccable-ignore-end
+
+# Impeccable working files that stay on this machine: full-size plate masters,
+# comps, crops and inspections (tens of MB). The site ships WebP derivatives
+# from src/assets/hero/.
+.impeccable/build/
+.impeccable/mocks/**/*.png
+.impeccable/mocks/**/*.webp
+assets/plates/*.png
