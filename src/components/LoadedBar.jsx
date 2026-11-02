@@ -68,7 +68,7 @@ export default function LoadedBar() {
           <span>{t('Load your')}</span> <span>{t('goal.')}</span>
         </h1>
         <p className="lb-trust" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-          {t('Official distributor')} · {t('{n} brands', { n: ALL_BRANDS.length })} · <span className="nowrap">ISO 9001 / 22000 / 45001</span> ·{' '}
+          {t('Official distributor')} · {t('{n} brands', { n: ALL_BRANDS.length })} · <span className="nowrap">ISO 9001 / 22000 / 45001</span><br />
           {t('Cash on delivery across {country}', { country: t(region.name) })}
         </p>
 

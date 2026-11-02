@@ -343,7 +343,7 @@ html[lang="ar"] .badge { letter-spacing: 0; }
   content: ''; position: absolute; inset-inline: 0; bottom: 100%; height: 22%;
   background: linear-gradient(to bottom, rgba(40,40,44,0), rgba(40,40,44,.16));
 }
-.lb-chalk { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .9; }
+.lb-chalk { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 .lb-headline {
   position: absolute; left: 2.7%; top: 5.2%; z-index: 2; margin: 0;
@@ -356,8 +356,8 @@ html[lang="ar"] .badge { letter-spacing: 0; }
 .lb-headline span { display: block; }
 html[lang="ar"] .lb-headline { -webkit-mask: none; mask: none; font-family: var(--font-ar); font-weight: 900; font-size: 7.4cqw; line-height: 1.05; text-transform: none; }
 .lb-trust {
-  position: absolute; left: 2.95%; top: 33.4%; z-index: 2; width: 28.5%; margin: 0;
-  font-weight: 700; font-size: .97cqw; line-height: 1.55; color: var(--ink);
+  position: absolute; left: 2.95%; top: 33.4%; z-index: 2; margin: 0; white-space: nowrap;
+  font-weight: 700; font-size: max(11px, .95cqw); line-height: 1.55; color: var(--ink);
 }
 
 /* bar sleeve, change plates, giant plate */
@@ -477,7 +477,7 @@ html[lang="ar"] .lb-ticket-text { text-transform: none; }
   .lb-headline { -webkit-mask-size: 34cqw auto; mask-size: 34cqw auto; }
   .lb-headline { left: 5%; top: 3%; font-size: 15.4cqw; line-height: .84; }
   html[lang="ar"] .lb-headline { font-size: 13cqw; }
-  .lb-trust { left: 5.2%; top: 20.5%; width: 60%; font-size: 3.15cqw; line-height: 1.45; }
+  .lb-trust { left: 5.2%; top: 20.5%; width: 64%; font-size: 3.15cqw; line-height: 1.45; white-space: normal; }
   .lb-sleeve { left: -6%; top: 40.6%; width: 42%; }
   .lb-sides { left: 21%; top: 32.5%; width: 30%; }
   .lb-side span { font-size: calc(3.8cqw * min(1, 8 / var(--len, 7))); }
@@ -1060,6 +1060,11 @@ html[lang="ar"] .pcard-brand { letter-spacing: 0; }
 .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin: 0 auto; }
 .cert-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 28px 20px; text-align: center; border-radius: 22px; background: #fff; border: 1px solid var(--border); }
 .cert-card img { height: 90px; width: auto; margin-bottom: 8px; }
+.cert-chip {
+  display: inline-grid; place-items: center; height: 64px; padding: 0 14px; border-radius: 4px; background: #fff;
+  font-family: var(--font-display); font-weight: 800; font-stretch: 84%; font-size: 17px; letter-spacing: .02em; color: var(--ink); white-space: nowrap;
+}
+.footer-certs .cert-chip { height: 52px; }
 .cert-mark { display: grid; place-items: center; height: 90px; margin-bottom: 8px; font-family: var(--font-display); font-weight: 800; font-stretch: 80%; font-size: 44px; color: var(--accent-text); }
 .cert-card b { font-size: 18px; }
 .cert-card span { font-size: 14px; color: var(--text-muted); }

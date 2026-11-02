@@ -65,6 +65,7 @@ export default function Footer() {
         <Reveal className="footer-certs" variant="up">
           <span>{t('Proudly certified')}</span>
           {CERTS.map(c => <img key={c.label} src={c.src} alt={`TÜV ${c.label}`} />)}
+          <span className="cert-chip">ISO 22000</span>
         </Reveal>
 
         <div className="footer-bottom">

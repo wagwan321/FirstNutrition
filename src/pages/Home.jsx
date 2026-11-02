@@ -152,6 +152,8 @@ export default function Home() {
               <p>{t('Certified for quality, food safety and workplace safety by TÜV Austria.')}</p>
               <div>
                 <img src="/images/fn/site/tuv-iso-9001.svg" alt="TÜV ISO 9001" />
+                {/* TODO(owner): official ISO 22000 badge art (the store's current art reads ISO 26000) */}
+                <span className="cert-chip">ISO 22000</span>
                 <img src="/images/fn/site/tuv-iso-45001.svg" alt="TÜV ISO 45001" />
               </div>
             </Reveal>
