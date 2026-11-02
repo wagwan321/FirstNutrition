@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ArrowUp } from 'lucide-react'
 import { WhatsAppIcon } from './BrandIcons.jsx'
 import { waUrl } from '../utils/whatsapp.js'
@@ -13,6 +14,8 @@ export default function FloatingWidgets() {
   const barRef = useRef(null)
   const ringRef = useRef(null)
   const [showTop, setShowTop] = useState(false)
+  const [heroCta, setHeroCta] = useState(false)
+  const { pathname } = useLocation()
 
   useEffect(() => {
     let raf = 0
@@ -24,6 +27,10 @@ export default function FloatingWidgets() {
       if (barRef.current) barRef.current.style.transform = `scaleX(${p})`
       if (ringRef.current) ringRef.current.style.strokeDashoffset = `${RING * (1 - p)}`
       setShowTop(window.scrollY > 640)
+      // The homepage hero has its own WhatsApp order button: keep the floating
+      // one out of the way while that button is on screen.
+      const cta = document.querySelector('.lb-cta')?.getBoundingClientRect()
+      setHeroCta(!!cta && cta.top < window.innerHeight && cta.bottom > 0)
     }
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
     update()
@@ -34,7 +41,7 @@ export default function FloatingWidgets() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [])
+  }, [pathname])
 
   return (
     <>
@@ -52,7 +59,7 @@ export default function FloatingWidgets() {
           <ArrowUp size={18} strokeWidth={2.4} />
         </button>
 
-        <a className="fab fab-wa" target="_blank" rel="noopener noreferrer"
+        <a className={`fab fab-wa${heroCta ? ' is-hidden' : ''}`} target="_blank" rel="noopener noreferrer" tabIndex={heroCta ? -1 : undefined}
           href={waUrl(t('Hi First Nutrition! I need help choosing supplements.'), country)}
           aria-label={t('Chat with us on WhatsApp')}>
           <WhatsAppIcon size={26} />

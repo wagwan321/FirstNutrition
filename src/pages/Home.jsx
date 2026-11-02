@@ -144,7 +144,7 @@ export default function Home() {
         <div className="container">
           <div className="trust-panel">
             <Reveal variant="left" className="trust-stats">
-              <div><b><CountUp end={ALL_BRANDS.length} suffix="+" /></b><span>{t('Global brands')}</span></div>
+              <div><b><CountUp end={ALL_BRANDS.length} /></b><span>{t('Global brands')}</span></div>
               <div><b><CountUp end={PRODUCTS.length} /></b><span>{t('Products in store')}</span></div>
               <div><b><CountUp end={3} /></b><span>{t('ISO certifications')}</span></div>
             </Reveal>
@@ -152,7 +152,6 @@ export default function Home() {
               <p>{t('Certified for quality, food safety and workplace safety by TÜV Austria.')}</p>
               <div>
                 <img src="/images/fn/site/tuv-iso-9001.svg" alt="TÜV ISO 9001" />
-                <img src="/images/fn/site/tuv-iso-22000.svg" alt="TÜV ISO 22000" />
                 <img src="/images/fn/site/tuv-iso-45001.svg" alt="TÜV ISO 45001" />
               </div>
             </Reveal>

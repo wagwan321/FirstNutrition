@@ -14,6 +14,7 @@ import barSleeve from '../assets/hero/bar-sleeve.webp'
 import ticket1 from '../assets/hero/ticket-1.webp'
 import ticket2 from '../assets/hero/ticket-2.webp'
 import ticket3 from '../assets/hero/ticket-3.webp'
+import chalk from '../assets/hero/floor-chalk.webp'
 
 const TICKETS = [ticket1, ticket2, ticket3]
 // The change plates show the goals that are not loaded, always in this order.
@@ -61,13 +62,13 @@ export default function LoadedBar() {
   return (
     <section className="lb" aria-labelledby="lb-title">
       <div className="lb-stage" data-phase={phase} dir="ltr">
-        <div className="lb-floor" aria-hidden="true" />
+        <div className="lb-floor" aria-hidden="true"><img className="lb-chalk" src={chalk} alt="" draggable="false" /></div>
 
         <h1 id="lb-title" className="lb-headline" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
           <span>{t('Load your')}</span> <span>{t('goal.')}</span>
         </h1>
         <p className="lb-trust" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-          {t('Official distributor')} · {t('{n} brands', { n: ALL_BRANDS.length })} · ISO 9001 / 22000 / 45001 ·{' '}
+          {t('Official distributor')} · {t('{n} brands', { n: ALL_BRANDS.length })} · <span className="nowrap">ISO 9001 / 22000 / 45001</span> ·{' '}
           {t('Cash on delivery across {country}', { country: t(region.name) })}
         </p>
 

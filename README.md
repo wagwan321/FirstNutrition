@@ -8,7 +8,8 @@ English / Arabic (right-to-left), and WhatsApp cash-on-delivery ordering.
 > ⚠️ Before launch, the owners need to confirm (all marked `TODO(owner)` in `src/config.js`):
 > - the **WhatsApp business numbers** for Jordan and Lebanon (currently a test number);
 > - **Lebanon prices** — estimated from Jordan JOD prices × `rate` (1.41);
-> - the exact addresses / hours of the Sweifieh and Rabieh branches, and the Lebanon branches.
+> - the exact addresses / hours of the Sweifieh and Rabieh branches, and the Lebanon branches;
+> - the **ISO 22000 badge**: the store's own TÜV artwork for its food-safety claim reads "ISO 26000:2010", so it is hidden until the correct certificate artwork is supplied (`src/pages/About.jsx`).
 
 ## Tech
 - React 18 + React Router · Vite
@@ -16,7 +17,9 @@ English / Arabic (right-to-left), and WhatsApp cash-on-delivery ordering.
 - `src/i18n.jsx` — country (currency, branches, WhatsApp) + language; `t('English text')`
   returns the Arabic from `src/i18n-ar.js` when Arabic is on
 - Icons: `lucide-react` (+ WhatsApp/Instagram/Facebook glyphs in `BrandIcons.jsx`)
-- Fonts: Plus Jakarta Sans + IBM Plex Sans Arabic (Google Fonts)
+- Fonts: Saira Stencil (variable width, display) + Cairo (text and Arabic), self-hosted in `public/fonts`
+- Design: built with the Impeccable skill. Product facts in `PRODUCT.md`, visual system in `DESIGN.md`,
+  homepage direction contract in `.impeccable/surfaces/`
 
 ## Run locally
 ```bash

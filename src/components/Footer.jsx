@@ -10,7 +10,6 @@ import Reveal from './Reveal.jsx'
 
 const CERTS = [
   { src: '/images/fn/site/tuv-iso-9001.svg', label: 'ISO 9001' },
-  { src: '/images/fn/site/tuv-iso-22000.svg', label: 'ISO 22000' },
   { src: '/images/fn/site/tuv-iso-45001.svg', label: 'ISO 45001' },
 ]
 

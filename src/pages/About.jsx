@@ -16,7 +16,9 @@ const VALUE_VARIANTS = ['tilt-left', 'flip', 'tilt-right']
 
 const CERTS = [
   { src: '/images/fn/site/tuv-iso-9001.svg', code: 'ISO 9001', label: 'Quality management' },
-  { src: '/images/fn/site/tuv-iso-22000.svg', code: 'ISO 22000', label: 'Food safety management' },
+  // TODO(owner): the store's own badge art for this claim reads 'ISO 26000:2010'. Badge hidden
+  // until the owners supply the correct ISO 22000 certificate artwork.
+  { src: null, code: 'ISO 22000', label: 'Food safety management' },
   { src: '/images/fn/site/tuv-iso-45001.svg', code: 'ISO 45001', label: 'Occupational health & safety' },
 ]
 
@@ -72,7 +74,7 @@ export default function About() {
           <div className="cert-grid">
             {CERTS.map((c, i) => (
               <Reveal key={c.code} className="cert-card" variant={i === 0 ? 'left' : i === 2 ? 'right' : 'up'} delay={i * 90}>
-                <img src={c.src} alt={`TÜV ${c.code}`} />
+                {c.src ? <img src={c.src} alt={`TÜV ${c.code}`} /> : <span className="cert-mark" aria-hidden="true">ISO</span>}
                 <b>{c.code}</b>
                 <span>{t(c.label)}</span>
               </Reveal>
