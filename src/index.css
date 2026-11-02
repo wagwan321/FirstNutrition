@@ -1064,7 +1064,7 @@ html[lang="ar"] .pcard-brand { letter-spacing: 0; }
   display: inline-grid; place-items: center; height: 64px; padding: 0 14px; border-radius: 4px; background: #fff;
   font-family: var(--font-display); font-weight: 800; font-stretch: 84%; font-size: 17px; letter-spacing: .02em; color: var(--ink); white-space: nowrap;
 }
-.footer-certs .cert-chip { height: 52px; }
+.footer-certs .cert-chip { height: 52px; color: var(--ink); }
 .cert-mark { display: grid; place-items: center; height: 90px; margin-bottom: 8px; font-family: var(--font-display); font-weight: 800; font-stretch: 80%; font-size: 44px; color: var(--accent-text); }
 .cert-card b { font-size: 18px; }
 .cert-card span { font-size: 14px; color: var(--text-muted); }
