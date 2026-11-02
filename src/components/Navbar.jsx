@@ -133,7 +133,9 @@ export default function Navbar() {
           </Link>
 
           <nav className="nav-links" aria-label={t('Main')}>
-            {links.map(l => <NavLink key={l.to} to={l.to} end={l.end}>{l.label}</NavLink>)}
+            {links.map(l => (l.to === '/coach'
+              ? <NavLink key={l.to} to={l.to} className="nav-coach"><span className="nav-coach-ico" aria-hidden="true"><CategoryIcon id="coach" size={13} /></span>{l.label}</NavLink>
+              : <NavLink key={l.to} to={l.to} end={l.end}>{l.label}</NavLink>))}
           </nav>
 
           <HeaderSearch className="hsearch-desktop" />

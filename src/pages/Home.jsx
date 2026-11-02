@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ArrowRight, ShieldCheck, Truck, BadgeCheck, Award, Store, Play, ChevronLeft, ChevronRight,
+  ArrowRight, ShieldCheck, Truck, BadgeCheck, Award, Store, ChevronLeft, ChevronRight,
 } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
 import LoadedBar from '../components/LoadedBar.jsx'
@@ -16,7 +16,7 @@ import GoalFinder from '../components/GoalFinder.jsx'
 import BrandMarquee from '../components/BrandMarquee.jsx'
 import ChalkDust from '../components/ChalkDust.jsx'
 import ReelViewer from '../components/ReelViewer.jsx'
-import { InstagramIcon } from '../components/BrandIcons.jsx'
+import ReelCard from '../components/ReelCard.jsx'
 import { CATEGORIES, PRODUCTS, ALL_BRANDS, REELS } from '../data/catalog.js'
 import { useLocale } from '../i18n.jsx'
 import { boot } from '../boot.js'
@@ -180,12 +180,7 @@ export default function Home() {
             <div className="reels">
               {REELS.map((r, i) => (
                 <Reveal key={r.id} variant={i % 2 ? 'right' : 'left'} delay={i * 80}>
-                  <a href={r.url} target="_blank" rel="noreferrer" className="reel"
-                    onClick={(e) => { if (e.button === 0 && !e.metaKey && !e.ctrlKey) { e.preventDefault(); setReel(i) } }}>
-                    <img className="reel-cover" src={r.cover} alt="" loading="lazy" />
-                    <span className="reel-play"><Play size={20} fill="currentColor" /></span>
-                    <span className="reel-src"><InstagramIcon size={14} /> {t('Watch reel')}</span>
-                  </a>
+                  <ReelCard reel={r} onOpen={() => setReel(i)} />
                   <p className="reel-title" dir="rtl" lang="ar">{r.title}</p>
                 </Reveal>
               ))}

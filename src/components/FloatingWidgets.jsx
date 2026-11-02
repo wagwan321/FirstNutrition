@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ArrowUp } from 'lucide-react'
-import { WhatsAppIcon } from './BrandIcons.jsx'
-import { waUrl } from '../utils/whatsapp.js'
+import CoachLauncher from './CoachLauncher.jsx'
 import { useLocale } from '../i18n.jsx'
 
 const RING = 2 * Math.PI * 21 // circumference of the back-to-top progress ring
 
 // Page-level widgets: top scroll-progress bar, back-to-top button with a
-// progress ring, and a floating "chat on WhatsApp" button.
+// progress ring, and the Coach chat bubble.
 export default function FloatingWidgets() {
-  const { t, country } = useLocale()
+  const { t } = useLocale()
   const barRef = useRef(null)
   const ringRef = useRef(null)
   const [showTop, setShowTop] = useState(false)
@@ -59,13 +58,8 @@ export default function FloatingWidgets() {
           <ArrowUp size={18} strokeWidth={2.4} />
         </button>
 
-        {/* the Coach page has its own "Ask a real coach" WhatsApp button */}
-        <a className={`fab fab-wa${heroCta || pathname === '/coach' ? ' is-hidden' : ''}`} target="_blank" rel="noopener noreferrer" tabIndex={heroCta || pathname === '/coach' ? -1 : undefined}
-          href={waUrl(t('Hi First Nutrition! I need help choosing supplements.'), country)}
-          aria-label={t('Chat with us on WhatsApp')}>
-          <WhatsAppIcon size={26} />
-          <span className="fab-label">{t('Need advice? Chat with us')}</span>
-        </a>
+        {/* the Coach is the chat bubble; a real person on WhatsApp is one tap away inside it */}
+        <CoachLauncher hidden={heroCta} />
       </div>
     </>
   )
