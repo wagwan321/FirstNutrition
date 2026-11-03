@@ -106,8 +106,12 @@ export default function LoadedBar() {
   return (
     <section className="lb" aria-labelledby="lb-title">
       <div className="lb-stage" data-phase={phase} dir="ltr" ref={stageRef}>
-        <div className="lb-floor" aria-hidden="true"><img className="lb-chalk" src={chalk} alt="" draggable="false" /></div>
+        {/* wall and floor run the full width; the composition sits centred on
+            them in .lb-canvas, so wide, short screens get no bare strip */}
+        <div className="lb-floor" aria-hidden="true" />
         <ChalkDust />
+        <div className="lb-canvas">
+        <div className="lb-floor-marks" aria-hidden="true"><img className="lb-chalk" src={chalk} alt="" draggable="false" /></div>
 
         <div className="lb-copy">
           <h1 id="lb-title" className="lb-headline" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
@@ -175,6 +179,7 @@ export default function LoadedBar() {
           {t('Order this stack on WhatsApp')}
           <ArrowRight size={22} className="flip-rtl" aria-hidden="true" />
         </button>
+        </div>
       </div>
 
       <OrderModal

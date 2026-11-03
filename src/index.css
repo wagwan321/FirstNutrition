@@ -330,8 +330,8 @@ html[lang="ar"] .badge { letter-spacing: 0; }
 .lb { position: relative; background: var(--wall); }
 .lb-stage {
   position: relative; container-type: inline-size; overflow: hidden;
-  aspect-ratio: 2688 / 1376; max-height: calc(100svh - var(--hdr));
-  min-height: 560px;
+  width: 100%; aspect-ratio: 2688 / 1376; max-height: calc(100svh - var(--hdr));
+  min-height: 480px;
   background: var(--wall) url('./assets/hero/wall.webp') 0 0 / 17.86cqw auto repeat;
 }
 /* chalk-dusted rubber platform from the floor line down */
@@ -346,6 +346,12 @@ html[lang="ar"] .badge { letter-spacing: 0; }
   background: linear-gradient(to bottom, rgba(40,40,44,0), rgba(40,40,44,.16));
 }
 .lb-chalk { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .45; }
+/* the composition keeps the comp's proportions, centred on the full-width stage */
+.lb-canvas {
+  position: absolute; top: 0; left: 50%; height: 100%; aspect-ratio: 2688 / 1376; translate: -50% 0;
+  container-type: inline-size;
+}
+.lb-floor-marks { position: absolute; inset: 63.7% 0 0; }
 
 /* depth layers: full-stage boxes so their children keep stage percentages */
 .lb-copy, .lb-rig, .lb-stack { position: absolute; inset: 0; pointer-events: none; margin: 0; padding: 0; list-style: none; }
@@ -517,6 +523,7 @@ html[lang="ar"] .lb-label small { letter-spacing: 0; }
 @media (max-width: 900px) {
   .lb-stage { aspect-ratio: 390 / 760; max-height: none; min-height: 0; }
   .lb-floor { top: 61%; background-size: 70cqw auto; }
+  .lb-canvas { inset: 0; width: 100%; aspect-ratio: auto; translate: none; }
   .lb-chalk { display: none; }
   .lb-headline { -webkit-mask-size: 34cqw auto; mask-size: 34cqw auto; }
   .lb-headline { left: 5%; top: 3%; font-size: 15.4cqw; line-height: .84; }
