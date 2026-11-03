@@ -17,8 +17,8 @@ const has = (q, words) => words.some(w => (/[a-z]/.test(w) ? q.includes(` ${w}`)
 const W = {
   addVerb: ['also', 'too', 'as well', 'at the same time', 'plus', 'both', 'كمان', 'ايضا', 'أيضا', 'بنفس الوقت', 'مع بعض', 'بالاضافه'],
   switchVerb: ['switch', 'change', 'instead', 'want to', 'i want', 'make it', 'go for', 'rather', 'غير', 'حول', 'بدل', 'بدي', 'اريد', 'ابغى', 'بدّي'],
-  goalLose: ['cut', 'cutting', 'lose', 'fat loss', 'lean', 'shred', 'burn', 'تنشيف', 'خساره', 'انزل', 'تخسيس', 'حرق'],
-  goalGain: ['bulk', 'bulking', 'gain weight', 'gaining', 'put on weight', 'mass', 'تضخيم', 'زياده وزن', 'زيادة الوزن', 'ازيد'],
+  goalLose: ['cut', 'cutting', 'lose', 'fat loss', 'lean', 'shred', 'burn', 'tone down', 'تنشيف', 'انشف', 'نشف', 'خساره', 'اخسر', 'انزل', 'تخسيس', 'انحف', 'تنحيف', 'رجيم', 'حرق'],
+  goalGain: ['bulk', 'bulking', 'gain weight', 'gaining', 'put on weight', 'mass', 'تضخيم', 'اتضخم', 'زياده وزن', 'زيادة الوزن', 'ازيد', 'اسمن', 'تسمين'],
   goalMuscle: ['build muscle', 'muscle', 'tone', 'عضل', 'بناء'],
   goalPerf: ['perform', 'performance', 'endurance', 'stamina', 'athlete', 'اداء', 'تحمل', 'لياقه'],
   greet: ['hi', 'hello', 'hey', 'salam', 'yo', 'مرحبا', 'اهلا', 'السلام', 'هاي', 'هلا'],
@@ -72,8 +72,10 @@ export function answer(question, ctx) {
   // goals: "switch to fat loss" replaces them; "I also want to gain weight" or
   // "build muscle and gain weight at the same time" combines them
   if (has(q, W.switchVerb) || has(q, W.addVerb)) {
+    // in the order they're mentioned, so "I finished bulking, now I want to cut" ends on the cut
+    const at = (words) => Math.min(...words.map(w => { const i = q.indexOf(/[a-z]/.test(w) ? ` ${w}` : w); return i < 0 ? Infinity : i }))
     const named = [['lose', W.goalLose], ['gain', W.goalGain], ['performance', W.goalPerf], ['muscle', W.goalMuscle]]
-      .filter(([, words]) => has(q, words)).map(([id]) => id)
+      .filter(([, words]) => has(q, words)).sort((x, y) => at(x[1]) - at(y[1])).map(([id]) => id)
     if (named.length) {
       const current = goalsOf(a)
       let goals = named.length > 1 || !has(q, W.addVerb) ? [] : current

@@ -70,6 +70,8 @@ export default async function handler(req, res) {
   body = body || {}
   const image = typeof body.image === 'string' && /^[A-Za-z0-9+/=]+$/.test(body.image.slice(0, 200)) ? body.image : null
   const text = String(body.text || '').slice(0, 400).trim()
+  // the pieces the site's own food list couldn't match (the rest is already counted)
+  const only = (Array.isArray(body.only) ? body.only : []).map(x => String(x).slice(0, 60).trim()).filter(Boolean).slice(0, 8)
   if (!image && !text) return res.status(400).json({ error: 'nothing_to_analyse' })
   if (image && image.length > MAX_IMAGE_B64) return res.status(413).json({ error: 'image_too_large' })
 
@@ -77,7 +79,7 @@ export default async function handler(req, res) {
   if (image) content.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: image } })
   content.push({
     type: 'text',
-    text: `${image ? 'Estimate the foods in this meal photo.' : 'Estimate the foods in this description.'}${text ? `\nDescription from the visitor: ${text}` : ''}\nWrite the note in ${body.lang === 'ar' ? 'Arabic' : 'English'}.`,
+    text: `${image ? 'Estimate the foods in this meal photo.' : 'Estimate the foods in this description.'}${text ? `\nDescription from the visitor: ${text}` : ''}${only.length ? `\nOnly list these foods: ${only.join('; ')}` : ''}\nWrite the note in ${body.lang === 'ar' ? 'Arabic' : 'English'}.`,
   })
 
   const client = new Anthropic()

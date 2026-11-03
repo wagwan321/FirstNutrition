@@ -685,4 +685,18 @@ export const AR = {
   '+0.2 kg / week': '+0.2 كغ أسبوعياً',
   '+0.35 kg / week': '+0.35 كغ أسبوعياً',
   '−0.3 kg / week': '−0.3 كغ أسبوعياً',
+
+  // ---- my plan / reset / food suggestions ----
+  'My plan': 'خطتي',
+  'Finished a phase? Change your goal or numbers and your targets update from today.': 'أنهيت مرحلة؟ غيّر هدفك أو أرقامك وتتحدث أهدافك من اليوم.',
+  'Save my plan': 'احفظ خطتي',
+  'Saved. Your new targets start today.': 'تم الحفظ. أهدافك الجديدة تبدأ اليوم.',
+  'Start fresh': 'ابدأ من جديد',
+  'Clear every meal and glass of water you’ve logged. Your plan stays.': 'امسح كل الوجبات وأكواب الماء المسجلة. تبقى خطتك كما هي.',
+  'Yes, clear my diary': 'نعم، امسح مفكرتي',
+  'Clear my food diary': 'امسح مفكرة الطعام',
+  'I don’t know “{x}” yet. Did you mean:': 'لا أعرف «{x}» بعد. هل تقصد:',
+  'or type “{x} 300 kcal”': 'أو اكتب «{x} 300 سعرة»',
+  '{n} kg a week': '{n} كغ أسبوعياً',
+  '{n} kg a week, keeping muscle': '{n} كغ أسبوعياً مع الحفاظ على العضلات',
 }

@@ -2290,6 +2290,50 @@ html[lang="ar"] .meal header b { font-family: var(--font-ar); text-transform: no
   .trk-macros { width: 100%; }
 }
 
+/* goal picker (chat) and "My plan" editor (Today) */
+.goal-pick { display: grid; gap: 8px; justify-items: end; animation: bubbleIn .45s var(--ease-out) .1s both; }
+.goal-hint { max-width: 420px; padding: 8px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-text); font-size: 13px; font-weight: 700; animation: bubbleIn .35s var(--ease-out) both; }
+.goal-combo { align-self: center; font-size: 13.5px; font-weight: 800; color: var(--ink); }
+.trk-plan-btn {
+  position: absolute; inset-inline-start: 0; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 11px;
+  border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--border-strong); font-size: 12.5px; font-weight: 800;
+}
+.trk-plan-btn[aria-expanded="true"] { background: var(--ink); color: #fff; box-shadow: none; }
+.trk-day:has(.trk-plan-btn) b { margin-inline: 70px; }
+.plan-edit { position: relative; display: grid; gap: 10px; padding: 16px; border-radius: 10px; background: #fff; box-shadow: 0 18px 34px -24px rgba(26,27,30,.6); animation: bubbleIn .45s var(--ease-out) both; }
+.plan-edit h3 { font-family: var(--font-display); font-weight: 800; font-stretch: 86%; font-size: 20px; text-transform: uppercase; }
+html[lang="ar"] .plan-edit h3 { font-family: var(--font-ar); text-transform: none; }
+.plan-edit-sub { margin-top: -6px; font-size: 13.5px; color: var(--text-muted); padding-inline-end: 28px; }
+.pe-label { font-size: 11.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--text-dim); }
+html[lang="ar"] .pe-label { text-transform: none; letter-spacing: 0; font-size: 13px; }
+.pe-goals { display: flex; flex-wrap: wrap; gap: 6px; }
+.pe-goals .chip { height: 36px; border-color: var(--ink); font-weight: 700; }
+.pe-goals .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.plan-edit .goal-hint { max-width: none; }
+.plan-edit .goal-combo { margin-top: -4px; }
+.plan-edit .seg, .logp-meal.seg { background: var(--bg-muted); }
+.plan-edit .seg button { color: var(--text-muted); }
+.plan-edit .seg button.on { color: #fff; }
+.pe-body { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.pe-body label { display: grid; gap: 4px; font-size: 12.5px; font-weight: 700; color: var(--text-muted); }
+.pe-body .body-input input { width: 100%; }
+.pe-preview { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding: 12px 14px; border-radius: 10px; background: var(--ink); color: #fff; }
+.pe-preview b { font-family: var(--font-display); font-weight: 800; font-stretch: 84%; font-size: 30px; line-height: 1; }
+.pe-preview span { font-weight: 700; color: rgba(255,255,255,.7); }
+.pe-preview em { padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,.14); font-style: normal; font-weight: 800; font-size: 12.5px; }
+.pe-preview small { flex-basis: 100%; font-size: 12.5px; color: rgba(255,255,255,.75); }
+.plan-edit .btn-primary:disabled { opacity: .55; }
+.pe-reset { display: grid; gap: 6px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
+.pe-reset p { font-size: 13px; color: var(--text-muted); }
+.pe-reset .btn { justify-self: start; padding: 9px 14px; font-size: 13.5px; }
+.pe-confirm { display: flex; flex-wrap: wrap; gap: 8px; }
+.logp-unknown { display: grid; gap: 6px; }
+.logp-unknown p { display: flex; gap: 6px; align-items: flex-start; font-size: 13px; color: var(--accent-text); }
+.logp-unknown .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.logp-unknown .chip { height: 32px; border-color: var(--ink); font-weight: 700; }
+.logp-unknown .chip small { color: var(--text-dim); font-weight: 700; }
+.logp-or { font-size: 12px; color: var(--text-muted); }
+
 /* English product names and sizes keep their own word order in Arabic pages */
 :is(.pd-info h1, .pd-sticky-info b, .plan-stack b, .plan-stack span, .cmp-head b, .cart-line-info h4, .cart-line-opts, .hsearch-txt b, .pcard-name) { unicode-bidi: plaintext; }
 

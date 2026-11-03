@@ -23,6 +23,7 @@ function load() {
       if (age(k) > KEEP_DAYS) continue
       days[k] = {
         water: day.water || 0,
+        target: day.target,
         entries: (day.entries || []).map(e => (age(k) > PHOTO_DAYS ? { ...e, photo: undefined } : e)),
       }
     }
@@ -45,10 +46,12 @@ export function TrackerProvider({ children }) {
   const [lastAdded, setLastAdded] = useState(null)   // { id, kcal } for the "+N kcal" pop
   useEffect(() => { save(days) }, [days])
 
-  const addEntry = useCallback((day, entry) => {
+  // `target` (that day's calories and macros) is kept with the day, so changing
+  // the plan later doesn't rewrite how past days scored
+  const addEntry = useCallback((day, entry, target) => {
     const id = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`
     const full = { id, time: Date.now(), ...entry }
-    setDays(d => ({ ...d, [day]: { water: d[day]?.water || 0, entries: [...(d[day]?.entries || []), full] } }))
+    setDays(d => ({ ...d, [day]: { ...d[day], water: d[day]?.water || 0, target: d[day]?.target || target, entries: [...(d[day]?.entries || []), full] } }))
     setLastAdded({ id, kcal: totals(entry.items).kcal })
     return id
   }, [])
@@ -56,8 +59,13 @@ export function TrackerProvider({ children }) {
     setDays(d => ({ ...d, [day]: { ...d[day], entries: (d[day]?.entries || []).filter(e => e.id !== id) } }))
   }, [])
   const setWater = useCallback((day, n) => {
-    setDays(d => ({ ...d, [day]: { entries: d[day]?.entries || [], water: Math.max(0, Math.min(16, n)) } }))
+    setDays(d => ({ ...d, [day]: { ...d[day], entries: d[day]?.entries || [], water: Math.max(0, Math.min(16, n)) } }))
   }, [])
+  // a new plan from today: today scores against it from now on
+  const retarget = useCallback((day, target) => {
+    setDays(d => (d[day] ? { ...d, [day]: { ...d[day], target } } : d))
+  }, [])
+  const resetDiary = useCallback(() => setDays({}), [])
 
   const value = useMemo(() => {
     const dayOf = (k) => days[k] || { entries: [], water: 0 }
@@ -78,8 +86,8 @@ export function TrackerProvider({ children }) {
     let k = dayKey()
     if (!dayOf(k).entries.length) k = shiftDay(k, -1)
     while (dayOf(k).entries.length && streak < 366) { streak++; k = shiftDay(k, -1) }
-    return { days, dayOf, totalsFor, recents: recents.slice(0, 8), streak, lastAdded, addEntry, removeEntry, setWater }
-  }, [days, lastAdded, addEntry, removeEntry, setWater])
+    return { days, dayOf, totalsFor, recents: recents.slice(0, 8), streak, lastAdded, addEntry, removeEntry, setWater, retarget, resetDiary }
+  }, [days, lastAdded, addEntry, removeEntry, setWater, retarget, resetDiary])
 
   return <TrackerContext.Provider value={value}>{children}</TrackerContext.Provider>
 }

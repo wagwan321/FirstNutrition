@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Camera, SendHorizontal, ChevronLeft, ChevronRight, Trash2, X, Minus, Plus, Sparkles, Info, Flame } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Camera, SendHorizontal, ChevronLeft, ChevronRight, Trash2, X, Minus, Plus, Sparkles, Info, Flame, SlidersHorizontal, RotateCcw } from 'lucide-react'
 import { useLocale } from '../i18n.jsx'
 import { useTracker, dayKey, shiftDay } from '../context/TrackerContext.jsx'
-import { dailyPlan } from '../utils/nutrition.js'
-import { parseFoods, scaleItem, totals, mealForTime, fitsRemaining } from '../utils/foodLog.js'
+import { dailyPlan, paceText } from '../utils/nutrition.js'
+import { parseFoods, scaleItem, totals, mealForTime, fitsRemaining, suggestFor } from '../utils/foodLog.js'
+import { GOALS, SEXES, DAYS, toggleGoal, goalLabel, goalsOf } from '../utils/coachPlan.js'
 import { analyzeFood, shrinkImage } from '../utils/foodAI.js'
 import useTween from '../hooks/useTween.js'
 
@@ -18,15 +19,24 @@ const DEFAULT_TARGETS = { calories: 2000, protein: 120, carbs: 230, fat: 65, wat
 const EXAMPLES = ['2 eggs and toast', 'chicken shawarma', '1 scoop whey', 'plate of hummus']
 
 const readCoach = () => { try { return JSON.parse(localStorage.getItem('fn_coach_v2'))?.a || null } catch { return null } }
+// Save the plan where the Coach chat keeps it (its conversation stays).
+const saveCoach = (a) => {
+  try {
+    const prev = JSON.parse(localStorage.getItem('fn_coach_v2')) || {}
+    localStorage.setItem('fn_coach_v2', JSON.stringify({ ...prev, a }))
+  } catch { /* private mode */ }
+}
+const snapshot = (t) => ({ calories: t.calories, protein: t.protein, carbs: t.carbs, fat: t.fat, water: t.water })
 const fmt = (n, lang) => Math.round(n).toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US')
 const itemName = (i, lang) => (lang === 'ar' ? i.nameAr || i.name : i.name)
 
 export default function TrackerView({ compact = false, onOpenChat }) {
   const { t, lang } = useLocale()
   const tracker = useTracker()
-  const a = useMemo(readCoach, [])
+  const [a, setA] = useState(readCoach)
   const plan = a?.done ? dailyPlan(a) : null
-  const target = plan || DEFAULT_TARGETS
+  const current = plan || DEFAULT_TARGETS
+  const [editing, setEditing] = useState(false)
   const [day, setDay] = useState(dayKey)
   const [draft, setDraft] = useState(null)        // a log being checked before it's saved
   const [text, setText] = useState('')
@@ -35,6 +45,8 @@ export default function TrackerView({ compact = false, onOpenChat }) {
   const [pop, setPop] = useState(null)            // "+N kcal" flying up from the ring
   const fileRef = useRef(null)
   const isToday = day === dayKey()
+  // past days are scored against the plan they were logged with
+  const target = (!isToday && tracker.dayOf(day).target) || current
   const entries = tracker.dayOf(day).entries
   const eaten = tracker.totalsFor(day)
   const water = tracker.dayOf(day).water
@@ -57,9 +69,9 @@ export default function TrackerView({ compact = false, onOpenChat }) {
     let next = { items: parsed.items, unknown: parsed.unknown, meal: parsed.meal || mealForTime(), text: input }
     if (parsed.unknown.length) {
       setDraft({ ...next, status: 'scanning' })
-      const ai = await analyzeFood({ text: parsed.unknown.join(', '), lang })
+      const ai = await analyzeFood({ text: input, only: parsed.unknown, lang })
       if (ai.items?.length) next = { ...next, items: [...next.items, ...ai.items], unknown: [], note: ai.note }
-      else next = { ...next, aiOff: ai.off }
+      else next = { ...next, aiOff: ai.off, suggest: parsed.unknown.map(phrase => ({ phrase, options: suggestFor(phrase) })) }
     }
     setDraft({ ...next, status: 'ready' })
   }
@@ -77,7 +89,7 @@ export default function TrackerView({ compact = false, onOpenChat }) {
   }
   const logDraft = () => {
     if (!draft?.items.length) return
-    tracker.addEntry(day, { meal: draft.meal, items: draft.items, text: draft.text, photo: draft.photo })
+    tracker.addEntry(day, { meal: draft.meal, items: draft.items, text: draft.text, photo: draft.photo }, snapshot(current))
     setDraft(null)
     setExplain(null)
   }
@@ -95,7 +107,7 @@ export default function TrackerView({ compact = false, onOpenChat }) {
     <div className={`trk${compact ? ' is-compact' : ''}`}>
       <div className="trk-scroll">
         {!plan && (
-          <button type="button" className="trk-setup" onClick={onOpenChat}>
+          <button type="button" className="trk-setup" onClick={() => setEditing(true)}>
             <Sparkles size={18} />
             <span><b>{t('Set your own targets')}</b><small>{t('Answer six quick questions in the Coach; until then we use 2,000 kcal.')}</small></span>
             <ChevronRight size={18} className="flip-rtl" />
@@ -107,7 +119,20 @@ export default function TrackerView({ compact = false, onOpenChat }) {
           <b>{dayLabel}</b>
           <button type="button" className="icon-btn" onClick={() => setDay(d => shiftDay(d, 1))} disabled={isToday} aria-label={t('Next day')}><ChevronRight size={20} className="flip-rtl" /></button>
           {tracker.streak > 1 && <span className="trk-streak"><Flame size={14} /> {t('{n}-day streak', { n: tracker.streak })}</span>}
+          <button type="button" className="trk-plan-btn" onClick={() => setEditing(e => !e)} aria-expanded={editing}>
+            <SlidersHorizontal size={15} /> {t('My plan')}
+          </button>
         </div>
+
+        {editing && (
+          <PlanEditor a={a} onClose={() => setEditing(false)}
+            onSave={(next) => {
+              saveCoach(next)
+              setA(next)
+              tracker.retarget(dayKey(), snapshot(dailyPlan(next)))
+            }}
+            onReset={() => { tracker.resetDiary(); setDay(dayKey()) }} />
+        )}
 
         {/* the day at a glance: calories ring and macro bars, all tappable */}
         <div className={`trk-hero is-${status}`}>
@@ -299,9 +324,23 @@ export function LogPreview({ draft, setDraft, onLog, onCancel, onDescribe, inlin
               ))}
             </ul>
           )}
-          {draft.unknown?.length > 0 && (
-            <p className="logp-unknown"><Info size={14} /> {t('Couldn’t find “{x}”. Add it with its calories, like “{x} 300 kcal”.', { x: draft.unknown.join(', ') })}</p>
-          )}
+          {draft.unknown?.length > 0 && (draft.suggest || draft.unknown.map(phrase => ({ phrase, options: [] }))).map(({ phrase, options }) => (
+            <div key={phrase} className="logp-unknown">
+              <p><Info size={14} /> {options.length
+                ? t('I don’t know “{x}” yet. Did you mean:', { x: phrase })
+                : t('Couldn’t find “{x}”. Add it with its calories, like “{x} 300 kcal”.', { x: phrase })}</p>
+              {options.length > 0 && (
+                <div className="chips">
+                  {options.map(o => (
+                    <button key={o.id} type="button" className="chip" onClick={() => setDraft(d => ({
+                      ...d, items: [...d.items, o], unknown: d.unknown.filter(u => u !== phrase), suggest: d.suggest?.filter(x => x.phrase !== phrase),
+                    }))}>{itemName(o, lang)} <small>{Math.round(o.kcal)}</small></button>
+                  ))}
+                  <span className="logp-or">{t('or type “{x} 300 kcal”', { x: phrase })}</span>
+                </div>
+              )}
+            </div>
+          ))}
           {draft.note && <p className="logp-note">{draft.note}</p>}
           {draft.items.length > 0 && (
             <>
@@ -317,6 +356,89 @@ export function LogPreview({ draft, setDraft, onLog, onCancel, onDescribe, inlin
           )}
         </>
       )}
+    </div>
+  )
+}
+
+// "My plan": change goals and body numbers any time (finished bulking? switch
+// to a cut) and see the new targets before saving; or clear the diary and
+// start fresh. Past days keep the targets they were logged with.
+function PlanEditor({ a, onClose, onSave, onReset }) {
+  const { t, lang } = useLocale()
+  const [d, setD] = useState(() => ({
+    goals: goalsOf(a || { goal: 'muscle' }), sex: a?.sex || 'male', age: a?.age || '', height: a?.height || '', weight: a?.weight || '',
+    activity: a?.activity || 'moderate',
+  }))
+  const [saved, setSaved] = useState(false)
+  const [confirm, setConfirm] = useState(false)
+  const [clash, setClash] = useState(false)
+  const ok = Number(d.age) >= 14 && Number(d.age) <= 80 && Number(d.height) >= 130 && Number(d.height) <= 220 && Number(d.weight) >= 35 && Number(d.weight) <= 200
+  const next = ok ? dailyPlan({ ...d, age: +d.age, height: +d.height, weight: +d.weight }) : null
+  const now = a?.done ? dailyPlan(a) : null
+  const kcal = useTween(next?.calories || 0, 700)
+  const set = (patch) => { setD(x => ({ ...x, ...patch })); setSaved(false) }
+  const n = (v) => Math.round(v).toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US')
+
+  return (
+    <div className="plan-edit" role="region" aria-label={t('My plan')}>
+      <button type="button" className="explain-x" onClick={onClose} aria-label={t('Close')}><X size={16} /></button>
+      <h3>{t('My plan')}</h3>
+      <p className="plan-edit-sub">{t('Finished a phase? Change your goal or numbers and your targets update from today.')}</p>
+
+      <span className="pe-label">{t('Goal')}</span>
+      <div className="chips pe-goals">
+        {GOALS.map(g => {
+          const on = d.goals.includes(g.id)
+          return (
+            <button key={g.id} type="button" className={`chip${on ? ' on' : ''}`} aria-pressed={on} onClick={() => {
+              setClash(!on && d.goals.includes(g.excludes))
+              set({ goals: toggleGoal(d.goals, g.id) })
+            }}>{t(g.label)}</button>
+          )
+        })}
+      </div>
+      {clash && <p className="goal-hint">{t('You can’t gain weight and lose fat at the same time. To lose fat and keep your muscle, pick Build muscle + Lose fat.')}</p>}
+      <p className="goal-combo">{goalLabel(d.goals, t)}</p>
+
+      <div className="seg pe-sex">
+        {SEXES.map(x => <button key={x.id} type="button" className={d.sex === x.id ? 'on' : ''} onClick={() => set({ sex: x.id })}>{t(x.label)}</button>)}
+      </div>
+      <div className="pe-body">
+        {[['age', t('Age'), ''], ['height', t('Height'), 'cm'], ['weight', t('Weight'), 'kg']].map(([k, label, unit]) => (
+          <label key={k}><span>{label}</span>
+            <span className="body-input"><input type="number" inputMode="decimal" value={d[k]} onChange={(e) => set({ [k]: e.target.value })} />{unit && <i>{unit}</i>}</span>
+          </label>
+        ))}
+      </div>
+      <span className="pe-label">{t('Training')}</span>
+      <div className="seg pe-days">
+        {DAYS.map(x => <button key={x.id} type="button" className={d.activity === x.id ? 'on' : ''} onClick={() => set({ activity: x.id })}>{t(x.label)}</button>)}
+      </div>
+
+      {next && (
+        <div className="pe-preview">
+          <b>{n(kcal)}</b><span>{t('kcal a day')}</span>
+          {now && next.calories !== now.calories && <em>{next.calories > now.calories ? '+' : '−'}{n(Math.abs(next.calories - now.calories))}</em>}
+          <small>{t('{p} g protein · {c} g carbs · {f} g fat', { p: next.protein, c: next.carbs, f: next.fat })} · {paceText(next, t)}</small>
+        </div>
+      )}
+      <button type="button" className="btn btn-primary btn-block" disabled={!ok || saved}
+        onClick={() => { onSave({ ...(a || {}), ...d, age: +d.age, height: +d.height, weight: +d.weight, goal: d.goals[0], avoid: a?.avoid || [], budget: a?.budget || 100, done: true }); setSaved(true) }}>
+        {saved ? t('Saved. Your new targets start today.') : t('Save my plan')}
+      </button>
+
+      <div className="pe-reset">
+        <b>{t('Start fresh')}</b>
+        <p>{t('Clear every meal and glass of water you’ve logged. Your plan stays.')}</p>
+        {confirm ? (
+          <div className="pe-confirm">
+            <button type="button" className="btn btn-primary" onClick={() => { onReset(); setConfirm(false) }}>{t('Yes, clear my diary')}</button>
+            <button type="button" className="btn btn-ghost" onClick={() => setConfirm(false)}>{t('Cancel')}</button>
+          </div>
+        ) : (
+          <button type="button" className="btn btn-ghost" onClick={() => setConfirm(true)}><RotateCcw size={15} /> {t('Clear my food diary')}</button>
+        )}
+      </div>
     </div>
   )
 }
@@ -337,8 +459,8 @@ function ExplainCard({ kind, plan, a, target, eaten, left, water, glasses, onClo
       const bmr = Math.round(10 * a.weight + 6.25 * a.height - 5 * a.age + (a.sex === 'female' ? -161 : 5))
       const diff = target.calories - plan.maintenance
       body.push(t('Where {t} comes from: at rest your body burns about {b} kcal (the Mifflin-St Jeor formula, from your age, height, weight and sex). Your training raises that to about {m} kcal a day.', { t: n(target.calories), b: n(bmr), m: n(plan.maintenance) }))
-      body.push(diff > 0 ? t('To build, you eat {d} kcal above that, aiming for {pace}.', { d: n(diff), pace: t(plan.pace) })
-        : diff < 0 ? t('To lose fat, you eat {d} kcal below that, aiming for {pace}.', { d: n(-diff), pace: t(plan.pace) })
+      body.push(diff > 0 ? t('To build, you eat {d} kcal above that, aiming for {pace}.', { d: n(diff), pace: paceText(plan, t) })
+        : diff < 0 ? t('To lose fat, you eat {d} kcal below that, aiming for {pace}.', { d: n(-diff), pace: paceText(plan, t) })
           : t('For performance you eat about what you burn, so your weight holds steady.'))
       body.push(t('Weigh yourself on the same morning each week. If nothing changes for two weeks, adjust by 150–200 kcal a day.'))
     } else body.push(t('Set your targets in the Coach to get a number made for your body and goal.'))

@@ -3,13 +3,13 @@
 
 // Returns { items, note } on success, { off: true } when the site's AI isn't
 // switched on (or there is no endpoint, as in local dev), { error: true } otherwise.
-export async function analyzeFood({ image, text, lang }) {
+export async function analyzeFood({ image, text, only, lang }) {
   try {
     const ctrl = new AbortController()
     const timer = setTimeout(() => ctrl.abort(), 45000)
     const res = await fetch('/api/food', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl.signal,
-      body: JSON.stringify({ image: image ? image.split(',')[1] : undefined, text: text?.slice(0, 400), lang }),
+      body: JSON.stringify({ image: image ? image.split(',')[1] : undefined, text: text?.slice(0, 400), only: only?.slice(0, 8), lang }),
     })
     clearTimeout(timer)
     if (res.status === 503 || res.status === 404 || res.status === 405) return { off: true }

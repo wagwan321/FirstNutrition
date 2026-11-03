@@ -11,6 +11,7 @@ import { GOALS, SEXES, DAYS, BUDGETS, AVOID, HOW_TO, planFor, icsFile, goalsOf, 
 import { answer, suggestions } from '../utils/coachBrain.js'
 import { buildOrderMessage, openWhatsApp, waUrl } from '../utils/whatsapp.js'
 import useTween from '../hooks/useTween.js'
+import { paceText, dailyPlan } from '../utils/nutrition.js'
 import { useTracker, dayKey } from '../context/TrackerContext.jsx'
 import { parseFoods, mealForTime } from '../utils/foodLog.js'
 import { LogPreview } from './TrackerView.jsx'
@@ -428,7 +429,7 @@ function PlanCard({ plan, a, onChange }) {
       </div>
       <details className="plan-about">
         <summary>{t('About these numbers')} <ChevronDown size={14} /></summary>
-        <p>{t('Maintenance ≈ {m} kcal · aim for {pace}', { m: plan.maintenance, pace: t(plan.pace) })} · {plan.water} L {t('water a day')} · {plan.creatine} g {t('creatine a day')}</p>
+        <p>{t('Maintenance ≈ {m} kcal · aim for {pace}', { m: plan.maintenance, pace: paceText(plan, t) })} · {plan.water} L {t('water a day')} · {plan.creatine} g {t('creatine a day')}</p>
         <p>{t('Estimates from standard sports-nutrition formulas, not medical advice. Pregnant, under 18 or managing a health condition? Talk to your doctor first.')}</p>
       </details>
     </div>
@@ -486,7 +487,13 @@ function ChatLog({ m, onLogged, onOpenToday }) {
   }
   return (
     <LogPreview inline draft={draft} setDraft={setDraft} onCancel={() => {}} onDescribe={() => {}}
-      onLog={() => { tracker.addEntry(dayKey(), { meal: draft.meal, items: draft.items, text: draft.text }); onLogged(m.id) }} />
+      onLog={() => {
+        // keep today's targets with the day, as the Today view does
+        let target
+        try { const a = JSON.parse(localStorage.getItem('fn_coach_v2'))?.a; if (a?.done) { const p = dailyPlan(a); target = { calories: p.calories, protein: p.protein, carbs: p.carbs, fat: p.fat, water: p.water } } } catch { /* private mode */ }
+        tracker.addEntry(dayKey(), { meal: draft.meal, items: draft.items, text: draft.text }, target)
+        onLogged(m.id)
+      }} />
   )
 }
 
