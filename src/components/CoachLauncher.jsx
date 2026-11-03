@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { X, Maximize2 } from 'lucide-react'
 import { WhatsAppIcon } from './BrandIcons.jsx'
 import CategoryIcon from './CategoryIcon.jsx'
-import CoachChat from './CoachChat.jsx'
+import CoachHub from './CoachHub.jsx'
 import { useLocale } from '../i18n.jsx'
 import { waUrl } from '../utils/whatsapp.js'
 
@@ -72,7 +72,7 @@ export default function CoachLauncher({ hidden }) {
             <Link className="icon-btn hide-sm" to="/coach" aria-label={t('Open full screen')} title={t('Open full screen')}><Maximize2 size={17} /></Link>
             <button type="button" className="icon-btn" onClick={() => setOpen(false)} aria-label={t('Close the Coach')}><X size={20} /></button>
           </header>
-          <CoachChat compact />
+          <CoachHub compact />
         </section>,
         document.body,
       )}

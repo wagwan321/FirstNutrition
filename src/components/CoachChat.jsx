@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ShoppingBag, CalendarPlus, RotateCcw, SendHorizontal, ChevronDown, Plus } from 'lucide-react'
+import { ArrowRight, ShoppingBag, CalendarPlus, RotateCcw, SendHorizontal, ChevronDown, Plus, Check, UtensilsCrossed } from 'lucide-react'
 import { WhatsAppIcon } from './BrandIcons.jsx'
 import CategoryIcon from './CategoryIcon.jsx'
 import OrderModal from './OrderModal.jsx'
@@ -10,6 +10,10 @@ import { productById } from '../data/catalog.js'
 import { GOALS, SEXES, DAYS, BUDGETS, AVOID, HOW_TO, planFor, icsFile } from '../utils/coachPlan.js'
 import { answer, suggestions } from '../utils/coachBrain.js'
 import { buildOrderMessage, openWhatsApp, waUrl } from '../utils/whatsapp.js'
+import useTween from '../hooks/useTween.js'
+import { useTracker, dayKey } from '../context/TrackerContext.jsx'
+import { parseFoods, mealForTime } from '../utils/foodLog.js'
+import { LogPreview } from './TrackerView.jsx'
 
 // The Coach conversation: six quick answers, then the plan arrives in a few
 // animated messages (calories ring, live goal / training controls, the stack),
@@ -20,31 +24,16 @@ const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)')
 const load = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || null } catch { return null } }
 const wait = (ms) => new Promise(r => setTimeout(r, reduceMotion() ? 0 : ms))
 
-// Animates a number towards `value` (eased), re-animating whenever it changes.
-function useTween(value, ms = 900) {
-  const [v, setV] = useState(() => (reduceMotion() ? value : 0))
-  const from = useRef(v)
-  useEffect(() => {
-    if (reduceMotion()) { setV(value); from.current = value; return }
-    const start = performance.now()
-    const a = from.current
-    let raf
-    const step = (now) => {
-      const k = Math.min(1, (now - start) / ms)
-      const cur = a + (value - a) * (1 - Math.pow(1 - k, 3))
-      from.current = cur
-      setV(cur)
-      if (k < 1) raf = requestAnimationFrame(step)
-    }
-    raf = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf)
-  }, [value, ms])
-  return Math.round(v)
-}
+// Food logs typed into the chat ("I had 2 eggs and toast") and questions about today.
+const LOG_START = /^(i ate|i had|i've had|ive had|ate|had|just ate|eating|breakfast|lunch|dinner|snack|for (breakfast|lunch|dinner)|اكلت|أكلت|تناولت|فطوري|فطور|غدائي|غدا|عشائي|عشا|سناك)(\s|:|$)/i
+const QUESTION = /\?|؟|^(how|what|when|why|is|are|can|should|do|does|which|كم|شو|ايش|هل|متى|ليش|كيف|لماذا|ماذا)(\s|$)/i
+const TODAY_Q = /(today|so far|calories left|how am i doing|my day|اليوم|لحد الان|لهلق|باقي لي|ضل لي|كم اكلت|كم سعره)/i
+const looksLikeLog = (q) => LOG_START.test(q) || (!QUESTION.test(q) && /\d/.test(q) && parseFoods(q).items.length > 0)
 
-export default function CoachChat({ compact = false }) {
+export default function CoachChat({ compact = false, onOpenToday }) {
   const { t, price, country, region, lang } = useLocale()
   const { addItem, setDrawerOpen } = useCart()
+  const tracker = useTracker()
   const saved = useMemo(load, [])
   const [a, setA] = useState(() => saved?.a || { avoid: [] })
   const [step, setStep] = useState(() => (saved?.a?.done ? 6 : 0))
@@ -103,6 +92,32 @@ export default function CoachChat({ compact = false }) {
     setThread(th => [...th, { id: Date.now(), from: 'me', text: shown.trim() }])
     setDraft('')
     setTyping(true)
+    const q = question.trim()
+    // "how am I doing today?" and food logs are answered from the diary
+    if (TODAY_Q.test(q) && !LOG_START.test(q)) {
+      const e = tracker.totalsFor(dayKey())
+      const goal = plan || { calories: 2000, protein: 120 }
+      const l = Math.round(goal.calories - e.kcal)
+      await wait(600)
+      setTyping(false)
+      setThread(th => [...th, {
+        id: Date.now() + 1, from: 'coach', today: true,
+        text: `${t('Today so far: {e} of {t} kcal and {p} of {pt} g protein.', { e: Math.round(e.kcal), t: goal.calories, p: Math.round(e.p), pt: goal.protein })} ${l >= 0 ? t('{n} kcal left.', { n: l }) : t('{n} kcal over.', { n: -l })}`,
+      }])
+      return
+    }
+    if (looksLikeLog(q)) {
+      const parsed = parseFoods(q)
+      if (parsed.items.length) {
+        await wait(700)
+        setTyping(false)
+        setThread(th => [...th, {
+          id: Date.now() + 1, from: 'coach', text: t('Here’s what I found. Check the portions and log it:'),
+          log: { items: parsed.items, unknown: parsed.unknown, meal: parsed.meal || mealForTime(), text: q, status: 'ready' },
+        }])
+        return
+      }
+    }
     const branches = region.branches?.length || 0
     const res = answer(question, { t, plan, a, stack, region, price, branches })
     let reply
@@ -163,7 +178,8 @@ export default function CoachChat({ compact = false }) {
 
   const asked = new Set(thread.filter(m => m.from === 'me').map(m => m.key || m.text))
   const lastCoach = [...thread].reverse().find(m => m.from === 'coach')
-  const chips = [lastCoach?.suggest, ...suggestions(a)].filter(Boolean).filter((s, i, all) => all.indexOf(s) === i && !asked.has(t(s))).slice(0, 3)
+  const loggedToday = tracker.dayOf(dayKey()).entries.length > 0
+  const chips = [lastCoach?.suggest, loggedToday ? 'How am I doing today?' : 'I had 2 eggs and toast', ...suggestions(a)].filter(Boolean).filter((s, i, all) => all.indexOf(s) === i && !asked.has(t(s))).slice(0, 3)
 
   return (
     <div className={`cchat${compact ? ' is-compact' : ''}`}>
@@ -231,7 +247,8 @@ export default function CoachChat({ compact = false }) {
 
           {thread.map(m => (m.from === 'me'
             ? <Bubble me key={m.id}>{m.text}</Bubble>
-            : <CoachReply key={m.id} m={m} summary={summary} onAddStack={addStack} onOrder={() => setOrdering(true)} />))}
+            : <CoachReply key={m.id} m={m} summary={summary} onAddStack={addStack} onOrder={() => setOrdering(true)} onOpenToday={onOpenToday}
+              onLogged={(id) => setThread(th => th.map(x => (x.id === id ? { ...x, logged: true } : x)))} />))}
 
           {typing && <div className="bubble typing" aria-label={t('Coach is typing')}><i /><i /><i /></div>}
           <span ref={endRef} />
@@ -419,7 +436,26 @@ function StackCards({ items }) {
   )
 }
 
-function CoachReply({ m, summary, onAddStack, onOrder }) {
+// A food log in the chat: the same check-and-log card as in Today.
+function ChatLog({ m, onLogged, onOpenToday }) {
+  const { t } = useLocale()
+  const tracker = useTracker()
+  const [draft, setDraft] = useState(m.log)
+  if (m.logged) {
+    return (
+      <div className="reply-actions">
+        <span className="logged-ok"><Check size={15} /> {t('Logged to today')}</span>
+        {onOpenToday && <button type="button" className="chip" onClick={onOpenToday}><UtensilsCrossed size={14} /> {t('Open Today')}</button>}
+      </div>
+    )
+  }
+  return (
+    <LogPreview inline draft={draft} setDraft={setDraft} onCancel={() => {}} onDescribe={() => {}}
+      onLog={() => { tracker.addEntry(dayKey(), { meal: draft.meal, items: draft.items, text: draft.text }); onLogged(m.id) }} />
+  )
+}
+
+function CoachReply({ m, summary, onAddStack, onOrder, onOpenToday, onLogged }) {
   const { t, price, country, lang } = useLocale()
   const { addItem } = useCart()
   return (
@@ -429,6 +465,10 @@ function CoachReply({ m, summary, onAddStack, onOrder }) {
         {m.list && <span className="reply-list">{m.list.map(l => <span key={l}>• {l}</span>)}</span>}
         {m.after && <span className="reply-after">{m.after}</span>}
       </Bubble>
+      {m.log && <ChatLog m={m} onLogged={onLogged} onOpenToday={onOpenToday} />}
+      {m.today && onOpenToday && (
+        <div className="reply-actions"><button type="button" className="chip" onClick={onOpenToday}><UtensilsCrossed size={14} /> {t('Open Today')}</button></div>
+      )}
       {m.planSnap && (
         <div className="snap">
           <b>{m.planSnap.calories.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US')}</b> {t('kcal a day')}

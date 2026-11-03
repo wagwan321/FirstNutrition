@@ -26,7 +26,8 @@ export default defineConfig({
           { src: '/pwa-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
         shortcuts: [
-          { name: 'Coach', url: '/coach', icons: [{ src: '/pwa-192.png', sizes: '192x192' }] },
+          { name: 'Track food', url: '/coach?view=today', icons: [{ src: '/pwa-192.png', sizes: '192x192' }] },
+          { name: 'Coach', url: '/coach?view=chat', icons: [{ src: '/pwa-192.png', sizes: '192x192' }] },
           { name: 'Offers', url: '/shop/bundles', icons: [{ src: '/pwa-192.png', sizes: '192x192' }] },
         ],
       },

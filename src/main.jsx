@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { LocaleProvider } from './i18n.jsx'
 import { CartProvider } from './context/CartContext.jsx'
 import { CompareProvider } from './context/CompareContext.jsx'
+import { TrackerProvider } from './context/TrackerContext.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <LocaleProvider>
         <CartProvider>
           <CompareProvider>
-            <App />
+            <TrackerProvider>
+              <App />
+            </TrackerProvider>
           </CompareProvider>
         </CartProvider>
       </LocaleProvider>
