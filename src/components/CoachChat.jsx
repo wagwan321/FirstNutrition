@@ -244,6 +244,13 @@ export default function CoachChat({ compact = false, onOpenToday }) {
               <button type="button" className="btn btn-ghost" onClick={remind}><CalendarPlus size={16} /> {t('Remind me to re-order')}</button>
             </div>
           )}
+          {plan && stage >= 3 && onOpenToday && (
+            <button type="button" className="track-cta" onClick={onOpenToday}>
+              <span className="track-cta-ico" aria-hidden="true"><UtensilsCrossed size={20} /></span>
+              <span><b>{t('Open the calorie counter')}</b><small>{t('Log what you eat and watch today fill up against this plan.')}</small></span>
+              <ArrowRight size={20} className="flip-rtl" />
+            </button>
+          )}
           {plan && stage >= 4 && <Bubble>{t('Got questions? Ask me anything about your plan, your stack or how to take it.')}</Bubble>}
 
           {thread.map(m => (m.from === 'me'

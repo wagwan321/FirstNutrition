@@ -699,4 +699,6 @@ export const AR = {
   'or type “{x} 300 kcal”': 'أو اكتب «{x} 300 سعرة»',
   '{n} kg a week': '{n} كغ أسبوعياً',
   '{n} kg a week, keeping muscle': '{n} كغ أسبوعياً مع الحفاظ على العضلات',
+  'Open the calorie counter': 'افتح عدّاد السعرات',
+  'Log what you eat and watch today fill up against this plan.': 'سجّل ما تأكله وشاهد يومك يكتمل حسب هذه الخطة.',
 }

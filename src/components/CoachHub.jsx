@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MessageCircle, UtensilsCrossed } from 'lucide-react'
 import CoachChat from './CoachChat.jsx'
 import TrackerView from './TrackerView.jsx'
@@ -19,22 +19,38 @@ export default function CoachHub({ compact = false }) {
   })
   useEffect(() => { try { localStorage.setItem(KEY, view) } catch { /* private mode */ } }, [view])
   const todayKcal = Math.round(tracker.totalsFor(dayKey()).kcal)
+  const ref = useRef(null)
+
+  // Switch sides and bring the top of the Coach into view (on the page the
+  // window would otherwise stay at the bottom of a long chat).
+  const open = (next) => {
+    setView(next)
+    // the chat keeps scrolling to its newest message; Today starts at its top
+    if (compact || next !== 'today') return
+    requestAnimationFrame(() => {
+      const el = ref.current
+      if (!el) return
+      const hdr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 76
+      const top = el.getBoundingClientRect().top + window.scrollY - hdr - 12
+      if (window.scrollY > top) window.scrollTo({ top, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+    })
+  }
 
   return (
-    <div className={`chub${compact ? ' is-compact' : ''}`}>
+    <div className={`chub${compact ? ' is-compact' : ''}`} ref={ref}>
       <div className="chub-tabs" role="tablist" aria-label={t('Coach')}>
-        <button type="button" role="tab" aria-selected={view === 'chat'} className={view === 'chat' ? 'on' : ''} onClick={() => setView('chat')}>
+        <button type="button" role="tab" aria-selected={view === 'chat'} className={view === 'chat' ? 'on' : ''} onClick={() => open('chat')}>
           <MessageCircle size={16} /> {t('Coach')}
         </button>
-        <button type="button" role="tab" aria-selected={view === 'today'} className={view === 'today' ? 'on' : ''} onClick={() => setView('today')}>
+        <button type="button" role="tab" aria-selected={view === 'today'} className={view === 'today' ? 'on' : ''} onClick={() => open('today')}>
           <UtensilsCrossed size={16} /> {t('Today')}
           {todayKcal > 0 && <em>{todayKcal.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US')}</em>}
         </button>
         <span className="chub-ink" style={{ '--x': view === 'chat' ? 0 : 1 }} aria-hidden="true" />
       </div>
       {view === 'chat'
-        ? <CoachChat compact={compact} onOpenToday={() => setView('today')} />
-        : <TrackerView compact={compact} onOpenChat={() => setView('chat')} />}
+        ? <CoachChat compact={compact} onOpenToday={() => open('today')} />
+        : <TrackerView compact={compact} onOpenChat={() => open('chat')} />}
     </div>
   )
 }

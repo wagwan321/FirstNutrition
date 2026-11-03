@@ -2290,6 +2290,19 @@ html[lang="ar"] .meal header b { font-family: var(--font-ar); text-transform: no
   .trk-macros { width: 100%; }
 }
 
+/* end of the quiz: into the calorie counter */
+.track-cta {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border-radius: 12px; text-align: start;
+  background: var(--accent); color: #fff; box-shadow: 0 18px 30px -18px rgba(160,20,18,.7);
+  animation: bubbleIn .5s var(--ease-out) .15s both; transition: translate .3s var(--ease-out);
+}
+.track-cta:hover { translate: 0 -2px; }
+.track-cta > span:nth-child(2) { flex: 1; display: grid; gap: 2px; }
+.track-cta b { font-family: var(--font-display); font-weight: 800; font-stretch: 86%; font-size: 19px; text-transform: uppercase; line-height: 1.05; }
+html[lang="ar"] .track-cta b { font-family: var(--font-ar); text-transform: none; }
+.track-cta small { font-size: 13px; color: rgba(255,255,255,.85); }
+.track-cta-ico { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; flex: none; background: rgba(255,255,255,.16); }
+
 /* goal picker (chat) and "My plan" editor (Today) */
 .goal-pick { display: grid; gap: 8px; justify-items: end; animation: bubbleIn .45s var(--ease-out) .1s both; }
 .goal-hint { max-width: 420px; padding: 8px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-text); font-size: 13px; font-weight: 700; animation: bubbleIn .35s var(--ease-out) both; }
