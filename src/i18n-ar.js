@@ -670,4 +670,19 @@ export const AR = {
   'How am I doing today?': 'كيف يومي اليوم؟',
   'I had 2 eggs and toast': 'اكلت بيضتين وتوست',
   '{n} kcal': '{n} سعرة',
+
+  // ---- combined goals ----
+  'Hi! I’m the First Nutrition coach. What are you training for? Pick one or more.': 'أهلاً! أنا مدرّب فيرست نيوتريشن. ما هدفك من التمرين؟ اختر هدفاً أو أكثر.',
+  'You can’t gain weight and lose fat at the same time. To lose fat and keep your muscle, pick Build muscle + Lose fat.': 'لا يمكن زيادة الوزن وخسارة الدهون معاً. لتخسر الدهون وتحافظ على عضلاتك، اختر بناء العضلات + خسارة الدهون.',
+  'Build muscle + gain weight (bulk)': 'بناء العضلات + زيادة الوزن (تضخيم)',
+  'Lose fat + keep muscle (recomp)': 'خسارة الدهون + الحفاظ على العضلات (ريكومب)',
+  'Done. Your plan is now: {goal}.': 'تم. خطتك الآن: {goal}.',
+  'I also want to gain weight': 'بدي كمان ازيد وزن',
+  'I also want to keep my muscle': 'بدي كمان احافظ على عضلاتي',
+  'I also want to build muscle': 'بدي كمان ابني عضل',
+  '+0.4 kg / week': '+0.4 كغ أسبوعياً',
+  '−0.3 kg / week, keeping muscle': '−0.3 كغ أسبوعياً مع الحفاظ على العضلات',
+  '+0.2 kg / week': '+0.2 كغ أسبوعياً',
+  '+0.35 kg / week': '+0.35 كغ أسبوعياً',
+  '−0.3 kg / week': '−0.3 كغ أسبوعياً',
 }

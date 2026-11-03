@@ -5,6 +5,7 @@
 // endpoint or hand the question to a real coach on WhatsApp.
 import { PRODUCTS } from '../data/catalog.js'
 import { searchProducts } from './search.js'
+import { goalsOf, toggleGoal, goalLabel } from './coachPlan.js'
 
 const norm = (s) => ` ${s.toLowerCase()
   .replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي')
@@ -14,6 +15,7 @@ const norm = (s) => ` ${s.toLowerCase()
 const has = (q, words) => words.some(w => (/[a-z]/.test(w) ? q.includes(` ${w}`) : q.includes(norm(w).trim())))
 
 const W = {
+  addVerb: ['also', 'too', 'as well', 'at the same time', 'plus', 'both', 'كمان', 'ايضا', 'أيضا', 'بنفس الوقت', 'مع بعض', 'بالاضافه'],
   switchVerb: ['switch', 'change', 'instead', 'want to', 'i want', 'make it', 'go for', 'rather', 'غير', 'حول', 'بدل', 'بدي', 'اريد', 'ابغى', 'بدّي'],
   goalLose: ['cut', 'cutting', 'lose', 'fat loss', 'lean', 'shred', 'burn', 'تنشيف', 'خساره', 'انزل', 'تخسيس', 'حرق'],
   goalGain: ['bulk', 'bulking', 'gain weight', 'gaining', 'put on weight', 'mass', 'تضخيم', 'زياده وزن', 'زيادة الوزن', 'ازيد'],
@@ -47,7 +49,6 @@ const FOODS = [
   { label: 'a glass of milk', g: 8 },
 ]
 
-const GOAL_LABEL = { muscle: 'building muscle', gain: 'gaining weight', lose: 'losing fat', performance: 'performance' }
 const DAY_ACTIVITY = (d) => (d <= 2 ? 'light' : d <= 4 ? 'moderate' : d <= 6 ? 'hard' : 'daily')
 const BUDGET_STEPS = [50, 100, 160, 9999]
 
@@ -68,10 +69,19 @@ export function answer(question, ctx) {
   if (kg && Number(kg[1]) >= 35 && Number(kg[1]) <= 200) {
     return { patch: { weight: Number(kg[1]) }, plan: true, text: t('Updated your weight to {w} kg. New numbers:', { w: kg[1] }) }
   }
-  if (has(q, W.switchVerb)) {
-    const goal = has(q, W.goalLose) ? 'lose' : has(q, W.goalGain) ? 'gain' : has(q, W.goalPerf) ? 'performance' : has(q, W.goalMuscle) ? 'muscle' : null
-    if (goal && goal !== a.goal) {
-      return { patch: { goal }, plan: true, stack: true, text: t('Done. I switched your plan to {goal}.', { goal: t(GOAL_LABEL[goal]) }) }
+  // goals: "switch to fat loss" replaces them; "I also want to gain weight" or
+  // "build muscle and gain weight at the same time" combines them
+  if (has(q, W.switchVerb) || has(q, W.addVerb)) {
+    const named = [['lose', W.goalLose], ['gain', W.goalGain], ['performance', W.goalPerf], ['muscle', W.goalMuscle]]
+      .filter(([, words]) => has(q, words)).map(([id]) => id)
+    if (named.length) {
+      const current = goalsOf(a)
+      let goals = named.length > 1 || !has(q, W.addVerb) ? [] : current
+      for (const id of named) goals = goals.length ? toggleGoal(goals.filter(g => g !== id), id) : [id]
+      goals = goalsOf({ goals })
+      if (goals.join() !== current.join()) {
+        return { patch: { goals, goal: goals[0] }, plan: true, stack: true, text: t('Done. Your plan is now: {goal}.', { goal: goalLabel(goals, t) }) }
+      }
     }
   }
 
@@ -127,13 +137,13 @@ export function answer(question, ctx) {
   if (has(q, W.gainer)) {
     return {
       text: t('A gainer is for when food alone can’t get you to {k} kcal. Have one serving a day between meals or after training, and split it in two if it feels heavy.', { k: plan.calories }),
-      products: ofCategory(['gainers'], 2), suggest: a.goal !== 'gain' ? 'Switch my goal to gaining weight' : null,
+      products: ofCategory(['gainers'], 2), suggest: !goalsOf(a).includes('gain') ? 'I also want to gain weight' : null,
     }
   }
   if (has(q, W.burner)) {
     return {
       text: t('The calorie deficit does the work: about {k} kcal a day, protein at {p} g, and 8–10k steps. Burners and carnitine only add a little, and stimulant burners contain caffeine.', { k: plan.calories, p: plan.protein }),
-      products: ofCategory(['weight'], 2), suggest: a.goal !== 'lose' ? 'Switch my goal to fat loss' : null,
+      products: ofCategory(['weight'], 2), suggest: !goalsOf(a).includes('lose') ? 'Switch my goal to fat loss' : null,
     }
   }
   if (has(q, W.safety)) {
@@ -149,7 +159,7 @@ export function answer(question, ctx) {
     const diff = plan.calories - plan.maintenance
     return {
       text: t('Your body burns about {m} kcal a day at your training level. For {goal} we set {k} kcal ({d}). That splits into {p} g protein, {c} g carbs and {f} g fat.', {
-        m: plan.maintenance, k: plan.calories, goal: t(GOAL_LABEL[a.goal]), p: plan.protein, c: plan.carbs, f: plan.fat,
+        m: plan.maintenance, k: plan.calories, goal: goalLabel(goalsOf(a), t), p: plan.protein, c: plan.carbs, f: plan.fat,
         d: diff > 0 ? t('{n} kcal above it', { n: diff }) : diff < 0 ? t('{n} kcal below it', { n: -diff }) : t('the same as it'),
       }),
     }
@@ -175,6 +185,9 @@ export function answer(question, ctx) {
 // Follow-up suggestions, given the visitor's goal.
 export function suggestions(a) {
   const base = ['When should I take my protein?', 'Give me meal ideas', 'Is creatine safe?', 'Show me a cheaper stack', 'Why these calories?']
-  const goalSwitch = a.goal === 'lose' ? 'Switch my goal to building muscle' : 'Switch my goal to fat loss'
+  const goals = goalsOf(a)
+  const goalSwitch = goals.includes('lose') ? (goals.includes('muscle') ? 'Switch my goal to building muscle' : 'I also want to keep my muscle')
+    : goals.includes('gain') ? (goals.includes('muscle') ? 'Switch my goal to fat loss' : 'I also want to build muscle')
+      : 'I also want to gain weight'
   return [...base.slice(0, 3), goalSwitch, ...base.slice(3)]
 }

@@ -103,15 +103,37 @@ const GOAL_TARGETS = {
   performance: { kcal: 0, protein: 1.7, pace: 'hold your weight' },
 }
 
-// Mifflin-St Jeor resting energy, times activity, adjusted for the goal.
-export function dailyPlan({ goal, sex, age, height, weight, activity }) {
+// Goals combine: build muscle + gain weight is a bulk, build muscle + lose
+// fat a recomp (smaller deficit, more protein); performance adds carbs.
+// Gaining and losing weight can't be picked together.
+const COMBOS = {
+  'gain+muscle': { kcal: 400, protein: 2.0, pace: '+0.4 kg / week' },
+  'muscle+lose': { kcal: -350, protein: 2.3, pace: '−0.3 kg / week, keeping muscle' },
+  'muscle+performance': { kcal: 200, protein: 2.0, pace: '+0.2 kg / week' },
+  'gain+performance': { kcal: 350, protein: 1.8, pace: '+0.35 kg / week' },
+  'lose+performance': { kcal: -300, protein: 2.2, pace: '−0.3 kg / week' },
+  'gain+muscle+performance': { kcal: 400, protein: 2.0, pace: '+0.4 kg / week' },
+  'muscle+lose+performance': { kcal: -300, protein: 2.3, pace: '−0.3 kg / week, keeping muscle' },
+}
+
+// The visitor's goals as a list (older saved plans have a single `goal`).
+export const goalsOf = (a) => {
+  const list = Array.isArray(a?.goals) && a.goals.length ? a.goals : a?.goal ? [a.goal] : ['muscle']
+  return ['gain', 'muscle', 'lose', 'performance'].filter(g => list.includes(g))
+}
+const targetsFor = (goals) => GOAL_TARGETS[goals.join('+')] || COMBOS[goals.join('+')] || GOAL_TARGETS[goals[0]] || GOAL_TARGETS.muscle
+
+// Mifflin-St Jeor resting energy, times activity, adjusted for the goals.
+export function dailyPlan({ goal, goals, sex, age, height, weight, activity }) {
   const bmr = 10 * weight + 6.25 * height - 5 * age + (sex === 'female' ? -161 : 5)
   const maintenance = bmr * (ACTIVITY[activity]?.factor || 1.55)
-  const g = GOAL_TARGETS[goal] || GOAL_TARGETS.muscle
+  const list = goalsOf({ goal, goals })
+  const g = targetsFor(list)
   const floor = sex === 'female' ? 1300 : 1600
   const calories = Math.max(floor, Math.round((maintenance + g.kcal) / 10) * 10)
   const protein = Math.round(weight * g.protein)
-  const fat = Math.round(Math.max(weight * 0.7, (calories * 0.25) / 9))
+  // training for performance leaves more room for carbs
+  const fat = Math.round(Math.max(weight * 0.7, (calories * (list.includes('performance') ? 0.22 : 0.25)) / 9))
   const carbs = Math.max(0, Math.round((calories - protein * 4 - fat * 9) / 4))
   return {
     maintenance: Math.round(maintenance / 10) * 10,

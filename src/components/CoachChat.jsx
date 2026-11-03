@@ -7,7 +7,7 @@ import OrderModal from './OrderModal.jsx'
 import { useCart, variantLabel } from '../context/CartContext.jsx'
 import { useLocale } from '../i18n.jsx'
 import { productById } from '../data/catalog.js'
-import { GOALS, SEXES, DAYS, BUDGETS, AVOID, HOW_TO, planFor, icsFile } from '../utils/coachPlan.js'
+import { GOALS, SEXES, DAYS, BUDGETS, AVOID, HOW_TO, planFor, icsFile, goalsOf, toggleGoal, goalLabel } from '../utils/coachPlan.js'
 import { answer, suggestions } from '../utils/coachBrain.js'
 import { buildOrderMessage, openWhatsApp, waUrl } from '../utils/whatsapp.js'
 import useTween from '../hooks/useTween.js'
@@ -80,7 +80,7 @@ export default function CoachChat({ compact = false, onOpenToday }) {
   // English summary for WhatsApp (store staff read the messages).
   const en = (list, id) => list.find(x => x.id === id)?.label || ''
   const summary = plan && [
-    `*Coach plan* (${en(GOALS, a.goal)})`,
+    `*Coach plan* (${goalLabel(goalsOf(a))})`,
     `${en(SEXES, a.sex)} · ${a.age} y · ${a.height} cm · ${a.weight} kg · trains ${en(DAYS, a.activity)} a week`,
     `Calories ${plan.calories} kcal · Protein ${plan.protein} g · Carbs ${plan.carbs} g · Fat ${plan.fat} g`,
   ].join('\n')
@@ -185,9 +185,9 @@ export default function CoachChat({ compact = false, onOpenToday }) {
     <div className={`cchat${compact ? ' is-compact' : ''}`}>
       <div className="cchat-scroll" ref={scrollRef}>
         <div className="chat" aria-live="polite">
-          <Bubble>{t('Hi! I’m the First Nutrition coach. What are you training for?')}</Bubble>
-          {step === 0 && <Chips options={GOALS} onPick={(id) => answerStep({ goal: id })} />}
-          {step > 0 && <Bubble me>{label(GOALS, a.goal)}</Bubble>}
+          <Bubble>{t('Hi! I’m the First Nutrition coach. What are you training for? Pick one or more.')}</Bubble>
+          {step === 0 && <GoalPicker onDone={(goals) => answerStep({ goals, goal: goals[0] })} />}
+          {step > 0 && <Bubble me>{goalLabel(goalsOf(a), t)}</Bubble>}
 
           {step >= 1 && <Bubble>{t('Got it. Are you male or female? (It changes the energy maths.)')}</Bubble>}
           {step === 1 && <Chips options={SEXES} onPick={(id) => answerStep({ sex: id })} />}
@@ -296,6 +296,37 @@ function Bubble({ me, children }) {
   )
 }
 
+// Goals: pick one or more. Gaining and losing weight switch each other off,
+// with a word on why; the combination is named as you go.
+function GoalPicker({ onDone }) {
+  const { t } = useLocale()
+  const [goals, setGoals] = useState([])
+  const [clash, setClash] = useState(false)
+  const toggle = (id) => {
+    const ex = GOALS.find(g => g.id === id)?.excludes
+    setClash(!goals.includes(id) && goals.includes(ex))
+    setGoals(gs => (gs.includes(id) ? gs.filter(g => g !== id) : toggleGoal(gs.length ? gs : [id], id)))
+  }
+  return (
+    <div className="goal-pick">
+      <div className="chips">
+        {GOALS.map(o => (
+          <button key={o.id} type="button" className={`chip${goals.includes(o.id) ? ' on' : ''}`} aria-pressed={goals.includes(o.id)} onClick={() => toggle(o.id)}>
+            {t(o.label)}
+          </button>
+        ))}
+      </div>
+      {clash && <p className="goal-hint">{t('You can’t gain weight and lose fat at the same time. To lose fat and keep your muscle, pick Build muscle + Lose fat.')}</p>}
+      {goals.length > 0 && (
+        <div className="chips">
+          <span className="goal-combo">{goalLabel(goals, t)}</span>
+          <button type="button" className="chip chip-go" onClick={() => onDone(goalsOf({ goals }))}>{t('Done')} <ArrowRight size={15} className="flip-rtl" /></button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function Chips({ options, onPick }) {
   const { t } = useLocale()
   return (
@@ -384,7 +415,11 @@ function PlanCard({ plan, a, onChange }) {
       <div className="tuner">
         <span>{t('Goal')}</span>
         <div className="seg">
-          {GOALS.map(g => <button key={g.id} type="button" className={a.goal === g.id ? 'on' : ''} aria-pressed={a.goal === g.id} onClick={() => onChange({ goal: g.id })}>{t(g.short)}</button>)}
+          {GOALS.map(g => {
+            const on = goalsOf(a).includes(g.id)
+            return <button key={g.id} type="button" className={on ? 'on' : ''} aria-pressed={on}
+              onClick={() => { const goals = toggleGoal(goalsOf(a), g.id); onChange({ goals, goal: goals[0] }) }}>{t(g.short)}</button>
+          })}
         </div>
         <span>{t('Training')}</span>
         <div className="seg">

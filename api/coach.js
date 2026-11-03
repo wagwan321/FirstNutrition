@@ -55,7 +55,7 @@ function visitorContext(body) {
   const facts = [
     `Reply language: ${body.lang === 'ar' ? 'Arabic' : 'English'}`,
     `Country: ${body.country === 'lb' ? 'Lebanon' : 'Jordan'}`,
-    `Goal: ${pick(p.goal, ['muscle', 'gain', 'lose', 'performance']) || 'unknown'}`,
+    `Goals: ${(Array.isArray(p.goals) ? p.goals : [p.goal]).filter(g => ['muscle', 'gain', 'lose', 'performance'].includes(g)).join(' + ') || 'unknown'}`,
     `Sex: ${pick(p.sex, ['male', 'female']) || 'unknown'}`,
     `Age: ${num(p.age, 10, 100) ?? 'unknown'}`,
     `Height: ${num(p.height, 100, 250) ?? '?'} cm, weight: ${num(p.weight, 30, 300) ?? '?'} kg`,

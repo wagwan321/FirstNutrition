@@ -1,14 +1,31 @@
 // The Coach's intake options and stack builder, shared by the chat panel and
 // the /coach page.
 import { productById } from '../data/catalog.js'
-import { dailyPlan, servingsPer } from './nutrition.js'
+import { dailyPlan, servingsPer, goalsOf } from './nutrition.js'
+export { goalsOf }
 
+// Goals can be combined; gaining and losing weight exclude each other.
 export const GOALS = [
   { id: 'muscle', label: 'Build muscle', short: 'Build' },
-  { id: 'gain', label: 'Gain weight', short: 'Gain' },
-  { id: 'lose', label: 'Lose fat', short: 'Cut' },
+  { id: 'gain', label: 'Gain weight', short: 'Gain', excludes: 'lose' },
+  { id: 'lose', label: 'Lose fat', short: 'Cut', excludes: 'gain' },
   { id: 'performance', label: 'Perform better', short: 'Perform' },
 ]
+
+// Toggle a goal on or off, dropping the one it excludes; at least one stays on.
+export function toggleGoal(goals, id) {
+  if (goals.includes(id)) return goals.length > 1 ? goals.filter(g => g !== id) : goals
+  const ex = GOALS.find(g => g.id === id)?.excludes
+  return [...goals.filter(g => g !== ex), id]
+}
+
+// "Build muscle + gain weight (bulk)", "Lose fat + keep muscle (recomp)", or the goals joined.
+export function goalLabel(goals, t = (s) => s) {
+  const key = goalsOf({ goals }).join('+')
+  if (key === 'gain+muscle') return t('Build muscle + gain weight (bulk)')
+  if (key === 'muscle+lose') return t('Lose fat + keep muscle (recomp)')
+  return goalsOf({ goals }).map(id => t(GOALS.find(g => g.id === id).label)).join(' + ')
+}
 export const SEXES = [{ id: 'male', label: 'Male' }, { id: 'female', label: 'Female' }]
 export const DAYS = [
   { id: 'light', label: '1–2 days' }, { id: 'moderate', label: '3–4 days' },
@@ -30,6 +47,8 @@ const STACKS = {
   performance: [[443, 443, 'train'], [511, 7885, 1], [565, 926, 'train']],
 }
 const STIMULANTS = [443, 489]
+// one product per job in a combined stack
+const ROLE = { 466: 'protein', 471: 'protein', 450: 'gainer', 511: 'creatine', 565: 'aminos', 484: 'carbs', 494: 'fatloss', 489: 'fatloss', 443: 'pre' }
 const WHEY_TO_ISOLATE = { 466: 471 }
 
 // How to take each item, by category (shown when a stack card is opened).
@@ -42,11 +61,19 @@ export const HOW_TO = {
   weight: 'As on the label, earlier in the day.',
 }
 
-export function buildStack({ goal, activity, budget, avoid = [], age, weight }, protein) {
+export function buildStack({ goal, goals, activity, budget, avoid = [], age, weight }, protein) {
   const trainDays = TRAINING_DAYS[activity] || 4
   // Most people eat about 1.2 g/kg from food; shakes cover the gap (1–2 scoops).
   const scoops = Math.min(2, Math.max(1, Math.round((protein - weight * 1.2) / 24)))
-  let picks = STACKS[goal] || STACKS.muscle
+  // take the products of every chosen goal in turn, most important first
+  const lists = goalsOf({ goal, goals }).map(g => STACKS[g])
+  let picks = []
+  for (let i = 0; i < 3; i++) {
+    for (const list of lists) {
+      const p = list[i]
+      if (p && !picks.some(([id]) => id === p[0] || ROLE[id] === ROLE[p[0]])) picks.push(p)
+    }
+  }
   if (avoid.includes('lactose')) picks = picks.map(([id, v, d]) => (WHEY_TO_ISOLATE[id] ? [WHEY_TO_ISOLATE[id], null, d] : [id, v, d]))
   if (avoid.includes('caffeine') || age < 18) picks = picks.filter(([id]) => !STIMULANTS.includes(id))
   if (age < 18) picks = picks.slice(0, 1)
@@ -54,7 +81,8 @@ export function buildStack({ goal, activity, budget, avoid = [], age, weight }, 
   const items = picks.map(([id, vid, per]) => {
     const product = productById(id)
     const variant = (vid && product.variants.find(v => v.id === vid))
-      || product.variants.find(v => v.size === '1.3 lbs.') || product.variants[0]
+      // the big tub is the better buy for a month's supply
+      || product.variants.find(v => v.size === '5 lbs.') || product.variants[0]
     const unit = variant?.price ?? product.price
     const daily = per === 'scoops' ? scoops : per === 'train' ? trainDays / 7 : per
     const servings = servingsPer(product, variant)
