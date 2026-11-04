@@ -77,7 +77,13 @@ export default function TrackerView({ compact = false, onOpenChat }) {
   }
   const startPhoto = async (file) => {
     if (!file) return
-    const [photo, thumb] = await Promise.all([shrinkImage(file, 1024, 0.78), shrinkImage(file, 260, 0.7)])
+    let photo, thumb
+    try {
+      [photo, thumb] = await Promise.all([shrinkImage(file, 1024, 0.78), shrinkImage(file, 260, 0.7)])
+    } catch {
+      setDraft({ items: [], unknown: [], meal: mealForTime(), status: 'ask' })
+      return
+    }
     setDraft({ items: [], unknown: [], meal: mealForTime(), photo: thumb, status: 'scanning' })
     const ai = await analyzeFood({ image: photo, lang })
     if (ai.items?.length) setDraft(d => ({ ...d, items: ai.items, note: ai.note, status: 'ready' }))
@@ -300,7 +306,7 @@ export function LogPreview({ draft, setDraft, onLog, onCancel, onDescribe, inlin
       {draft.status === 'scanning' && <p className="logp-status"><span className="dots"><i /><i /><i /></span> {draft.photo ? t('Reading your plate…') : t('Working out the rest…')}</p>}
       {draft.status === 'ask' && (
         <form className="logp-ask" onSubmit={(e) => { e.preventDefault(); if (desc.trim()) onDescribe(desc) }}>
-          <p>{draft.notFood ? t('That doesn’t look like food. What did you eat?') : draft.aiOff ? t('Photo saved. What’s on the plate? (For example: “chicken shawarma and fries”.)') : t('I couldn’t read that photo. What’s on the plate?')}</p>
+          <p>{draft.notFood ? t('That doesn’t look like food. What did you eat?') : draft.aiOff ? t('I can’t read photos yet. Tell me what’s on the plate and I’ll count it (for example: “chicken shawarma and fries”).') : t('I couldn’t read that photo. What’s on the plate?')}</p>
           <div className="composer">
             <input value={desc} onChange={(e) => setDesc(e.target.value)} placeholder={t('What did you eat?')} aria-label={t('What did you eat?')} autoFocus />
             <button type="submit" className="composer-send" disabled={!desc.trim()} aria-label={t('Log')}><SendHorizontal size={19} className="flip-rtl" /></button>

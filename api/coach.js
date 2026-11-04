@@ -98,7 +98,7 @@ export default async function handler(req, res) {
   try {
     const response = await client.beta.messages.create({
       model: MODEL,
-      max_tokens: 4000,
+      max_tokens: 16000,
       output_config: { effort: 'low' },
       ...(FALLBACK_MODELS.includes(MODEL) ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
       system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],

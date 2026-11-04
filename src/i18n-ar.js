@@ -630,7 +630,7 @@ export const AR = {
   'Reading your plate…': 'أقرأ طبقك…',
   'Working out the rest…': 'أحسب الباقي…',
   'That doesn’t look like food. What did you eat?': 'لا يبدو هذا طعاماً. ماذا أكلت؟',
-  'Photo saved. What’s on the plate? (For example: “chicken shawarma and fries”.)': 'حُفظت الصورة. ماذا يوجد في الطبق؟ (مثلاً: «شاورما دجاج وبطاطا مقلية».)',
+  'I can’t read photos yet. Tell me what’s on the plate and I’ll count it (for example: “chicken shawarma and fries”).': 'لا أستطيع قراءة الصور بعد. اكتب لي ماذا يوجد في الطبق وسأحسبه (مثلاً: «شاورما دجاج وبطاطا مقلية»).',
   'I couldn’t read that photo. What’s on the plate?': 'لم أتمكن من قراءة الصورة. ماذا يوجد في الطبق؟',
   'your number': 'رقمك',
   'estimate': 'تقدير',

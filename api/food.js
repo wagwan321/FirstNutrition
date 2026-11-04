@@ -86,13 +86,14 @@ export default async function handler(req, res) {
   try {
     const response = await client.beta.messages.create({
       model: MODEL,
-      max_tokens: 4000,
+      max_tokens: 16000,
       output_config: { effort: 'low', format: { type: 'json_schema', schema: SCHEMA } },
       ...(FALLBACK_MODELS.includes(MODEL) ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
       system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
       messages: [{ role: 'user', content }],
     })
     if (response.stop_reason === 'refusal') return res.status(200).json({ is_food: false, items: [], note: '' })
+    if (response.stop_reason === 'max_tokens') return res.status(502).json({ error: 'bad_output' })
     const raw = response.content.filter(b => b.type === 'text').map(b => b.text).join('')
     let data
     try { data = JSON.parse(raw) } catch { return res.status(502).json({ error: 'bad_output' }) }
